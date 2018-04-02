@@ -1,0 +1,225 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:40 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\System\System_main.cpp            #
+#    Command line =  C:\work\TIEL_FrameWork\System\System_main.cpp            #
+#                    --cpu=m128 -ms -o C:\work\ATmega128_Debug\Obj\ -D        #
+#                    xNDEBUG -D xWATCHDOG_ENABLE -lC                          #
+#                    C:\work\ATmega128_Debug\List\ -y                         #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\System_main.lst             #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\System_main.r90              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\System\System_main.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          
+     33          #include "System_Manager.h"
+     34          #include "BCComponentManager.h"
+
+    CreateWatchDog();
+    ^
+"C:\work\TIEL_FrameWork\Driver_Interface\DriverFactory.h",80  Warning[Pe837]: 
+          omission of explicit type is nonstandard ("int" assumed)
+     35          #include <assert.h>
+     36          
+     37          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     38          int main( void )
+   \                     main:
+     39          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+     40          
+     41            SystemManager *sys;
+     42            
+     43            sys = SystemManager::Instance();
+   \   00000004   ........           CALL    ??Instance
+   \   00000008   01D8               MOVW    R27:R26, R17:R16
+     44            
+     45            GetBCComponentManager()->Init();
+   \   0000000A   ........           CALL    ??GetBCComponentManager
+   \   0000000E   ........           CALL    ??Init
+     46            
+     47            assert(0 != sys);  
+   \   00000012   2F0A               MOV     R16, R26
+   \   00000014   2B0B               OR      R16, R27
+   \   00000016   F451               BRNE    ??main_0
+   \   00000018   E24F               LDI     R20, 47
+   \   0000001A   E050               LDI     R21, 0
+   \   0000001C   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   0000001E   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000020   ....               LDI     R16, LOW(`?<Constant "0 != sys">`)
+   \   00000022   ....               LDI     R17, (`?<Constant "0 != sys">`) >> 8
+   \   00000024   ........           CALL    __taabi_assert
+   \   00000028   ........           CALL    __iar_EmptyStepPoint
+     48            if(0 != sys)
+   \                     ??main_0:
+   \   0000002C   2F0A               MOV     R16, R26
+   \   0000002E   2B0B               OR      R16, R27
+   \   00000030   F0F1               BREQ    ??main_1
+     49            {    
+     50              sys->InitModule();
+   \   00000032   018D               MOVW    R17:R16, R27:R26
+   \   00000034   ........           CALL    ??InitModule
+     51              sys->Init();
+   \   00000038   9612               ADIW    R27:R26, 2
+   \   0000003A   91ED               LD      R30, X+
+   \   0000003C   91FC               LD      R31, X
+   \   0000003E   9713               SBIW    R27:R26, 3
+   \   00000040   9632               ADIW    R31:R30, 2
+   \   00000042   018D               MOVW    R17:R16, R27:R26
+   \   00000044   9125               LPM     R18, Z+
+   \   00000046   9134               LPM     R19, Z
+   \   00000048   9731               SBIW    R31:R30, 1
+   \   0000004A   01F9               MOVW    R31:R30, R19:R18
+   \   0000004C   9509               ICALL
+     52              sys->Run();
+   \   0000004E   E021               LDI     R18, 1
+   \   00000050   018D               MOVW    R17:R16, R27:R26
+   \   00000052   ........           CALL    ??Run
+     53          
+     54              sys->Exit();
+   \   00000056   01FD               MOVW    R31:R30, R27:R26
+   \   00000058   8122               LDD     R18, Z+2
+   \   0000005A   8133               LDD     R19, Z+3
+   \   0000005C   5F2C               SUBI    R18, 252
+   \   0000005E   4F3F               SBCI    R19, 255
+   \   00000060   018D               MOVW    R17:R16, R27:R26
+   \   00000062   01F9               MOVW    R31:R30, R19:R18
+   \   00000064   9125               LPM     R18, Z+
+   \   00000066   9134               LPM     R19, Z
+   \   00000068   9731               SBIW    R31:R30, 1
+   \   0000006A   01F9               MOVW    R31:R30, R19:R18
+   \   0000006C   9509               ICALL
+     55            }
+     56            
+     57            while(1);
+   \                     ??main_1:
+   \   0000006E   CFFF               RJMP    ??main_1
+     58            
+     59          }
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != sys">>`:
+   \   00000000   20303D217320       DC8 "0 != sys"
+   \              737900      
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`:
+   \   00000000   3A43775C726F       DC8 "C:\\work\\TIEL_FrameWork\\System\\System_main.cpp"
+   \              5C6B49544C45
+   \              465F6172656D
+   \              6F576B72535C
+   \              737965745C6D
+   \              795374736D65
+   \              6D5F69612E6E
+   \              70630070    
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != sys">`:
+   \   00000000                      DS8 9
+   \   00000009                      REQUIRE `?<Initializer for <Constant "0 != sys">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`:
+   \   00000000                      DS8 46
+   \   0000002E                      REQUIRE `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     main()                             2      2
+       -> SystemManager::Instance()     2      2
+       -> GetBCComponentManager()       2      2
+       -> BCComponentManager::Init()
+                                        2      2
+       -> __taabi_assert                2      2
+       -> __iar_EmptyStepPoint          2      2
+       -> SystemManager::InitModule()
+                                        2      2
+       ->   Indirect call               2      2
+       -> SystemManager::Run(unsigned char)
+                                        2      2
+       ->   Indirect call               2      2
+
+
+   Segment part sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     main()                                          112
+     ?<Initializer for <Constant "0 != sys">>          9
+     ?<Initializer for <Constant "C:\\work\\TIEL_Fr   46
+     ?<Constant "0 != sys">                            9
+     ?<Constant "C:\\work\\TIEL_FrameWor...">         46
+      Others                                           7
+
+ 
+ 112 bytes in segment CODE
+   7 bytes in segment INITTAB
+  55 bytes in segment NEAR_I
+  55 bytes in segment NEAR_ID
+ 
+ 167 bytes of CODE memory (+ 7 bytes shared)
+  55 bytes of DATA memory
+
+Errors: none
+Warnings: 1

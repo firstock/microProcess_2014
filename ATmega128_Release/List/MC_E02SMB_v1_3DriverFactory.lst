@@ -1,0 +1,522 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:02 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Configuration\ #
+#                    MC_E02SMB_v1_3DriverFactory.cpp                          #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Configuration\ #
+#                    MC_E02SMB_v1_3DriverFactory.cpp --cpu=m128 -ms -o        #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\MC_E02 #
+#                    SMB_v1_3DriverFactory.lst                                #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\MC_E02S #
+#                    MB_v1_3DriverFactory.r90                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Configuration\MC_E02SMB_v1_3DriverFactory.cpp
+      1          #include "DriverFactory.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 ISpi *DriverFactory::CreateSPI()
+   \                     ??CreateSPI:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DOut *DriverFactory::CreateDOut(char *)
+   \                     ??CreateDOut:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+
+    CreateWatchDog();
+    ^
+"D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Driver_Interface\DriverFactory.h",80  Warning[Pe837]: 
+          omission of explicit type is nonstandard ("int" assumed)
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Dac7512 *DriverFactory::CreateDac7512()
+   \                     ??CreateDac7512:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Mcp3204 *DriverFactory::CreateMcp3204()
+   \                     ??CreateMcp3204:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+      2          
+      3          #include "avr_timer.h"
+      4          #include "avr_uart.h"
+      5          #include "avr_pwm.h"
+      6          #include "avr_adc.h"
+      7          
+      8          #include "dio_adaptor.h"
+      9          #include "clcd_adaptor.h"
+     10          
+     11          
+     12          #include <string.h>
+     13          
+     14          //하드웨어를 추상화하고 장치를 생성함.
+     15          
+     16          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   static __intrinsic __nearfunc __version_3 void __sti__routine()
+   \                     ??__sti__routine:
+     17          static Avr_timer0    timer;
+   \   00000000   ....               LDI     R16, LOW((MC_E02SMBDriver + 2))
+   \   00000002   ....               LDI     R17, HIGH((MC_E02SMBDriver + 2))
+   \   00000004   ........           CALL    ??Avr_timer0
+   \   00000008   ....               LDI     R16, LOW(?_0)
+   \   0000000A   ....               LDI     R17, (?_0) >> 8
+   \   0000000C   ....               RCALL   ?Subroutine0
+     18          static Avr_uart0     com0;
+   \                     ??CrossCallReturnLabel_0:
+   \   0000000E   ....               LDI     R16, LOW((MC_E02SMBDriver + 4))
+   \   00000010   ....               LDI     R17, HIGH((MC_E02SMBDriver + 4))
+   \   00000012   ........           CALL    ??Avr_uart0
+   \   00000016   ....               LDI     R16, LOW((?_0 + 6))
+   \   00000018   ....               LDI     R17, HIGH((?_0 + 6))
+   \   0000001A   ....               RCALL   ?Subroutine0
+     19          static Avr_pwm      pwm0;
+   \                     ??CrossCallReturnLabel_1:
+   \   0000001C   E024               LDI     R18, 4
+   \   0000001E   ....               LDI     R16, LOW((MC_E02SMBDriver + 12))
+   \   00000020   ....               LDI     R17, HIGH((MC_E02SMBDriver + 12))
+   \   00000022   ........           CALL    ??Avr_pwm
+   \   00000026   ....               LDI     R16, LOW((?_0 + 12))
+   \   00000028   ....               LDI     R17, HIGH((?_0 + 12))
+   \   0000002A   ....               RCALL   ?Subroutine0
+     20          
+     21          static E02SMBLed  led0;
+   \                     ??CrossCallReturnLabel_2:
+   \   0000002C   ....               LDI     R16, LOW((MC_E02SMBDriver + 15))
+   \   0000002E   ....               LDI     R17, HIGH((MC_E02SMBDriver + 15))
+   \   00000030   ........           CALL    ??E02SMBLed
+   \   00000034   ....               LDI     R16, LOW((?_0 + 18))
+   \   00000036   ....               LDI     R17, HIGH((?_0 + 18))
+   \   00000038   ....               RCALL   ?Subroutine0
+     22          static DigialIn swDIn;
+   \                     ??CrossCallReturnLabel_3:
+   \   0000003A   ....               LDI     R16, LOW((MC_E02SMBDriver + 28))
+   \   0000003C   ....               LDI     R17, HIGH((MC_E02SMBDriver + 28))
+   \   0000003E   ........           CALL    ??DigialIn
+   \   00000042   ....               LDI     R16, LOW((?_0 + 24))
+   \   00000044   ....               LDI     R17, HIGH((?_0 + 24))
+   \   00000046   ....               RCALL   ?Subroutine0
+     23          static ClcdAdaptor clcd;
+   \                     ??CrossCallReturnLabel_4:
+   \   00000048   ....               LDI     R16, LOW((MC_E02SMBDriver + 35))
+   \   0000004A   ....               LDI     R17, HIGH((MC_E02SMBDriver + 35))
+   \   0000004C   ........           CALL    ??ClcdAdaptor
+   \   00000050   ....               LDI     R16, LOW((?_0 + 30))
+   \   00000052   ....               LDI     R17, HIGH((?_0 + 30))
+   \   00000054   ....               RCALL   ?Subroutine0
+     24          
+     25          class MC_E02SMBDriverFactory : public DriverFactory
+     26          {
+     27          
+     28          
+     29             
+     30          
+     31          public:
+     32            MC_E02SMBDriverFactory()
+     33            {    
+     34              
+     35            }
+     36            
+     37            ITimer * CreateTimer()
+     38            {
+     39              return &timer;
+     40            }
+     41          
+     42            ISerialPort * CreateUart()
+     43            {
+     44              return &com0;    
+     45            }
+     46            
+     47            Led * CreateLed(unsigned char _led)
+     48            {
+     49          
+     50              if( 0 == _led)
+     51              {
+     52                return &led0;
+     53              }
+     54              
+     55           
+     56              return 0;
+     57            }  
+     58            Clcd * CreateClcd()
+     59            {
+     60          
+     61              
+     62              return &clcd;
+     63              
+     64            }  
+     65            
+     66              DIn * CreateDIn()
+     67            { 
+     68             
+     69              return &swDIn;
+     70            }
+     71          
+     72            IAdcPort * CreateAdc(void) {
+     73              static Avr_adc avr_adc;
+     74              
+     75              return &avr_adc;  
+     76            
+     77            }
+     78            
+     79            IPwmPort * CreatePwm(void)
+     80            {
+     81              
+     82              return &pwm0;
+     83            
+     84            };
+     85            
+     86          };
+     87          
+     88          
+     89          
+     90          
+     91          
+     92          /////////////////////////////////////////////////////////////
+     93          static MC_E02SMBDriverFactory MC_E02SMBDriver;
+   \                     ??CrossCallReturnLabel_5:
+   \   00000056   ....               LDI     R30, LOW(??instance)
+   \   00000058   ....               LDI     R31, (??instance) >> 8
+   \   0000005A   8100               LD      R16, Z
+   \   0000005C   8111               LDD     R17, Z+1
+   \   0000005E   2B01               OR      R16, R17
+   \   00000060   F421               BRNE    ??__sti__routine_1
+   \   00000062   ....               LDI     R16, LOW(MC_E02SMBDriver)
+   \   00000064   ....               LDI     R17, (MC_E02SMBDriver) >> 8
+   \   00000066   8300               ST      Z, R16
+   \   00000068   8311               STD     Z+1, R17
+   \                     ??__sti__routine_1:
+   \   0000006A   ....               LDI     R16, LOW(??__vtbl)
+   \   0000006C   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000006E   ....               LDI     R30, LOW(MC_E02SMBDriver)
+   \   00000070   ....               LDI     R31, (MC_E02SMBDriver) >> 8
+   \   00000072   8300               ST      Z, R16
+   \   00000074   8311               STD     Z+1, R17
+   \   00000076   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 2>`:
+   \   00000000   E022               LDI     R18, 2
+   \   00000002   E030               LDI     R19, 0
+   \   00000004   ........           JMP     `?~Avr_pwm`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     ?_0:
+   \   00000000                      DS8 6
+   \   00000006                      REQUIRE `?<Initializer for >`
+   \   00000006                      DS8 6
+   \   0000000C                      REQUIRE `?<Initializer for >_1`
+   \   0000000C                      DS8 6
+   \   00000012                      REQUIRE `?<Initializer for >_2`
+   \   00000012                      DS8 6
+   \   00000018                      REQUIRE `?<Initializer for >_3`
+   \   00000018                      DS8 6
+   \   0000001E                      REQUIRE `?<Initializer for >_4`
+   \   0000001E                      DS8 6
+   \   00000024                      REQUIRE `?<Initializer for >_5`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreateTimer:
+   \   00000000   ....               LDI     R16, LOW((MC_E02SMBDriver + 2))
+   \   00000002   ....               LDI     R17, HIGH((MC_E02SMBDriver + 2))
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreateUart:
+   \   00000000   ....               LDI     R16, LOW((MC_E02SMBDriver + 4))
+   \   00000002   ....               LDI     R17, HIGH((MC_E02SMBDriver + 4))
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreateLed:
+   \   00000000   2322               TST     R18
+   \   00000002   F419               BRNE    ??CreateLed_1
+   \   00000004   ....               LDI     R16, LOW((MC_E02SMBDriver + 15))
+   \   00000006   ....               LDI     R17, HIGH((MC_E02SMBDriver + 15))
+   \   00000008   9508               RET
+   \                     ??CreateLed_1:
+   \   0000000A   E000               LDI     R16, 0
+   \   0000000C   E010               LDI     R17, 0
+   \   0000000E   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreateClcd:
+   \   00000000   ....               LDI     R16, LOW((MC_E02SMBDriver + 35))
+   \   00000002   ....               LDI     R17, HIGH((MC_E02SMBDriver + 35))
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreateDIn:
+   \   00000000   ....               LDI     R16, LOW((MC_E02SMBDriver + 28))
+   \   00000002   ....               LDI     R17, HIGH((MC_E02SMBDriver + 28))
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreateAdc:
+   \   00000000   9100....           LDS     R16, `??static guard for avr_adc`
+   \   00000004   2300               TST     R16
+   \   00000006   F459               BRNE    ??CreateAdc_1
+   \   00000008   E001               LDI     R16, 1
+   \   0000000A   9300....           STS     `??static guard for avr_adc`, R16
+   \   0000000E   ....               LDI     R16, LOW(??avr_adc)
+   \   00000010   ....               LDI     R17, (??avr_adc) >> 8
+   \   00000012   ........           CALL    ??Avr_adc
+   \   00000016   ....               LDI     R16, LOW(?_12)
+   \   00000018   ....               LDI     R17, (?_12) >> 8
+   \   0000001A   ........           CALL    __record_needed_destruction
+   \                     ??CreateAdc_1:
+   \   0000001E   ....               LDI     R16, LOW(??avr_adc)
+   \   00000020   ....               LDI     R17, (??avr_adc) >> 8
+   \   00000022   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 6>`:
+   \   00000000   E022               LDI     R18, 2
+   \   00000002   E030               LDI     R19, 0
+   \   00000004   ........           JMP     `?~Avr_adc`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??CreatePwm:
+   \   00000000   ....               LDI     R16, LOW((MC_E02SMBDriver + 12))
+   \   00000002   ....               LDI     R17, HIGH((MC_E02SMBDriver + 12))
+   \   00000004   9508               RET
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     MC_E02SMBDriver:
+   \   00000000                      DS8 2
+   \                     timer:
+   \   00000002                      DS8 2
+   \                     com0:
+   \   00000004                      DS8 8
+   \                     pwm0:
+   \   0000000C                      DS8 3
+   \                     led0:
+   \   0000000F                      DS8 13
+   \                     swDIn:
+   \   0000001C                      DS8 7
+   \                     clcd:
+   \   00000023                      DS8 2
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     ??avr_adc:
+   \   00000000                      DS8 2
+     94          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     95          DriverFactory * GetDriverFactory(void)
+   \                     ??GetDriverFactory:
+     96          {
+     97            return &MC_E02SMBDriver;
+   \   00000000   ....               LDI     R16, LOW(MC_E02SMBDriver)
+   \   00000002   ....               LDI     R17, (MC_E02SMBDriver) >> 8
+   \   00000004   9508               RET
+     98          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   ........           JMP     __record_needed_destruction
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for >`:
+   \   00000000   ............       DC16 ?_1, timer, `?<Unnamed 0>`/2
+   \                     `?<Initializer for >_1`:
+   \   00000006   ............       DC16 ?_3, com0, `?<Unnamed 1>`/2
+   \                     `?<Initializer for >_2`:
+   \   0000000C   ............       DC16 ?_5, pwm0, `?<Unnamed 2>`/2
+   \                     `?<Initializer for >_3`:
+   \   00000012   ............       DC16 ?_7, led0, `?<Unnamed 3>`/2
+   \                     `?<Initializer for >_4`:
+   \   00000018   ............       DC16 ?_9, swDIn, `?<Unnamed 4>`/2
+   \                     `?<Initializer for >_5`:
+   \   0000001E   ............       DC16 ?_11, clcd, `?<Unnamed 5>`/2
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for >_6`:
+   \   00000000   ............       DC16 ?_13, ??avr_adc, `?<Unnamed 6>`/2
+
+   \                                 In  segment DIFUNCT, align 1, keep-with-next, root
+   \   00000000                      REQUIRE ?call_ctors
+   \   00000000   ....               DW      ??__sti__routine/2
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 0>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 1>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 3>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 4>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 5>`:
+   \   00000000   9508               RET
+     99          
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     <Unnamed 0>                        0      2
+     <Unnamed 1>                        0      2
+     <Unnamed 2>                        0      2
+       -> Avr_pwm::~Avr_pwm()           0      2
+     <Unnamed 3>                        0      2
+     <Unnamed 4>                        0      2
+     <Unnamed 5>                        0      2
+     <Unnamed 6>                        0      2
+       -> Avr_adc::~Avr_adc()           0      2
+     DriverFactory::CreateDOut(char *)
+                                        0      2
+     DriverFactory::CreateDac7512()     0      2
+     DriverFactory::CreateMcp3204()     0      2
+     DriverFactory::CreateSPI()         0      2
+     GetDriverFactory()                 0      2
+     MC_E02SMBDriverFactory::CreateAdc()
+                                        0      2
+       -> Avr_adc::Avr_adc()            0      2
+       -> __record_needed_destruction
+                                        0      2
+     MC_E02SMBDriverFactory::CreateClcd()
+                                        0      2
+     MC_E02SMBDriverFactory::CreateDIn()
+                                        0      2
+     MC_E02SMBDriverFactory::CreateLed(unsigned char)
+                                        0      2
+     MC_E02SMBDriverFactory::CreatePwm()
+                                        0      2
+     MC_E02SMBDriverFactory::CreateTimer()
+                                        0      2
+     MC_E02SMBDriverFactory::CreateUart()
+                                        0      2
+     __sti__routine()                   0      2
+       -> Avr_timer0::Avr_timer0()      0      2
+       -> __record_needed_destruction
+                                        0      2
+       -> Avr_uart0::Avr_uart0()        0      2
+       -> __record_needed_destruction
+                                        0      2
+       -> Avr_pwm::Avr_pwm(unsigned char)
+                                        0      2
+       -> __record_needed_destruction
+                                        0      2
+       -> E02SMBLed::E02SMBLed()        0      2
+       -> __record_needed_destruction
+                                        0      2
+       -> DigialIn::DigialIn()          0      2
+       -> __record_needed_destruction
+                                        0      2
+       -> ClcdAdaptor::ClcdAdaptor()
+                                        0      2
+       -> __record_needed_destruction
+                                        0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     DriverFactory::CreateSPI()        6
+     DriverFactory::CreateDOut(char *)
+                                       6
+     DriverFactory::CreateDac7512()    6
+     DriverFactory::CreateMcp3204()    6
+     __sti__routine()                120
+     ?<Unnamed 2>                      8
+     ?_0                              36
+     MC_E02SMBDriverFactory::CreateTimer()
+                                       6
+     MC_E02SMBDriverFactory::CreateUart()
+                                       6
+     MC_E02SMBDriverFactory::CreateLed(unsigned char)
+                                      16
+     MC_E02SMBDriverFactory::CreateClcd()
+                                       6
+     MC_E02SMBDriverFactory::CreateDIn()
+                                       6
+     MC_E02SMBDriverFactory::CreateAdc()
+                                      36
+     ?<Unnamed 6>                      8
+     MC_E02SMBDriverFactory::CreatePwm()
+                                       6
+     MC_E02SMBDriver                  37
+     timer
+     com0
+     pwm0
+     led0
+     swDIn
+     clcd
+     avr_adc                           2
+     GetDriverFactory()                6
+     ?Subroutine0                      4
+     ?<Initializer for >              36
+     ?<Initializer for >_6             6
+     ?<Unnamed 0>                      2
+     ?<Unnamed 1>                      2
+     ?<Unnamed 3>                      2
+     ?<Unnamed 4>                      2
+     ?<Unnamed 5>                      2
+      Others                          59
+
+ 
+ 262 bytes in segment CODE
+   2 bytes in segment DIFUNCT
+  14 bytes in segment INITTAB
+  22 bytes in segment NEAR_F
+  42 bytes in segment NEAR_I
+  42 bytes in segment NEAR_ID
+  54 bytes in segment NEAR_Z
+ 
+ 222 bytes of CODE memory (+ 120 bytes shared)
+  93 bytes of DATA memory (+   3 bytes shared)
+
+Errors: none
+Warnings: 1

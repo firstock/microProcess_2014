@@ -1,0 +1,346 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:05 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_adc.cpp                                             #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_adc.cpp --cpu=m128 -ms -o                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\avr_ad #
+#                    c.lst                                                    #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\avr_adc #
+#                    .r90                                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver\avr_adc.cpp
+      1          #include "avr_adc.h"
+      2          
+      3          // Include I/O definition file
+      4          #include <ioavr.h>
+
+   \                                 In  segment ABSOLUTE, at 0x24
+   \   <__C5> volatile __io _A_ADC
+   \                     _A_ADC:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x26
+   \   <__C6> volatile __io _A_ADCSR
+   \                     _A_ADCSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x27
+   \   <__C7> volatile __io _A_ADMUX
+   \                     _A_ADMUX:
+   \   00000000                      DS8 1
+      5          #include <inavr.h> //_interrupt()
+      6          #include <cassert>
+      7          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      8          volatile unsigned short adc_result;
+   \                     adc_result:
+   \   00000000                      DS8 2
+      9          volatile unsigned char isconv =0;
+   \                     isconv:
+   \   00000002                      DS8 1
+     10          #pragma vector = ADC_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     11          __interrupt void ADC_conv_done(void)
+   \                     ??ADC_conv_done:
+     12          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   934A               ST      -Y, R20
+   \   00000006   933A               ST      -Y, R19
+   \   00000008   932A               ST      -Y, R18
+   \   0000000A   931A               ST      -Y, R17
+   \   0000000C   930A               ST      -Y, R16
+   \   0000000E   B74F               IN      R20, 0x3F
+     13            adc_result = ADCL;
+   \   00000010   B104               IN      R16, 0x04
+   \   00000012   E010               LDI     R17, 0
+   \   00000014   9300....           STS     adc_result, R16
+   \   00000018   9310....           STS     (adc_result + 1), R17
+     14            adc_result |= ((unsigned short)ADCH)<<8;
+                                                          ^
+Warning[Pa082]: undefined behavior: the order of volatile accesses is
+          undefined in this statement
+   \   0000001C   B115               IN      R17, 0x05
+   \   0000001E   ....               LDI     R30, LOW(adc_result)
+   \   00000020   ....               LDI     R31, (adc_result) >> 8
+   \   00000022   8120               LD      R18, Z
+   \   00000024   8131               LDD     R19, Z+1
+   \   00000026   2B31               OR      R19, R17
+   \   00000028   8320               ST      Z, R18
+   \   0000002A   8331               STD     Z+1, R19
+     15           
+     16            isconv=1;
+   \   0000002C   E001               LDI     R16, 1
+   \   0000002E   8302               STD     Z+2, R16
+     17          }
+   \   00000030   BF4F               OUT     0x3F, R20
+   \   00000032   9109               LD      R16, Y+
+   \   00000034   9119               LD      R17, Y+
+   \   00000036   9129               LD      R18, Y+
+   \   00000038   9139               LD      R19, Y+
+   \   0000003A   9149               LD      R20, Y+
+   \   0000003C   91E9               LD      R30, Y+
+   \   0000003E   91F9               LD      R31, Y+
+   \   00000040   9518               RETI
+   \   00000042                      REQUIRE _A_ADC
+     18          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     19          void Avr_adc::SetChannel(unsigned char _ch)
+   \                     ??SetChannel:
+     20          {
+     21            __disable_interrupt();
+   \   00000000   94F8               CLI
+     22            ADMUX = (ADMUX & 0xf8) | ( _ch & 0x07);
+   \   00000002   B107               IN      R16, 0x07
+   \   00000004   7F08               ANDI    R16, 0xF8
+   \   00000006   7027               ANDI    R18, 0x07
+   \   00000008   2B02               OR      R16, R18
+   \   0000000A   B907               OUT     0x07, R16
+     23            __enable_interrupt();  
+   \   0000000C   ....               RJMP    ?Subroutine0
+   \   0000000E                      REQUIRE _A_ADMUX
+     24          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   9478               SEI
+   \   00000002   9508               RET
+     25          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     26          void Avr_adc::SetPrescaler(unsigned char _pre)
+   \                     ??SetPrescaler:
+     27          {
+     28            __disable_interrupt();
+   \   00000000   94F8               CLI
+     29            ADCSR = (ADCSR & 0xf8 )|(_pre & 0x07);
+   \   00000002   B106               IN      R16, 0x06
+   \   00000004   7F08               ANDI    R16, 0xF8
+   \   00000006   7027               ANDI    R18, 0x07
+   \   00000008   2B02               OR      R16, R18
+   \   0000000A   B906               OUT     0x06, R16
+     30            __enable_interrupt();
+   \   0000000C   ....               RJMP    ?Subroutine0
+   \   0000000E                      REQUIRE _A_ADCSR
+     31          }
+     32          
+     33          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     34          void Avr_adc::Init(void)
+   \                     ??Init:
+     35          {
+     36            __disable_interrupt();
+   \   00000000   94F8               CLI
+     37            ADMUX = 0x00;
+   \   00000002   E000               LDI     R16, 0
+   \   00000004   B907               OUT     0x07, R16
+     38            ADCSR = ( 1 << ADEN) | ( 1 << ADFR) |( 1 << ADPS2) |( 1 << ADPS1) |( 1 << ADPS0) ;
+   \   00000006   EA07               LDI     R16, 167
+   \   00000008   B906               OUT     0x06, R16
+     39            
+     40            ADCSR |= ( 1 << ADIE);
+   \   0000000A   9A33               SBI     0x06, 0x03
+     41            ADCSR |= ( 1 << ADSC);
+   \   0000000C   9A36               SBI     0x06, 0x06
+     42            
+     43            __enable_interrupt();
+   \   0000000E                      REQUIRE ?Subroutine0
+   \   0000000E                      REQUIRE _A_ADCSR
+   \   0000000E                      REQUIRE _A_ADMUX
+   \   0000000E                      ;               // Fall through to label ?Subroutine0
+     44          }
+     45          
+     46          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     47          Avr_adc::Avr_adc()
+   \                     ??Avr_adc:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     48          {
+   \   00000006   ....               LDI     R16, LOW(??__vtbl)
+   \   00000008   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000A   930D               ST      X+, R16
+   \   0000000C   931C               ST      X, R17
+   \   0000000E   9711               SBIW    R27:R26, 1
+     49          
+     50            Init();
+   \   00000010   018D               MOVW    R17:R16, R27:R26
+   \   00000012   ....               RCALL   ??Init
+     51            SetPrescaler(7);
+   \   00000014   E027               LDI     R18, 7
+   \   00000016   018D               MOVW    R17:R16, R27:R26
+   \   00000018   ....               RCALL   ??SetPrescaler
+     52          }
+   \   0000001A   018D               MOVW    R17:R16, R27:R26
+   \   0000001C   91A9               LD      R26, Y+
+   \   0000001E   91B9               LD      R27, Y+
+   \   00000020   9508               RET
+     53          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     54          Avr_adc::~Avr_adc()
+   \                     `?~Avr_adc`:
+     55          {
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~Avr_adc_1`
+     56          
+     57          }
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~Avr_adc_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~Avr_adc_1`:
+   \   0000000E   9508               RET
+     58          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     59          unsigned char Avr_adc::isConverted(void)
+   \                     ??isConverted:
+     60          {
+     61            return isconv & 0x01;  
+   \   00000000   9100....           LDS     R16, (adc_result + 2)
+   \   00000004   7001               ANDI    R16, 0x01
+   \   00000006   9508               RET
+     62          }
+     63          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     64          unsigned short Avr_adc::GetAdc(void)
+   \                     ??GetAdc:
+     65          {
+     66             unsigned short r;
+     67            
+     68            __disable_interrupt();
+   \   00000000   94F8               CLI
+     69             r = adc_result;
+   \   00000002   ....               LDI     R30, LOW(adc_result)
+   \   00000004   ....               LDI     R31, (adc_result) >> 8
+   \   00000006   8100               LD      R16, Z
+   \   00000008   8111               LDD     R17, Z+1
+     70             isconv = 0;
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   8322               STD     Z+2, R18
+     71             __enable_interrupt();
+   \   0000000E   ....               RJMP    ?Subroutine0
+     72             
+     73             return r; 
+     74          }
+
+   \                                 In  segment INTVEC, offset 0x54, root
+   \                     `??ADC_conv_done??INTVEC 84`:
+   \   00000054   ........           JMP     ??ADC_conv_done
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Avr_adc *Avr_adc::new Avr_adc()
+   \                     `??new Avr_adc`:
+   \   00000000   E002               LDI     R16, 2
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new Avr_adc_1`
+   \   0000000E   ....               RJMP    ??Avr_adc
+   \                     `??new Avr_adc_1`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   E010               LDI     R17, 0
+   \   00000014   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     ADC_conv_done()                    8      2
+     Avr_adc::Avr_adc()                 2      2
+       -> Avr_adc::Init()               2      2
+       -> Avr_adc::SetPrescaler(unsigned char)
+                                        2      2
+     Avr_adc::GetAdc()                  0      2
+     Avr_adc::Init()                    0      2
+     Avr_adc::SetChannel(unsigned char)
+                                        0      2
+     Avr_adc::SetPrescaler(unsigned char)
+                                        0      2
+     Avr_adc::isConverted()             0      2
+     Avr_adc::new Avr_adc()             0      2
+       -> operator new(size_t)          0      2
+       -> Avr_adc::Avr_adc()            0      2
+     Avr_adc::~Avr_adc()                0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     _A_ADC                            2
+     _A_ADCSR                          1
+     _A_ADMUX                          1
+     adc_result                        3
+     isconv
+     ADC_conv_done()                  66
+     Avr_adc::SetChannel(unsigned char)
+                                      14
+     ?Subroutine0                      4
+     Avr_adc::SetPrescaler(unsigned char)
+                                      14
+     Avr_adc::Init()                  14
+     Avr_adc::Avr_adc()               34
+     Avr_adc::~Avr_adc()              16
+     Avr_adc::isConverted()            8
+     Avr_adc::GetAdc()                16
+     ??ADC_conv_done??INTVEC 84        4
+     Avr_adc::new Avr_adc()           22
+      Others                          13
+
+ 
+   4 bytes in segment ABSOLUTE
+ 208 bytes in segment CODE
+   7 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   6 bytes in segment NEAR_F
+   3 bytes in segment NEAR_Z
+ 
+ 208 bytes of CODE memory (+ 17 bytes shared)
+   3 bytes of DATA memory (+  4 bytes shared)
+
+Errors: none
+Warnings: 1

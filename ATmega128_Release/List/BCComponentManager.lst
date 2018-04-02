@@ -1,0 +1,1081 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:01 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Componen #
+#                    t\BCComponentManager.cpp                                 #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Componen #
+#                    t\BCComponentManager.cpp --cpu=m128 -ms -o               #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\BCComp #
+#                    onentManager.lst                                         #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\BCCompo #
+#                    nentManager.r90                                          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Component\BCComponentManager.cpp
+      1          //사용자가 구성하기 원하는 컴포넌트를 만들어냄
+      2          
+      3          #include "BCComponentManager.h"
+
+    CreateWatchDog();
+    ^
+"D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Driver_Interface\DriverFactory.h",80  Warning[Pe837]: 
+          omission of explicit type is nonstandard ("int" assumed)
+      4          #include "DriverFactory.h"
+      5          #include "System_Manager.h"
+      6          #include "DInTimerAdaptor.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DInTimerAdaptor::~DInTimerAdaptor()
+   \                     `?~DInTimerAdaptor`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~DInTimerAdaptor_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~DInTimerAdaptor_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~DInTimerAdaptor_1`:
+   \   0000000E   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DInTimerAdaptor::DInTimerAdaptor(DIn &, unsigned char)
+   \                     ??DInTimerAdaptor:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   E001               LDI     R16, 1
+   \   00000008   930D               ST      X+, R16
+   \   0000000A   E050               LDI     R21, 0
+   \   0000000C   934D               ST      X+, R20
+   \   0000000E   935C               ST      X, R21
+   \   00000010   9613               ADIW    R27:R26, 3
+   \   00000012   935C               ST      X, R21
+   \   00000014   9611               ADIW    R27:R26, 1
+   \   00000016   ....               LDI     R16, LOW(??__vtbl)
+   \   00000018   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000001A   930D               ST      X+, R16
+   \   0000001C   931D               ST      X+, R17
+   \   0000001E   932D               ST      X+, R18
+   \   00000020   933C               ST      X, R19
+   \   00000022   9711               SBIW    R27:R26, 1
+   \   00000024   2F24               MOV     R18, R20
+   \   00000026   910D               LD      R16, X+
+   \   00000028   911C               LD      R17, X
+   \   0000002A   9714               SBIW    R27:R26, 4
+   \   0000002C   ........           CALL    ??SetTimerInterval
+   \   00000030   E001               LDI     R16, 1
+   \   00000032   930C               ST      X, R16
+   \   00000034   9715               SBIW    R27:R26, 5
+   \   00000036   018D               MOVW    R17:R16, R27:R26
+   \   00000038   91A9               LD      R26, Y+
+   \   0000003A   91B9               LD      R27, Y+
+   \   0000003C   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 void DInTimerAdaptor::TimeOutEvent()
+   \                     ??TimeOutEvent:
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8500               LDD     R16, Z+8
+   \   00000004   8511               LDD     R17, Z+9
+   \   00000006   ........           JMP     ??evTimerExpir
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 TimerWithLedAdapter::~TimerWithLedAdapter()
+   \                     `?~TimerWithLedAdapter`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~TimerWithLedAdapter_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~TimerWithLedAdapter_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~TimerWithLedAdapter_1`:
+   \   0000000E   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 TimerWithLedAdapter::TimerWithLedAdapter(Led *)
+   \                     ??TimerWithLedAdapter:
+   \   00000000   E040               LDI     R20, 0
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8340               ST      Z, R20
+   \   00000006   E342               LDI     R20, 50
+   \   00000008   E050               LDI     R21, 0
+   \   0000000A   8341               STD     Z+1, R20
+   \   0000000C   8352               STD     Z+2, R21
+   \   0000000E   8355               STD     Z+5, R21
+   \   00000010   ....               LDI     R20, LOW(??__vtbl_1)
+   \   00000012   ....               LDI     R21, (??__vtbl_1) >> 8
+   \   00000014   8346               STD     Z+6, R20
+   \   00000016   8357               STD     Z+7, R21
+   \   00000018   8720               STD     Z+8, R18
+   \   0000001A   8731               STD     Z+9, R19
+   \   0000001C   E021               LDI     R18, 1
+   \   0000001E   8325               STD     Z+5, R18
+   \   00000020   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 void TimerWithLedAdapter::TimeOutEvent()
+   \                     ??TimeOutEvent_1:
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8500               LDD     R16, Z+8
+   \   00000004   8511               LDD     R17, Z+9
+   \   00000006   ........           JMP     ??evTimerExpir_1
+      7          #include <assert.h>
+      8          #include "util.h"
+      9          
+     10          
+     11          //하드웨어를 추상화하고 장치를 생성함.
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     12          BCComponentManager * BCComponentManager::Instantce = 0;
+   \                     ??Instantce:
+   \   00000000                      DS8 2
+     13          DriverFactory * BCComponentManager::Driver = 0;
+     14          
+     15          //TimerManager  BCComponentManager::tm (DriverFactory::GetInstance()->CreateTimer() );
+     16          
+     17          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     18          class BCComponentMod:public IModule
+   \   __nearfunc __version_3 BCComponentMod::~BCComponentMod()
+   \                     `?~BCComponentMod`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~BCComponentMod_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~BCComponentMod_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~BCComponentMod_1`:
+   \   0000000E   9508               RET
+     19          {
+     20            TimerManager * tm;
+     21            SerialIO *serial0;
+     22          public:
+     23          
+     24            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     25            void Init()
+   \                     ??Init:
+     26            {
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+     27          //    GetBCComponentManager()->Init();
+     28              
+     29          //    tm = BCComponentManager::GetInstance()->CreateTimer();
+     30              tm = GetBCComponentManager()->CreateTimer();
+   \   00000006   ....               LDI     R30, LOW(??Driver)
+   \   00000008   ....               LDI     R31, (??Driver) >> 8
+   \   0000000A   8500               LDD     R16, Z+8
+   \   0000000C   8511               LDD     R17, Z+9
+   \   0000000E   01FC               MOVW    R31:R30, R25:R24
+   \   00000010   8302               STD     Z+2, R16
+   \   00000012   8313               STD     Z+3, R17
+     31              serial0 = GetBCComponentManager()->CreateSerialIO(0);
+   \   00000014   E020               LDI     R18, 0
+   \   00000016   ....               LDI     R16, LOW((??Driver + 8))
+   \   00000018   ....               LDI     R17, HIGH((??Driver + 8))
+   \   0000001A   ........           CALL    ??CreateSerialIO
+   \   0000001E   01FC               MOVW    R31:R30, R25:R24
+   \   00000020   8304               STD     Z+4, R16
+   \   00000022   8315               STD     Z+5, R17
+     32              assert( 0 != tm);
+     33            }
+   \   00000024   9189               LD      R24, Y+
+   \   00000026   9199               LD      R25, Y+
+   \   00000028   9508               RET
+     34            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     35            char Execute(void)
+   \                     ??Execute:
+     36            {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     37              assert( 0 != tm);
+     38              if(0 != tm){
+   \   00000006   9612               ADIW    R27:R26, 2
+   \   00000008   910D               LD      R16, X+
+   \   0000000A   911C               LD      R17, X
+   \   0000000C   9713               SBIW    R27:R26, 3
+   \   0000000E   2F20               MOV     R18, R16
+   \   00000010   2B21               OR      R18, R17
+   \   00000012   F031               BREQ    ??Execute_1
+     39                if(tm->evTick())
+   \   00000014   ........           CALL    ??evTick
+   \   00000018   2300               TST     R16
+   \   0000001A   F011               BREQ    ??Execute_1
+     40                return 1;
+   \                     ??Execute_2:
+   \   0000001C   E001               LDI     R16, 1
+   \   0000001E   C00B               RJMP    ??Execute_3
+     41              }
+     42              
+     43              assert( 0 != serial0);
+     44              if( 0 != serial0){
+   \                     ??Execute_1:
+   \   00000020   9614               ADIW    R27:R26, 4
+   \   00000022   910D               LD      R16, X+
+   \   00000024   911C               LD      R17, X
+   \   00000026   2F20               MOV     R18, R16
+   \   00000028   2B21               OR      R18, R17
+   \   0000002A   F021               BREQ    ??Execute_4
+     45                if(serial0->evTick())
+   \   0000002C   ........           CALL    ??evTick_1
+   \   00000030   2300               TST     R16
+   \   00000032   F7A1               BRNE    ??Execute_2
+     46                return 1;
+     47              }
+     48          
+     49              WATCH_DOG_KICK();
+     50              return 0;
+   \                     ??Execute_4:
+   \   00000034   E000               LDI     R16, 0
+   \                     ??Execute_3:
+   \   00000036   91A9               LD      R26, Y+
+   \   00000038   91B9               LD      R27, Y+
+   \   0000003A   9508               RET
+     51            }
+     52          };
+     53          
+     54          BCComponentMod bcmod;
+     55          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     56          BCComponentManager::BCComponentManager()
+   \                     ??BCComponentManager:
+     57          {
+     58            assert( 0 == Instantce);
+     59            if(0 == Instantce)
+   \   00000000   ....               LDI     R30, LOW(??Instantce)
+   \   00000002   ....               LDI     R31, (??Instantce) >> 8
+   \   00000004   8120               LD      R18, Z
+   \   00000006   8131               LDD     R19, Z+1
+   \   00000008   2B23               OR      R18, R19
+   \   0000000A   F411               BRNE    ??BCComponentManager_1
+     60            {
+     61              Instantce = this;
+   \   0000000C   8300               ST      Z, R16
+   \   0000000E   8311               STD     Z+1, R17
+     62            }
+     63            
+     64          
+     65          }
+   \                     ??BCComponentManager_1:
+   \   00000010   9508               RET
+     66          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     67          void BCComponentManager::Init(void)
+   \                     ??Init_1:
+     68          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+     69          //  Driver = DriverFactory::GetInstance();
+     70            Driver = GetDriverFactory();
+   \   00000006   ....               LDI     R26, LOW(??Driver)
+   \   00000008   ....               LDI     R27, (??Driver) >> 8
+   \   0000000A   ........           CALL    ??GetDriverFactory
+   \   0000000E   930D               ST      X+, R16
+   \   00000010   931C               ST      X, R17
+     71            assert( 0 != Driver);
+     72            
+     73            
+     74          //  static TimerManager ttm(Driver->CreateTimer());
+     75          //  tm = &ttm;
+     76            tm = TimerManager::GetInstance(Driver->CreateTimer());
+   \   00000012   ....               RCALL   ??Subroutine11_0
+   \                     ??CrossCallReturnLabel_22:
+   \   00000014   ....               RCALL   ?Subroutine7
+   \                     ??CrossCallReturnLabel_21:
+   \   00000016   ........           CALL    ??GetInstance
+   \   0000001A   01FC               MOVW    R31:R30, R25:R24
+   \   0000001C   8300               ST      Z, R16
+   \   0000001E   8311               STD     Z+1, R17
+   \   00000020   9100....           LDS     R16, (??Driver + 18)
+   \   00000024   2300               TST     R16
+   \   00000026   F469               BRNE    ??CrossCallReturnLabel_4
+   \   00000028   E001               LDI     R16, 1
+   \   0000002A   9300....           STS     (??Driver + 18), R16
+     77            
+     78            static SerialIO _serial0(*(Driver->CreateUart()));
+   \   0000002E   ....               RCALL   ?Subroutine0
+   \                     ??CrossCallReturnLabel_23:
+   \   00000030   9632               ADIW    R31:R30, 2
+   \   00000032   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_0:
+   \   00000034   ....               LDI     R16, LOW(??_serial0)
+   \   00000036   ....               LDI     R17, (??_serial0) >> 8
+   \   00000038   ........           CALL    ??SerialIO
+   \   0000003C   ....               LDI     R16, LOW(?_2)
+   \   0000003E   ....               LDI     R17, (?_2) >> 8
+   \   00000040   ....               RCALL   ?Subroutine2
+     79            serial0 = &_serial0;
+   \                     ??CrossCallReturnLabel_4:
+   \   00000042   ....               LDI     R16, LOW(??_serial0)
+   \   00000044   ....               LDI     R17, (??_serial0) >> 8
+   \   00000046   01FC               MOVW    R31:R30, R25:R24
+   \   00000048   8302               STD     Z+2, R16
+   \   0000004A   8313               STD     Z+3, R17
+     80          
+     81            DIn * photoDin = Driver->CreateDIn();
+   \   0000004C   ....               RCALL   ?Subroutine0
+   \                     ??CrossCallReturnLabel_24:
+   \   0000004E   ....               RCALL   ?Subroutine4
+     82            if(0 != photoDin)
+   \                     ??CrossCallReturnLabel_19:
+   \   00000050   2F20               MOV     R18, R16
+   \   00000052   2B21               OR      R18, R17
+   \   00000054   F099               BREQ    ??CrossCallReturnLabel_15
+   \   00000056   9120....           LDS     R18, (??Driver + 19)
+   \   0000005A   2322               TST     R18
+   \   0000005C   F461               BRNE    ??CrossCallReturnLabel_5
+   \   0000005E   E021               LDI     R18, 1
+   \   00000060   9320....           STS     (??Driver + 19), R18
+     83            {
+     84            static DInTimerAdaptor timer(*photoDin,10);  
+   \   00000064   E04A               LDI     R20, 10
+   \   00000066   0198               MOVW    R19:R18, R17:R16
+   \   00000068   ....               LDI     R16, ((??Driver + 24) & 0xff) & 0xFF
+   \   0000006A   ....               LDI     R17, (((??Driver + 24) >> 8) & 0xff) & 0xFF
+   \   0000006C   ........           CALL    ??DInTimerAdaptor
+   \   00000070   ....               LDI     R16, LOW((?_2 + 6))
+   \   00000072   ....               LDI     R17, HIGH((?_2 + 6))
+   \   00000074   ....               RCALL   ?Subroutine2
+     85            tm->AddEvent(&timer);
+   \                     ??CrossCallReturnLabel_5:
+   \   00000076   ....               LDI     R18, ((??Driver + 24) & 0xff) & 0xFF
+   \   00000078   ....               LDI     R19, (((??Driver + 24) >> 8) & 0xff) & 0xFF
+   \   0000007A   ....               RCALL   ?Subroutine5
+     86            }
+     87            
+     88            SystemManager *sys;
+     89            sys = SystemManager::Instance();
+   \                     ??CrossCallReturnLabel_15:
+   \   0000007C   ........           CALL    ??Instance
+   \   00000080   0128               MOVW    R5:R4, R17:R16
+     90          
+     91            assert(0 != sys);
+     92            
+     93              led0 = Driver->CreateLed(LED0);
+   \   00000082   E020               LDI     R18, 0
+   \   00000084   ....               RCALL   ?Subroutine6
+   \                     ??CrossCallReturnLabel_16:
+   \   00000086   9711               SBIW    R27:R26, 1
+   \   00000088   ....               RCALL   ?Subroutine3
+   \                     ??CrossCallReturnLabel_10:
+   \   0000008A   8306               STD     Z+6, R16
+   \   0000008C   8317               STD     Z+7, R17
+     94              if( 0 != led0)
+   \   0000008E   2B01               OR      R16, R17
+   \   00000090   F099               BREQ    ??CrossCallReturnLabel_14
+   \   00000092   9100....           LDS     R16, (??Driver + 20)
+   \   00000096   2300               TST     R16
+   \   00000098   F461               BRNE    ??CrossCallReturnLabel_6
+   \   0000009A   E001               LDI     R16, 1
+   \   0000009C   9300....           STS     (??Driver + 20), R16
+     95              {
+     96                static TimerWithLedAdapter ta0(led0);
+   \   000000A0   8126               LDD     R18, Z+6
+   \   000000A2   8137               LDD     R19, Z+7
+   \   000000A4   ....               LDI     R16, ((??Driver + 34) & 0xff) & 0xFF
+   \   000000A6   ....               LDI     R17, (((??Driver + 34) >> 8) & 0xff) & 0xFF
+   \   000000A8   ........           CALL    ??TimerWithLedAdapter
+   \   000000AC   ....               LDI     R16, LOW((?_2 + 12))
+   \   000000AE   ....               LDI     R17, HIGH((?_2 + 12))
+   \   000000B0   ....               RCALL   ?Subroutine2
+     97                tm->AddEvent(&ta0);  
+   \                     ??CrossCallReturnLabel_6:
+   \   000000B2   ....               LDI     R18, ((??Driver + 34) & 0xff) & 0xFF
+   \   000000B4   ....               LDI     R19, (((??Driver + 34) >> 8) & 0xff) & 0xFF
+   \   000000B6   ....               RCALL   ?Subroutine5
+     98              }
+     99              
+    100              led1 = Driver->CreateLed(LED1);
+   \                     ??CrossCallReturnLabel_14:
+   \   000000B8   E021               LDI     R18, 1
+   \   000000BA   ....               RCALL   ?Subroutine6
+   \                     ??CrossCallReturnLabel_17:
+   \   000000BC   9611               ADIW    R27:R26, 1
+   \   000000BE   ....               RCALL   ?Subroutine3
+   \                     ??CrossCallReturnLabel_11:
+   \   000000C0   8700               STD     Z+8, R16
+   \   000000C2   8711               STD     Z+9, R17
+    101              if( 0 != led1)
+   \   000000C4   2B01               OR      R16, R17
+   \   000000C6   F099               BREQ    ??CrossCallReturnLabel_13
+   \   000000C8   9100....           LDS     R16, (??Driver + 21)
+   \   000000CC   2300               TST     R16
+   \   000000CE   F461               BRNE    ??CrossCallReturnLabel_7
+   \   000000D0   E001               LDI     R16, 1
+   \   000000D2   9300....           STS     (??Driver + 21), R16
+    102              {
+    103                static TimerWithLedAdapter ta1(led1);
+   \   000000D6   8520               LDD     R18, Z+8
+   \   000000D8   8531               LDD     R19, Z+9
+   \   000000DA   ....               LDI     R16, ((??Driver + 44) & 0xff) & 0xFF
+   \   000000DC   ....               LDI     R17, (((??Driver + 44) >> 8) & 0xff) & 0xFF
+   \   000000DE   ........           CALL    ??TimerWithLedAdapter
+   \   000000E2   ....               LDI     R16, LOW((?_2 + 18))
+   \   000000E4   ....               LDI     R17, HIGH((?_2 + 18))
+   \   000000E6   ....               RCALL   ?Subroutine2
+    104                tm->AddEvent(&ta1);  
+   \                     ??CrossCallReturnLabel_7:
+   \   000000E8   ....               LDI     R18, ((??Driver + 44) & 0xff) & 0xFF
+   \   000000EA   ....               LDI     R19, (((??Driver + 44) >> 8) & 0xff) & 0xFF
+   \   000000EC   ....               RCALL   ?Subroutine5
+    105              }
+    106          
+    107            sys->AddModule(bcmod);
+   \                     ??CrossCallReturnLabel_13:
+   \   000000EE   019D               MOVW    R19:R18, R27:R26
+   \   000000F0   0182               MOVW    R17:R16, R5:R4
+   \   000000F2   ........           CALL    ??AddModule
+    108            
+    109            
+    110          }
+   \   000000F6   E0E6               LDI     R30, 6
+   \   000000F8   ........           JMP     ?EPILOGUE_B6_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine6:
+   \   00000000   910D               LD      R16, X+
+   \   00000002   911C               LD      R17, X
+   \   00000004   9711               SBIW    R27:R26, 1
+   \   00000006   91ED               LD      R30, X+
+   \   00000008   2FF1               MOV     R31, R17
+   \   0000000A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine3:
+   \   00000000   8140               LD      R20, Z
+   \   00000002   81F1               LDD     R31, Z+1
+   \   00000004   2FE4               MOV     R30, R20
+   \   00000006   963A               ADIW    R31:R30, 10
+   \   00000008   9145               LPM     R20, Z+
+   \   0000000A   91F4               LPM     R31, Z
+   \   0000000C   2FE4               MOV     R30, R20
+   \   0000000E   9509               ICALL
+   \   00000010   01FC               MOVW    R31:R30, R25:R24
+   \   00000012   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine4:
+   \   00000000   9636               ADIW    R31:R30, 6
+   \   00000002                      REQUIRE ?Subroutine7
+   \   00000002                      ;               // Fall through to label ?Subroutine7
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine7:
+   \   00000000   9125               LPM     R18, Z+
+   \   00000002   91F4               LPM     R31, Z
+   \   00000004   2FE2               MOV     R30, R18
+   \   00000006   9409               IJMP
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine5:
+   \   00000000   01FC               MOVW    R31:R30, R25:R24
+   \   00000002   8100               LD      R16, Z
+   \   00000004   8111               LDD     R17, Z+1
+   \   00000006   ........           JMP     ??AddEvent
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   ........           JMP     __record_needed_destruction
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   ....               RCALL   ?Subroutine7
+   \                     ??CrossCallReturnLabel_18:
+   \   00000002   0198               MOVW    R19:R18, R17:R16
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   910D               LD      R16, X+
+   \   00000002   911C               LD      R17, X
+   \   00000004                      REQUIRE ??Subroutine11_0
+   \   00000004                      ;               // Fall through to label ??Subroutine11_0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??Subroutine11_0:
+   \   00000000   9711               SBIW    R27:R26, 1
+   \   00000002   91ED               LD      R30, X+
+   \   00000004   2FF1               MOV     R31, R17
+   \   00000006   9711               SBIW    R27:R26, 1
+   \   00000008   8120               LD      R18, Z
+   \   0000000A   81F1               LDD     R31, Z+1
+   \   0000000C   2FE2               MOV     R30, R18
+   \   0000000E   9508               RET
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     ?_2:
+   \   00000000                      DS8 6
+   \   00000006                      REQUIRE `?<Initializer for >_1`
+   \   00000006                      DS8 6
+   \   0000000C                      REQUIRE `?<Initializer for >_2`
+   \   0000000C                      DS8 6
+   \   00000012                      REQUIRE `?<Initializer for >_3`
+   \   00000012                      DS8 6
+   \   00000018                      REQUIRE `?<Initializer for >_4`
+    111          
+    112          //BCComponentManager * BCComponentManager::GetInstance(void)
+    113          //{
+    114          //  return Instantce ;
+    115          //}
+    116          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    117          TimerManager * BCComponentManager::CreateTimer(void)
+   \                     ??CreateTimer:
+    118          {
+    119            return tm;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8100               LD      R16, Z
+   \   00000004   8111               LDD     R17, Z+1
+   \   00000006   9508               RET
+    120          }
+    121          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    122          Led * BCComponentManager::CreateLed(LED _led)
+   \                     ??CreateLed:
+    123          {
+    124              if(LED0 == _led)
+   \   00000000   2322               TST     R18
+   \   00000002   F421               BRNE    ??CreateLed_1
+    125              return led0;
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8106               LDD     R16, Z+6
+   \   00000008   8117               LDD     R17, Z+7
+   \   0000000A   9508               RET
+    126          
+    127          
+    128              if(LED1 == _led)
+   \                     ??CreateLed_1:
+   \   0000000C   3021               CPI     R18, 1
+   \   0000000E   F419               BRNE    ??CreateLed_2
+    129              return led1;    
+   \   00000010   01F8               MOVW    R31:R30, R17:R16
+   \   00000012   8500               LDD     R16, Z+8
+   \   00000014   8511               LDD     R17, Z+9
+   \                     ??CreateLed_2:
+   \   00000016   9508               RET
+    130                
+    131          }
+                 ^
+Warning[Pe940]: missing return statement at end of non-void function
+          "BCComponentManager::CreateLed"
+    132          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine8:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    133          SerialIO * BCComponentManager::CreateSerialIO(unsigned char portnum )
+   \                     ??CreateSerialIO:
+    134          {
+    135            if( 0 == portnum)
+   \   00000000   2322               TST     R18
+   \   00000002   F421               BRNE    ??CreateSerialIO_1
+    136            {
+    137              return serial0;
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8102               LDD     R16, Z+2
+   \   00000008   8113               LDD     R17, Z+3
+   \   0000000A   9508               RET
+    138            }
+    139            
+    140            return 0;
+   \                     ??CreateSerialIO_1:
+   \   0000000C   ....               RJMP    ?Subroutine8
+    141          }
+    142          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    143          DIn * BCComponentManager::CreateDIn()
+   \                     ??CreateDIn:
+    144          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+    145          
+    146            
+    147            return Driver->CreateDIn();
+   \   00000004   ....               LDI     R30, LOW(??Driver)
+   \   00000006   ....               LDI     R31, (??Driver) >> 8
+   \   00000008   8100               LD      R16, Z
+   \   0000000A   8111               LDD     R17, Z+1
+   \   0000000C   01D8               MOVW    R27:R26, R17:R16
+   \   0000000E   91ED               LD      R30, X+
+   \   00000010   91FC               LD      R31, X
+   \   00000012   ....               RCALL   ?Subroutine4
+   \                     ??CrossCallReturnLabel_20:
+   \   00000014                      REQUIRE ?Subroutine9
+   \   00000014                      ;               // Fall through to label ?Subroutine9
+    148            
+    149            
+    150          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine9:
+   \   00000000   91A9               LD      R26, Y+
+   \   00000002   91B9               LD      R27, Y+
+   \   00000004   9508               RET
+    151          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    152          Adc * BCComponentManager::CreateAdc(void)
+   \                     ??CreateAdc:
+    153          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   ....               LDI     R26, LOW(??Driver)
+   \   00000008   ....               LDI     R27, (??Driver) >> 8
+   \   0000000A   9100....           LDS     R16, (??Driver + 22)
+   \   0000000E   2300               TST     R16
+   \   00000010   F469               BRNE    ??CrossCallReturnLabel_8
+   \   00000012   E001               LDI     R16, 1
+   \   00000014   9300....           STS     (??Driver + 22), R16
+    154            static Adc adc(Driver->CreateAdc());
+   \   00000018   ....               RCALL   ?Subroutine0
+   \                     ??CrossCallReturnLabel_25:
+   \   0000001A   9672               ADIW    R31:R30, 18
+   \   0000001C   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_1:
+   \   0000001E   ....               LDI     R16, ((??Driver + 54) & 0xff) & 0xFF
+   \   00000020   ....               LDI     R17, (((??Driver + 54) >> 8) & 0xff) & 0xFF
+   \   00000022   ........           CALL    ??Adc
+   \   00000026   ....               LDI     R16, LOW(?_10)
+   \   00000028   ....               LDI     R17, (?_10) >> 8
+   \   0000002A   ....               RCALL   ?Subroutine2
+    155            tm->AddEvent(&adc);
+   \                     ??CrossCallReturnLabel_8:
+   \   0000002C   ....               LDI     R18, ((??Driver + 54) & 0xff) & 0xFF
+   \   0000002E   ....               LDI     R19, (((??Driver + 54) >> 8) & 0xff) & 0xFF
+   \   00000030   ....               RCALL   ?Subroutine5
+    156            
+    157            return &adc;
+   \                     ??CrossCallReturnLabel_12:
+   \   00000032   96D6               ADIW    R27:R26, 54
+   \   00000034   018D               MOVW    R17:R16, R27:R26
+   \   00000036   E0E4               LDI     R30, 4
+   \   00000038   ........           JMP     ?EPILOGUE_B4_L09
+    158          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 4>`:
+   \   00000000   E022               LDI     R18, 2
+   \   00000002   E030               LDI     R19, 0
+   \   00000004   ........           JMP     `?~Adc`
+    159          
+    160          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    161          Pwm * BCComponentManager::CreatePwm(void)
+   \                     ??CreatePwm:
+    162          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   ....               LDI     R26, LOW(??Driver)
+   \   00000006   ....               LDI     R27, (??Driver) >> 8
+   \   00000008   9100....           LDS     R16, (??Driver + 23)
+   \   0000000C   2300               TST     R16
+   \   0000000E   F491               BRNE    ??CrossCallReturnLabel_9
+   \   00000010   E001               LDI     R16, 1
+   \   00000012   9300....           STS     (??Driver + 23), R16
+    163            static Pwm pwm(Driver->CreatePwm());
+   \   00000016   910D               LD      R16, X+
+   \   00000018   911C               LD      R17, X
+   \   0000001A   01F8               MOVW    R31:R30, R17:R16
+   \   0000001C   8120               LD      R18, Z
+   \   0000001E   81F1               LDD     R31, Z+1
+   \   00000020   2FE2               MOV     R30, R18
+   \   00000022   9674               ADIW    R31:R30, 20
+   \   00000024   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_2:
+   \   00000026   ....               LDI     R16, ((??Driver + 66) & 0xff) & 0xFF
+   \   00000028   ....               LDI     R17, (((??Driver + 66) >> 8) & 0xff) & 0xFF
+   \   0000002A   ........           CALL    ??Pwm
+   \   0000002E   ....               LDI     R16, LOW(?_12)
+   \   00000030   ....               LDI     R17, (?_12) >> 8
+   \   00000032   ....               RCALL   ?Subroutine2
+    164            
+    165            return &pwm;
+   \                     ??CrossCallReturnLabel_9:
+   \   00000034   ....               LDI     R16, ((??Driver + 66) & 0xff) & 0xFF
+   \   00000036   ....               LDI     R17, (((??Driver + 66) >> 8) & 0xff) & 0xFF
+   \   00000038   ....               RJMP    ?Subroutine9
+    166            
+    167          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 5>`:
+   \   00000000   E022               LDI     R18, 2
+   \   00000002   E030               LDI     R19, 0
+   \   00000004   ........           JMP     `?~Pwm`
+    168          /////////////////////////////////////////////////////////////////////////////////
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine10:
+   \   00000000   ....               RJMP    ??BCComponentManager
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     ??Driver:
+   \   00000000                      DS8 2
+   \                     bcmod:
+   \   00000002                      DS8 6
+   \   00000008                      DS8 10
+   \   00000012                      DS8 1
+   \   00000013                      DS8 1
+   \   00000014                      DS8 1
+   \   00000015                      DS8 1
+   \   00000016                      DS8 1
+   \   00000017                      DS8 1
+   \                     ??timer:
+   \   00000018                      DS8 10
+   \                     ??ta0:
+   \   00000022                      DS8 10
+   \                     ??ta1:
+   \   0000002C                      DS8 10
+   \                     ??adc:
+   \   00000036                      DS8 12
+   \                     ??pwm:
+   \   00000042                      DS8 5
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     ??_serial0:
+   \   00000000                      DS8 35
+    169          static BCComponentManager bc;
+    170          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    171          BCComponentManager * GetBCComponentManager(void)
+   \                     ??GetBCComponentManager:
+    172          {
+    173            
+    174            return &bc; 
+   \   00000000   ....               LDI     R16, LOW((??Driver + 8))
+   \   00000002   ....               LDI     R17, HIGH((??Driver + 8))
+   \   00000004   9508               RET
+    175          }
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for >`:
+   \   00000000   ............       DC16 ?_1, bcmod, `?<Unnamed 0>`/2
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for >_1`:
+   \   00000000   ............       DC16 ?_3, ??_serial0, `?<Unnamed 1>`/2
+   \                     `?<Initializer for >_2`:
+   \   00000006   ............       DC16 ?_5, ??timer, `?<Unnamed 2>`/2
+   \                     `?<Initializer for >_3`:
+   \   0000000C   ............       DC16 ?_7, ??ta0, `?<Unnamed 3>`/2
+   \                     `?<Initializer for >_4`:
+   \   00000012   ............       DC16 ?_9, ??ta1, `?<Unnamed 3>`/2
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for >_5`:
+   \   00000000   ............       DC16 ?_11, ??adc, `?<Unnamed 4>`/2
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for >_6`:
+   \   00000000   ............       DC16 ?_13, ??pwm, `?<Unnamed 5>`/2
+
+   \                                 In  segment DIFUNCT, align 1, keep-with-next, root
+   \   00000000                      REQUIRE ?call_ctors
+   \   00000000   ....               DW      ??__sti__routine/2
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 1>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 2>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 3>`:
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 BCComponentManager *BCComponentManager::new BCComponentManager()
+   \                     `??new BCComponentManager`:
+   \   00000000   E00A               LDI     R16, 10
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new BCComponentManager_1`
+   \   0000000E   ....               RJMP    ?Subroutine10
+   \                     `??new BCComponentManager_1`:
+   \   00000010                      REQUIRE ?Subroutine8
+   \   00000010                      ;               // Fall through to label ?Subroutine8
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   static __intrinsic __nearfunc __version_3 void __sti__routine()
+   \                     ??__sti__routine:
+   \   00000000   ....               LDI     R16, LOW(??__vtbl_2)
+   \   00000002   ....               LDI     R17, (??__vtbl_2) >> 8
+   \   00000004   ....               LDI     R30, LOW(??Driver)
+   \   00000006   ....               LDI     R31, (??Driver) >> 8
+   \   00000008   8302               STD     Z+2, R16
+   \   0000000A   8313               STD     Z+3, R17
+   \   0000000C   ....               LDI     R16, LOW(?_0)
+   \   0000000E   ....               LDI     R17, (?_0) >> 8
+   \   00000010   ....               RCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_3:
+   \   00000012   ....               LDI     R16, LOW((??Driver + 8))
+   \   00000014   ....               LDI     R17, HIGH((??Driver + 8))
+   \   00000016                      REQUIRE ?Subroutine10
+   \   00000016                      ;               // Fall through to label ?Subroutine10
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     `?<Unnamed 0>`:
+   \   00000000   9508               RET
+    176          
+    177          
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     <Unnamed 0>                        0      2
+     <Unnamed 1>                        0      2
+     <Unnamed 2>                        0      2
+     <Unnamed 3>                        0      2
+     <Unnamed 4>                        0      2
+       -> Adc::~Adc()                   0      2
+     <Unnamed 5>                        0      2
+       -> Pwm::~Pwm()                   0      2
+     BCComponentManager::BCComponentManager()
+                                        0      2
+     BCComponentManager::CreateAdc()
+                                        4      2
+       ->   Indirect call               4      2
+       -> Adc::Adc(IAdcPort *)          4      2
+       -> __record_needed_destruction
+                                        4      2
+       -> TimerManager::AddEvent(ITimerEvent *)
+                                        4      2
+     BCComponentManager::CreateDIn()
+                                        2      2
+       ->   Indirect call               2      2
+     BCComponentManager::CreateLed(BCComponentManager::LED)
+                                        0      2
+     BCComponentManager::CreatePwm()
+                                        2      2
+       ->   Indirect call               2      2
+       -> Pwm::Pwm(IPwmPort *)          2      2
+       -> __record_needed_destruction
+                                        2      2
+     BCComponentManager::CreateSerialIO(unsigned char)
+                                        0      2
+     BCComponentManager::CreateTimer()
+                                        0      2
+     BCComponentManager::Init()         6      2
+       -> GetDriverFactory()            6      2
+       ->   Indirect call               6      2
+       -> TimerManager::GetInstance(ITimer *)
+                                        6      2
+       ->   Indirect call               6      2
+       -> SerialIO::SerialIO(ISerialPort &)
+                                        6      2
+       -> __record_needed_destruction
+                                        6      2
+       ->   Indirect call               6      2
+       -> DInTimerAdaptor::DInTimerAdaptor(DIn &, unsigned char)
+                                        6      2
+       -> __record_needed_destruction
+                                        6      2
+       -> TimerManager::AddEvent(ITimerEvent *)
+                                        6      2
+       -> SystemManager::Instance()     6      2
+       ->   Indirect call               6      2
+       -> TimerWithLedAdapter::TimerWithLedAdapter(Led *)
+                                        6      2
+       -> __record_needed_destruction
+                                        6      2
+       -> TimerManager::AddEvent(ITimerEvent *)
+                                        6      2
+       ->   Indirect call               6      2
+       -> TimerWithLedAdapter::TimerWithLedAdapter(Led *)
+                                        6      2
+       -> __record_needed_destruction
+                                        6      2
+       -> TimerManager::AddEvent(ITimerEvent *)
+                                        6      2
+       -> SystemManager::AddModule(IModule &)
+                                        6      2
+     BCComponentManager::new BCComponentManager()
+                                        0      2
+       -> operator new(size_t)          0      2
+       -> BCComponentManager::BCComponentManager()
+                                        0      2
+     BCComponentMod::Execute()          2      2
+       -> TimerManager::evTick()        2      2
+       -> SerialIO::evTick()            2      2
+     BCComponentMod::Init()             2      2
+       -> BCComponentManager::CreateSerialIO(unsigned char)
+                                        2      2
+     BCComponentMod::~BCComponentMod()
+                                        0      2
+       -> operator delete(void *)       0      2
+     DInTimerAdaptor::DInTimerAdaptor(DIn &, unsigned char)
+                                        2      2
+       -> DIn::SetTimerInterval(unsigned char)
+                                        2      2
+     DInTimerAdaptor::TimeOutEvent()
+                                        0      2
+       -> DIn::evTimerExpir()           0      2
+     DInTimerAdaptor::~DInTimerAdaptor()
+                                        0      2
+       -> operator delete(void *)       0      2
+     GetBCComponentManager()            0      2
+     TimerWithLedAdapter::TimeOutEvent()
+                                        0      2
+       -> Led::evTimerExpir()           0      2
+     TimerWithLedAdapter::TimerWithLedAdapter(Led *)
+                                        0      2
+     TimerWithLedAdapter::~TimerWithLedAdapter()
+                                        0      2
+       -> operator delete(void *)       0      2
+     __sti__routine()                   0      2
+       -> __record_needed_destruction
+                                        0      2
+       -> BCComponentManager::BCComponentManager()
+                                        0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     DInTimerAdaptor::~DInTimerAdaptor()
+                                      16
+     DInTimerAdaptor::DInTimerAdaptor(DIn &, unsigned char)
+                                      62
+     DInTimerAdaptor::TimeOutEvent()
+                                      10
+     TimerWithLedAdapter::~TimerWithLedAdapter()
+                                      16
+     TimerWithLedAdapter::TimerWithLedAdapter(Led *)
+                                      34
+     TimerWithLedAdapter::TimeOutEvent()
+                                      10
+     BCComponentManager::Instantce     2
+     BCComponentMod::~BCComponentMod()
+                                      16
+     BCComponentMod::Init()           42
+     BCComponentMod::Execute()        60
+     BCComponentManager::BCComponentManager()
+                                      18
+     BCComponentManager::Init()      252
+     ?Subroutine6                     12
+     ?Subroutine3                     20
+     ?Subroutine4                      2
+     ?Subroutine7                      8
+     ?Subroutine5                     10
+     ?Subroutine2                      4
+     ?Subroutine1                      6
+     ?Subroutine0                      4
+     ??Subroutine11_0                 16
+     ?_2                              24
+     BCComponentManager::CreateTimer()
+                                       8
+     BCComponentManager::CreateLed(BCComponentManager::LED)
+                                      24
+     ?Subroutine8                      6
+     BCComponentManager::CreateSerialIO(unsigned char)
+                                      14
+     BCComponentManager::CreateDIn()
+                                      20
+     ?Subroutine9                      6
+     BCComponentManager::CreateAdc()
+                                      60
+     ?<Unnamed 4>                      8
+     BCComponentManager::CreatePwm()
+                                      58
+     ?<Unnamed 5>                      8
+     ?Subroutine10                     2
+     BCComponentManager::Driver       71
+     bcmod
+     bc
+     __LSG___serial0
+     __LSG__timer
+     __LSG__ta0
+     __LSG__ta1
+     __LSG__adc
+     __LSG__pwm
+     timer
+     ta0
+     ta1
+     adc
+     pwm
+     _serial0                         35
+     GetBCComponentManager()           6
+     ?<Initializer for >               6
+     ?<Initializer for >_1            24
+     ?<Initializer for >_5             6
+     ?<Initializer for >_6             6
+     ?<Unnamed 1>                      2
+     ?<Unnamed 2>                      2
+     ?<Unnamed 3>                      2
+     BCComponentManager::new BCComponentManager()
+                                      16
+     __sti__routine()                 22
+     ?<Unnamed 0>                      2
+      Others                          62
+
+ 
+ 884 bytes in segment CODE
+   2 bytes in segment DIFUNCT
+  14 bytes in segment INITTAB
+  14 bytes in segment NEAR_F
+  42 bytes in segment NEAR_I
+  42 bytes in segment NEAR_ID
+ 122 bytes in segment NEAR_Z
+ 
+ 676 bytes of CODE memory (+ 280 bytes shared)
+ 164 bytes of DATA memory
+
+Errors: none
+Warnings: 2

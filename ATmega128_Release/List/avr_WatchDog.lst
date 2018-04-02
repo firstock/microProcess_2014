@@ -1,0 +1,253 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:04 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_WatchDog.cpp                                        #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_WatchDog.cpp --cpu=m128 -ms -o                      #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\avr_Wa #
+#                    tchDog.lst                                               #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\avr_Wat #
+#                    chDog.r90                                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver\avr_WatchDog.cpp
+      1          #include "avr_watchdog.h"
+      2          #include <ioavr.h>
+      3          #include <intrinsics.h>
+      4          
+      5          #ifdef WATCHDOG_ENABLE
+      6          avr_watchdog dog;
+      7          #endif
+      8          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      9          void WDT_Prescaler_Change(void)
+   \                     ??WDT_Prescaler_Change:
+     10          {
+     11          #ifdef WATCHDOG_ENABLE  
+     12          __disable_interrupt();
+     13          __watchdog_reset();
+     14          /* Start timed equence */
+     15          #if defined(__ATmega164P__) | defined(__ATmega164PA__) | defined(__ATmega324P__)
+     16          WDTCSR |= (1<<WDCE) | (1<<WDE);
+     17          /* Set new prescaler(time-out) value = 64K cycles (~0.5 s) */
+     18          WDTCSR = (1<<WDE) | (1<<WDP3) | (1<<WDP0);
+     19          #endif
+     20          __enable_interrupt();
+     21          #endif
+     22          }
+   \   00000000   9508               RET
+     23          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     24          char isWDT_WoringBefore(void)
+   \                     ??isWDT_WoringBefore:
+     25          {
+     26            
+     27          #if defined(__ATmega164P__) | defined(__ATmega164PA__) | defined(__ATmega324P__)  
+     28            if(MCUSR & ( 1 << WDRF) )
+     29            {
+     30              MCUSR &= ~( 1 << WDRF);
+     31              return 1;
+     32            }
+     33          #endif
+     34            
+     35            return 0;
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   9508               RET
+     36          }
+     37          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     38          void WDT_Kick(void)
+   \                     ??WDT_Kick:
+     39          {
+     40          #ifdef WATCHDOG_ENABLE   
+     41            __watchdog_reset(); 
+     42          #endif  
+     43          }
+   \   00000000   9508               RET
+     44          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     45          avr_watchdog::avr_watchdog()
+   \                     ??avr_watchdog:
+     46          {
+     47          
+     48          Prescaler_Change();
+     49          
+     50          }
+   \   00000000   9508               RET
+     51          
+     52          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     53          void avr_watchdog::Kick(void)
+   \                     ??Kick:
+     54          {
+     55          #ifdef WATCHDOG_ENABLE   
+     56              __watchdog_reset();
+     57          #endif 
+     58          }
+   \   00000000   9508               RET
+     59          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     60          void avr_watchdog::CPUReset(void)
+   \                     ??CPUReset:
+     61          {
+     62            
+     63            
+     64          }
+   \   00000000   9508               RET
+     65          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     66          void avr_watchdog::Prescaler_Change(void)  
+   \                     ??Prescaler_Change:
+     67          {
+     68          #ifdef WATCHDOG_ENABLE   
+     69          __disable_interrupt();
+     70          __watchdog_reset();
+     71          /* Start timed equence */
+     72          
+     73          #if defined(__ATmega164P__) | defined(__ATmega164PA__)|defined(__ATmega324P__)
+     74          //WDTCSR |= (1<<WDCE) | (1<<WDE);
+     75          /* Set new prescaler(time-out) value = 64K cycles (~0.5 s) */
+     76          //WDTCSR = (1<<WDE) | (1<<WDP3) | (1<<WDP0);//8.0s
+     77          
+     78               asm("lds r16, 0x60"); 
+     79               asm("ori r16, 0x18"); 
+     80               asm("sts 0x60, r16"); 
+     81               asm("ldi r16, 0x29"); 
+     82               asm("sts 0x60, r16");
+     83          #endif  
+     84          #if defined(__ATmega128__)
+     85              
+     86          #endif  
+     87               
+     88          __enable_interrupt();
+     89          #endif 
+     90          }
+   \   00000000   9508               RET
+     91          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     92          void avr_watchdog::Off(void)
+   \                     ??Off:
+     93          {
+     94            __disable_interrupt();
+   \   00000000   94F8               CLI
+     95            __watchdog_reset();
+   \   00000002   95A8               WDR
+     96            
+     97          #if defined(__ATmega164P__) | defined(__ATmega164PA__)|defined(__ATmega324P__)
+     98            /* Clear WDRF in MCUSR */
+     99            MCUSR &= ~(1<<WDRF);
+    100            /* Write logical one to WDCE and WDE */
+    101            /* Keep old prescaler setting to prevent unintentional time-out */
+    102            WDTCSR |= (1<<WDCE) | (1<<WDE);
+    103            /* Turn off WDT */
+    104            WDTCSR = 0x00;
+    105          #endif  
+    106          #if defined(__ATmega128__)
+    107              
+    108          #endif   
+    109          
+    110            
+    111            __enable_interrupt();  
+   \   00000004   9478               SEI
+    112            
+    113          }
+   \   00000006   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 avr_watchdog *avr_watchdog::new avr_watchdog()
+   \                     `??new avr_watchdog`:
+   \   00000000   E001               LDI     R16, 1
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F011               BREQ    `??new avr_watchdog_1`
+   \   0000000E   0198               MOVW    R19:R18, R17:R16
+   \   00000010   C002               RJMP    `??new avr_watchdog_2`
+   \                     `??new avr_watchdog_1`:
+   \   00000012   E020               LDI     R18, 0
+   \   00000014   E030               LDI     R19, 0
+   \                     `??new avr_watchdog_2`:
+   \   00000016   0189               MOVW    R17:R16, R19:R18
+   \   00000018   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     WDT_Kick()                         0      2
+     WDT_Prescaler_Change()             0      2
+     avr_watchdog::CPUReset()           0      2
+     avr_watchdog::Kick()               0      2
+     avr_watchdog::Off()                0      2
+     avr_watchdog::Prescaler_Change()
+                                        0      2
+     avr_watchdog::avr_watchdog()       0      2
+     avr_watchdog::new avr_watchdog()
+                                        0      2
+       -> operator new(unsigned int)
+                                        0      2
+     isWDT_WoringBefore()               0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     WDT_Prescaler_Change()            2
+     isWDT_WoringBefore()              4
+     WDT_Kick()                        2
+     avr_watchdog::avr_watchdog()      2
+     avr_watchdog::Kick()              2
+     avr_watchdog::CPUReset()          2
+     avr_watchdog::Prescaler_Change()
+                                       2
+     avr_watchdog::Off()               8
+     avr_watchdog::new avr_watchdog()
+                                      26
+
+ 
+ 50 bytes in segment CODE
+ 
+ 50 bytes of CODE memory
+
+Errors: none
+Warnings: none

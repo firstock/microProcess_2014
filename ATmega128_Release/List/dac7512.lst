@@ -1,0 +1,305 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:32:59 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Drivers\dac751 #
+#                    2.cpp                                                    #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Drivers\dac751 #
+#                    2.cpp --cpu=m128 -ms -o D:\Work\IAR\TIEF_Framework\ATmeg #
+#                    a128_Release\Obj\ -D NDEBUG -D xWATCHDOG_ENABLE -lC      #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\dac751 #
+#                    2.lst                                                    #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\dac7512 #
+#                    .r90                                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Drivers\dac7512.cpp
+      1          ///////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // -------------------------------------------
+      6           
+      7          // Description: SerialIO Class
+      8           
+      9          //
+     10           
+     11          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+     12           
+     13          // Site: ccrs.hanyang.ac.kr
+     14           
+     15          // Copyright (C) 2013-2013 TIEL(TIEL is Embedded S/W library) Project.
+     16           
+     17          //
+     18           
+     19          //////////////////////////////////////////////////////////////////////////////////////////
+     20          //
+     21          //    License type: GNU General Public License (GPL)
+     22          //      
+     23          //    This program is free software: you can redistribute it and/or modify
+     24          //    it under the terms of the GNU General Public License as published by
+     25          //    the Free Software Foundation, either version 3 of the License, or
+     26          //    (at your option) any later version.
+     27          
+     28          //    This program is distributed in the hope that it will be useful,
+     29          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     30          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     31          //    GNU General Public License for more details.
+     32          
+     33          //    You should have received a copy of the GNU General Public License
+     34          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     35          //
+     36          //////////////////////////////////////////////////////////////////////////////////////////
+     37          
+     38          #include "dac7512.h"
+     39          #include <assert.h>
+     40          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     41          Dac7512::Dac7512(ISpi & _spi )
+   \                     ??Dac7512:
+     42          {
+     43            mode = NORMAL;
+   \   00000000   E040               LDI     R20, 0
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8342               STD     Z+2, R20
+     44            spi = &_spi;
+   \   00000006   8320               ST      Z, R18
+   \   00000008   8331               STD     Z+1, R19
+     45          }
+   \   0000000A   9508               RET
+     46          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     47          void Dac7512::Init()
+   \                     ??Init:
+     48          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     49            Init_Spi();
+   \   00000006   9613               ADIW    R27:R26, 3
+   \   00000008   91ED               LD      R30, X+
+   \   0000000A   91FC               LD      R31, X
+   \   0000000C   9714               SBIW    R27:R26, 4
+   \   0000000E   ....               RCALL   ??Subroutine3_0
+     50            Spi_CS_H();  
+   \                     ??CrossCallReturnLabel_3:
+   \   00000010   ....               RCALL   ?Subroutine1
+     51          }
+   \                     ??CrossCallReturnLabel_5:
+   \   00000012   91A9               LD      R26, Y+
+   \   00000014   91B9               LD      R27, Y+
+   \   00000016   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   018D               MOVW    R17:R16, R27:R26
+   \   00000002   9613               ADIW    R27:R26, 3
+   \   00000004   91ED               LD      R30, X+
+   \   00000006   91FC               LD      R31, X
+   \   00000008   9632               ADIW    R31:R30, 2
+   \   0000000A                      REQUIRE ??Subroutine3_0
+   \   0000000A                      ;               // Fall through to label ??Subroutine3_0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??Subroutine3_0:
+   \   00000000   9125               LPM     R18, Z+
+   \   00000002   91F4               LPM     R31, Z
+   \   00000004   2FE2               MOV     R30, R18
+   \   00000006   9409               IJMP
+     52          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     53          void Dac7512::SetMode(unsigned char _mode)
+   \                     ??SetMode:
+     54          {
+     55            assert( 0x03 >= _mode);
+     56            assert( 0x00 <= _mode);
+     57            
+     58            mode =  0x03 & _mode;
+     59            mode <<=4;
+   \   00000000   7023               ANDI    R18, 0x03
+   \   00000002   9522               SWAP    R18
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8322               STD     Z+2, R18
+     60          }
+   \   00000008   9508               RET
+     61            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     62          void Dac7512::Write(unsigned short _dac12)
+   \                     ??Write:
+     63          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+     64            assert(0xfff >=_dac12);
+     65            
+     66            Spi_CS_L();
+   \   00000008   01F8               MOVW    R31:R30, R17:R16
+   \   0000000A   8123               LDD     R18, Z+3
+   \   0000000C   81F4               LDD     R31, Z+4
+   \   0000000E   2FE2               MOV     R30, R18
+   \   00000010   9634               ADIW    R31:R30, 4
+   \   00000012   ....               RCALL   ??Subroutine3_0
+     67            spi->WriteByte(mode | (0xf & (_dac12 >> 8)));  
+   \                     ??CrossCallReturnLabel_2:
+   \   00000014   01FD               MOVW    R31:R30, R27:R26
+   \   00000016   8122               LDD     R18, Z+2
+   \   00000018   2F09               MOV     R16, R25
+   \   0000001A   700F               ANDI    R16, 0x0F
+   \   0000001C   2B20               OR      R18, R16
+   \   0000001E   ....               RCALL   ?Subroutine0
+     68            spi->WriteByte(0xff & _dac12);
+   \                     ??CrossCallReturnLabel_1:
+   \   00000020   2F28               MOV     R18, R24
+   \   00000022   ....               RCALL   ?Subroutine0
+     69            Spi_CS_H();
+   \                     ??CrossCallReturnLabel_0:
+   \   00000024   ....               RCALL   ?Subroutine1
+     70          }
+   \                     ??CrossCallReturnLabel_4:
+   \   00000026                      REQUIRE ?Subroutine2
+   \   00000026                      ;               // Fall through to label ?Subroutine2
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   E0E4               LDI     R30, 4
+   \   00000002   ........           JMP     ?EPILOGUE_B4_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   910D               LD      R16, X+
+   \   00000002   911C               LD      R17, X
+   \   00000004   9711               SBIW    R27:R26, 1
+   \   00000006   91ED               LD      R30, X+
+   \   00000008   91FC               LD      R31, X
+   \   0000000A   9711               SBIW    R27:R26, 1
+   \   0000000C   8140               LD      R20, Z
+   \   0000000E   81F1               LDD     R31, Z+1
+   \   00000010   2FE4               MOV     R30, R20
+   \   00000012   9632               ADIW    R31:R30, 2
+   \   00000014   9145               LPM     R20, Z+
+   \   00000016   91F4               LPM     R31, Z
+   \   00000018   2FE4               MOV     R30, R20
+   \   0000001A   9409               IJMP
+     71          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     72          void Dac7512::Write(unsigned short _dac12, unsigned char _mode )
+   \                     ??Write_1:
+     73          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+     74            SetMode(_mode);
+   \   00000008   2F24               MOV     R18, R20
+   \   0000000A   ....               RCALL   ??SetMode
+     75            Write(_dac12);  
+   \   0000000C   019D               MOVW    R19:R18, R27:R26
+   \   0000000E   018C               MOVW    R17:R16, R25:R24
+   \   00000010   ....               RCALL   ??Write
+     76          }
+   \   00000012   ....               RJMP    ?Subroutine2
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Dac7512 *Dac7512::new Dac7512(ISpi &)
+   \                     `??new Dac7512`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   E005               LDI     R16, 5
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    `??operator new`
+   \   0000000E   2F20               MOV     R18, R16
+   \   00000010   2B21               OR      R18, R17
+   \   00000012   F019               BREQ    `??new Dac7512_1`
+   \   00000014   019C               MOVW    R19:R18, R25:R24
+   \   00000016   ....               RCALL   ??Dac7512
+   \   00000018   C002               RJMP    `??new Dac7512_2`
+   \                     `??new Dac7512_1`:
+   \   0000001A   E000               LDI     R16, 0
+   \   0000001C   E010               LDI     R17, 0
+   \                     `??new Dac7512_2`:
+   \   0000001E   9189               LD      R24, Y+
+   \   00000020   9199               LD      R25, Y+
+   \   00000022   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     Dac7512::Dac7512(ISpi &)           0      2
+     Dac7512::Init()                    2      2
+       ->   Indirect call               2      2
+       ->   Indirect call               2      2
+     Dac7512::SetMode(unsigned char)
+                                        0      2
+     Dac7512::Write(unsigned short)     4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     Dac7512::Write(unsigned short, unsigned char)
+                                        4      2
+       -> Dac7512::SetMode(unsigned char)
+                                        4      2
+       -> Dac7512::Write(unsigned short)
+                                        4      2
+     Dac7512::new Dac7512(ISpi &)       2      2
+       -> operator new(unsigned int)
+                                        2      2
+       -> Dac7512::Dac7512(ISpi &)      2      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     Dac7512::Dac7512(ISpi &)         12
+     Dac7512::Init()                  24
+     ?Subroutine1                     10
+     ??Subroutine3_0                   8
+     Dac7512::SetMode(unsigned char)
+                                      10
+     Dac7512::Write(unsigned short)   38
+     ?Subroutine2                      6
+     ?Subroutine0                     28
+     Dac7512::Write(unsigned short, unsigned char)
+                                      20
+     Dac7512::new Dac7512(ISpi &)     36
+
+ 
+ 192 bytes in segment CODE
+ 
+ 192 bytes of CODE memory
+
+Errors: none
+Warnings: none

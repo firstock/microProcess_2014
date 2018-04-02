@@ -1,0 +1,350 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:02 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\System\System_ #
+#                    Manager.cpp                                              #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\System\System_ #
+#                    Manager.cpp --cpu=m128 -ms -o                            #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\System #
+#                    _Manager.lst                                             #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\System_ #
+#                    Manager.r90                                              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\System\System_Manager.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          #include "System_Manager.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 void SystemManager::Exit()
+   \                     ??Exit:
+   \   00000000   9508               RET
+     33          #include <assert.h>
+     34          
+     35          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     36          SystemManager * SystemManager::instance = 0;
+   \                     ??instance:
+   \   00000000                      DS8 2
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     37          SystemManager::SystemManager()
+   \                     ??SystemManager:
+     38          {
+     39            assert(0 == instance);
+     40            if(0 == instance  )
+   \   00000000   ....               LDI     R30, LOW(??instance)
+   \   00000002   ....               LDI     R31, (??instance) >> 8
+   \   00000004   8120               LD      R18, Z
+   \   00000006   8131               LDD     R19, Z+1
+   \   00000008   2B23               OR      R18, R19
+   \   0000000A   F411               BRNE    ??SystemManager_1
+     41            {
+     42              instance = this;
+   \   0000000C   8300               ST      Z, R16
+   \   0000000E   8311               STD     Z+1, R17
+     43            }
+     44            
+     45          }
+   \                     ??SystemManager_1:
+   \   00000010   9508               RET
+     46          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     47          SystemManager::~SystemManager()
+   \                     `?~SystemManager`:
+     48          {
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~SystemManager_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~SystemManager_1`
+     49            
+     50          }
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~SystemManager_1`:
+   \   0000000E   9508               RET
+     51          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     52          SystemManager * SystemManager::Instance(void)
+   \                     ??Instance:
+     53          {
+     54          
+     55            if(0 != instance  )
+   \   00000000   ....               LDI     R30, LOW(??instance)
+   \   00000002   ....               LDI     R31, (??instance) >> 8
+   \   00000004   8100               LD      R16, Z
+   \   00000006   8111               LDD     R17, Z+1
+   \   00000008   2B01               OR      R16, R17
+   \   0000000A   F011               BREQ    ??Instance_1
+     56            {
+     57              return instance;
+   \   0000000C   8100               LD      R16, Z
+   \   0000000E   9508               RET
+     58            }
+     59             
+     60            return 0;
+   \                     ??Instance_1:
+   \   00000010   ....               RJMP    ?Subroutine1
+     61          }
+     62          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     63          void SystemManager::InitModule(void)
+   \                     ??InitModule:
+     64          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+     65          //  unsigned char idx;
+     66            
+     67          //    for(idx = 0 ; idx < ms.size(); idx++)
+     68          //    {
+     69          //      ms[idx]->Init();
+     70          //    }
+     71            ms->Init();
+   \   00000006   8100               LD      R16, Z
+   \   00000008   8111               LDD     R17, Z+1
+   \   0000000A   01D8               MOVW    R27:R26, R17:R16
+   \   0000000C   91ED               LD      R30, X+
+   \   0000000E   91FC               LD      R31, X
+   \   00000010   9632               ADIW    R31:R30, 2
+   \   00000012   ....               RCALL   ?Subroutine0
+     72          }
+   \                     ??CrossCallReturnLabel_1:
+   \   00000014                      REQUIRE ?Subroutine2
+   \   00000014                      ;               // Fall through to label ?Subroutine2
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   91A9               LD      R26, Y+
+   \   00000002   91B9               LD      R27, Y+
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   9125               LPM     R18, Z+
+   \   00000002   91F4               LPM     R31, Z
+   \   00000004   2FE2               MOV     R30, R18
+   \   00000006   9409               IJMP
+     73          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     74          void SystemManager::Run(unsigned char _loop)
+   \                     ??Run:
+     75          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     76            unsigned char idx;
+                                 ^
+Warning[Pe177]: variable "idx" was declared but never referenced
+     77            
+     78            while(_loop)
+   \   00000006   2322               TST     R18
+   \   00000008   F061               BREQ    ??Run_1
+     79            {
+     80          //    for(idx = 0 ; idx < ms.size(); idx++)
+     81          //    {
+     82          //      ms[idx]->Execute();
+     83          
+     84              //      if(ms[idx]->Execute())
+     85              //      {
+     86              //        idx = 0;
+     87              //      }
+     88            
+     89          //    }  
+     90              
+     91              ms->Execute();
+   \                     ??Run_2:
+   \   0000000A   910D               LD      R16, X+
+   \   0000000C   911C               LD      R17, X
+   \   0000000E   9711               SBIW    R27:R26, 1
+   \   00000010   91ED               LD      R30, X+
+   \   00000012   91FC               LD      R31, X
+   \   00000014   9711               SBIW    R27:R26, 1
+   \   00000016   8120               LD      R18, Z
+   \   00000018   81F1               LDD     R31, Z+1
+   \   0000001A   2FE2               MOV     R30, R18
+   \   0000001C   9634               ADIW    R31:R30, 4
+   \   0000001E   ....               RCALL   ?Subroutine0
+     92          
+     93              RunTail();//wdt kick,슬립모드 진입
+     94              
+     95          
+     96            
+     97            }
+   \                     ??CrossCallReturnLabel_0:
+   \   00000020   CFF4               RJMP    ??Run_2
+     98            
+     99          }
+   \                     ??Run_1:
+   \   00000022   ....               RJMP    ?Subroutine2
+    100          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    101          void SystemManager::AddModule(IModule & _m)
+   \                     ??AddModule:
+    102          {
+    103          //  ms.push_back(&_m);  
+    104            ms = &_m;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8320               ST      Z, R18
+   \   00000004   8331               STD     Z+1, R19
+    105          }
+   \   00000006   9508               RET
+    106            
+    107          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    108          void SystemManager::RunTail(void)
+   \                     ??RunTail:
+    109          {
+    110            
+    111            
+    112          }
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SystemManager *SystemManager::new SystemManager()
+   \                     `??new SystemManager`:
+   \   00000000   E004               LDI     R16, 4
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new SystemManager_1`
+   \   0000000E   ....               RJMP    ??SystemManager
+   \                     `??new SystemManager_1`:
+   \   00000010                      REQUIRE ?Subroutine1
+   \   00000010                      ;               // Fall through to label ?Subroutine1
+    113          
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     SystemManager::AddModule(IModule &)
+                                        0      2
+     SystemManager::Exit()              0      2
+     SystemManager::InitModule()        2      2
+       ->   Indirect call               2      2
+     SystemManager::Instance()          0      2
+     SystemManager::Run(unsigned char)
+                                        2      2
+       ->   Indirect call               2      2
+     SystemManager::RunTail()           0      2
+     SystemManager::SystemManager()     0      2
+     SystemManager::new SystemManager()
+                                        0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> SystemManager::SystemManager()
+                                        0      2
+     SystemManager::~SystemManager()
+                                        0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     SystemManager::Exit()             2
+     SystemManager::instance           2
+     SystemManager::SystemManager()   18
+     SystemManager::~SystemManager()
+                                      16
+     ?Subroutine1                      6
+     SystemManager::Instance()        18
+     SystemManager::InitModule()      20
+     ?Subroutine2                      6
+     ?Subroutine0                      8
+     SystemManager::Run(unsigned char)
+                                      36
+     SystemManager::AddModule(IModule &)
+                                       8
+     SystemManager::RunTail()          2
+     SystemManager::new SystemManager()
+                                      16
+      Others                          13
+
+ 
+ 156 bytes in segment CODE
+   7 bytes in segment INITTAB
+   6 bytes in segment NEAR_F
+   2 bytes in segment NEAR_Z
+ 
+ 154 bytes of CODE memory (+ 15 bytes shared)
+   2 bytes of DATA memory
+
+Errors: none
+Warnings: 1

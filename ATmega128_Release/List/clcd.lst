@@ -1,0 +1,253 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:32:57 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Drivers\clcd.c #
+#                    pp                                                       #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Drivers\clcd.c #
+#                    pp --cpu=m128 -ms -o D:\Work\IAR\TIEF_Framework\ATmega12 #
+#                    8_Release\Obj\ -D NDEBUG -D xWATCHDOG_ENABLE -lC         #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\clcd.l #
+#                    st                                                       #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\clcd.r9 #
+#                    0                                                        #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Drivers\clcd.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          
+     33          #include "clcd.h"
+     34          #include <assert.h>
+     35          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     36          Clcd::Clcd(void)
+   \                     ??Clcd:
+     37          {
+     38            Init();
+     39          }
+   \   00000000   9508               RET
+     40            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     41          unsigned char Clcd::Write(unsigned char _line,  char  *_string)
+   \                     ??Write:
+     42          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01CA               MOVW    R25:R24, R21:R20
+     43                
+     44              SetInstruction(_line); //LCD 위치 지정
+   \   00000008   ....               RCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_5:
+   \   0000000A   C003               RJMP    ??CrossCallReturnLabel_3
+     45              assert( 0 != _string);
+     46          
+     47              while(*_string != '\0')
+     48              {
+     49                  SetData(*_string);
+   \                     ??Write_2:
+   \   0000000C   9121               LD      R18, Z+
+   \   0000000E   01CF               MOVW    R25:R24, R31:R30
+   \   00000010   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_3:
+   \   00000012   ....               RCALL   ?Subroutine0
+     50                  _string++;
+     51              }
+   \                     ??CrossCallReturnLabel_2:
+   \   00000014   01FC               MOVW    R31:R30, R25:R24
+   \   00000016   8100               LD      R16, Z
+   \   00000018   2300               TST     R16
+   \   0000001A   F7C1               BRNE    ??Write_2
+     52              
+     53              return 1;
+   \   0000001C   E001               LDI     R16, 1
+   \   0000001E   E0E4               LDI     R30, 4
+   \   00000020   ........           JMP     ?EPILOGUE_B4_L09
+     54            
+     55          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   91ED               LD      R30, X+
+   \   00000002   91FC               LD      R31, X
+   \   00000004   9711               SBIW    R27:R26, 1
+   \   00000006   9636               ADIW    R31:R30, 6
+   \   00000008   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   018D               MOVW    R17:R16, R27:R26
+   \   00000002   91ED               LD      R30, X+
+   \   00000004   91FC               LD      R31, X
+   \   00000006   9711               SBIW    R27:R26, 1
+   \   00000008   9634               ADIW    R31:R30, 4
+   \   0000000A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   9145               LPM     R20, Z+
+   \   00000002   91F4               LPM     R31, Z
+   \   00000004   2FE4               MOV     R30, R20
+   \   00000006   9409               IJMP
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     56          unsigned char Clcd::Write(unsigned char _line, CONST  char  _string[])
+   \                     ??Write_1:
+     57          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01CA               MOVW    R25:R24, R21:R20
+     58                unsigned char i =0;
+   \   00000008   2444               CLR     R4
+     59              SetInstruction(_line); //LCD 위치 지정
+   \   0000000A   ....               RCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_6:
+   \   0000000C   ....               RCALL   ?Subroutine0
+     60              assert( 0 != _string);
+   \                     ??CrossCallReturnLabel_1:
+   \   0000000E   C004               RJMP    ??Write_3
+     61          
+     62              while(_string[i] != '\0')
+     63              {
+     64                  SetData(_string[i]);
+   \                     ??Write_4:
+   \   00000010   9124               LPM     R18, Z
+   \   00000012   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_4:
+   \   00000014   ....               RCALL   ?Subroutine0
+     65                  i++;
+   \                     ??CrossCallReturnLabel_0:
+   \   00000016   9443               INC     R4
+     66              }
+   \                     ??Write_3:
+   \   00000018   2455               CLR     R5
+   \   0000001A   01FC               MOVW    R31:R30, R25:R24
+   \   0000001C   0DE4               ADD     R30, R4
+   \   0000001E   1DF5               ADC     R31, R5
+   \   00000020   9104               LPM     R16, Z
+   \   00000022   2300               TST     R16
+   \   00000024   F7A9               BRNE    ??Write_4
+     67              
+     68              return 1;
+   \   00000026   E001               LDI     R16, 1
+   \   00000028   E0E6               LDI     R30, 6
+   \   0000002A   ........           JMP     ?EPILOGUE_B6_L09
+     69            
+     70          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Clcd *Clcd::new Clcd()
+   \                     `??new Clcd`:
+   \   00000000   E002               LDI     R16, 2
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F011               BREQ    `??new Clcd_1`
+   \   0000000E   0198               MOVW    R19:R18, R17:R16
+   \   00000010   C002               RJMP    `??new Clcd_2`
+   \                     `??new Clcd_1`:
+   \   00000012   E020               LDI     R18, 0
+   \   00000014   E030               LDI     R19, 0
+   \                     `??new Clcd_2`:
+   \   00000016   0189               MOVW    R17:R16, R19:R18
+   \   00000018   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     Clcd::Clcd()                       0      2
+     Clcd::Write(unsigned char, char *)
+                                        4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     Clcd::Write(unsigned char, char __flash *)
+                                        6      2
+       ->   Indirect call               6      2
+       ->   Indirect call               6      2
+     Clcd::new Clcd()                   0      2
+       -> operator new(unsigned int)
+                                        0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     Clcd::Clcd()                      2
+     Clcd::Write(unsigned char, char *)
+                                      36
+     ?Subroutine2                     10
+     ?Subroutine1                     12
+     ?Subroutine0                      8
+     Clcd::Write(unsigned char, char __flash *)
+                                      46
+     Clcd::new Clcd()                 26
+
+ 
+ 140 bytes in segment CODE
+ 
+ 140 bytes of CODE memory
+
+Errors: none
+Warnings: none

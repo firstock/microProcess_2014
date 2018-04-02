@@ -1,0 +1,142 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:42 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\CPU\AVR_Driver\avr_common.cpp     #
+#    Command line =  C:\work\TIEL_FrameWork\CPU\AVR_Driver\avr_common.cpp     #
+#                    --cpu=m128 -ms -o C:\work\ATmega128_Debug\Obj\ -D        #
+#                    xNDEBUG -D xWATCHDOG_ENABLE -lC                          #
+#                    C:\work\ATmega128_Debug\List\ -y                         #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\avr_common.lst              #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\avr_common.r90               #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\CPU\AVR_Driver\avr_common.cpp
+      1          #include "avr_common.h"
+      2          
+      3          #include <ioavr.h>
+      4          #include <inavr.h> //__delay_cycles()
+      5          
+      6          #if defined(__ATmega128__) 
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      7          void avr_delay_us(unsigned char time_us) //at 16.000MHZ
+   \                     ??avr_delay_us:
+      8          { // time delay(us)
+      9            register unsigned char i;
+     10            for(i = 0; i < time_us; i++) {        // 4 cycle
+   \   00000000   E010               LDI     R17, 0
+   \                     ??avr_delay_us_1:
+   \   00000002   1710               CP      R17, R16
+   \   00000004   F428               BRCC    ??avr_delay_us_2
+     11              __delay_cycles(12);  
+   \   00000006   E024               LDI     R18, 4
+   \   00000008   952A               DEC     R18
+   \   0000000A   F7F1               BRNE    $-2
+     12              // 16 cycle * 62.5 ns = 1000 ns = 1 us at 16.000MHZ
+     13            }
+   \   0000000C   9513               INC     R17
+   \   0000000E   CFF9               RJMP    ??avr_delay_us_1
+     14          }
+   \                     ??avr_delay_us_2:
+   \   00000010   9508               RET
+     15          #else
+     16          void avr_delay_us(unsigned char time_us)//at 8.000MHZ
+     17          { // time delay(us)
+     18            register unsigned char i;
+     19            for(i = 0; i < time_us; i++) {        // 4 cycle
+     20              __delay_cycles(4);  
+     21          
+     22            }
+     23          }
+     24          #endif
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     25          void avr_delay_ms(unsigned int m)
+   \                     ??avr_delay_ms:
+     26          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+     27              unsigned int i;
+     28          
+     29              for(i=0; i<m; i++)
+   \   00000006   E0A0               LDI     R26, 0
+   \   00000008   E0B0               LDI     R27, 0
+   \                     ??avr_delay_ms_1:
+   \   0000000A   17A8               CP      R26, R24
+   \   0000000C   07B9               CPC     R27, R25
+   \   0000000E   F450               BRCC    ??avr_delay_ms_2
+     30              {
+     31                avr_delay_us(250);
+   \   00000010   EF0A               LDI     R16, 250
+   \   00000012   ....               RCALL   ??avr_delay_us
+     32                avr_delay_us(250);
+   \   00000014   EF0A               LDI     R16, 250
+   \   00000016   ....               RCALL   ??avr_delay_us
+     33                avr_delay_us(250);
+   \   00000018   EF0A               LDI     R16, 250
+   \   0000001A   ....               RCALL   ??avr_delay_us
+     34                avr_delay_us(250);
+   \   0000001C   EF0A               LDI     R16, 250
+   \   0000001E   ....               RCALL   ??avr_delay_us
+     35              }
+   \   00000020   9611               ADIW    R27:R26, 1
+   \   00000022   CFF3               RJMP    ??avr_delay_ms_1
+     36          }
+   \                     ??avr_delay_ms_2:
+   \   00000024   E0E4               LDI     R30, 4
+   \   00000026   ........           JMP     ?EPILOGUE_B4_L09
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     avr_delay_ms(unsigned int)         4      2
+       -> avr_delay_us(unsigned char)
+                                        4      2
+       -> avr_delay_us(unsigned char)
+                                        4      2
+       -> avr_delay_us(unsigned char)
+                                        4      2
+       -> avr_delay_us(unsigned char)
+                                        4      2
+     avr_delay_us(unsigned char)        0      2
+
+
+   Segment part sizes:
+
+     Function/Label              Bytes
+     --------------              -----
+     avr_delay_us(unsigned char)   18
+     avr_delay_ms(unsigned int)    42
+
+ 
+ 60 bytes in segment CODE
+ 
+ 60 bytes of CODE memory
+
+Errors: none
+Warnings: none

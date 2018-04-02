@@ -1,0 +1,59 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:39 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Basic_Component\Power_Manager.cpp #
+#    Command line =  C:\work\TIEL_FrameWork\Basic_Component\Power_Manager.cpp #
+#                     --cpu=m128 -ms -o C:\work\ATmega128_Debug\Obj\ -D       #
+#                    xNDEBUG -D xWATCHDOG_ENABLE -lC                          #
+#                    C:\work\ATmega128_Debug\List\ -y                         #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\Power_Manager.lst           #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\Power_Manager.r90            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Basic_Component\Power_Manager.cpp
+      1          //목적: CPU전원관리, 주변장치 전원, 핫스왑장치의 전원을 관리를 위한 메커니즘을 제공.
+      2          // 전원 레벨: 전원 차단, 파워 다운(슬립), 아이들
+      3          // 전원 모드: 
+      4          
+      5          // 전원이 차단된 장치가 복구되거나 핫스왑장치가 시작(재시작)시에 복구 메카니즘을
+      6          // 제공해야함. 특히 하드웨어 장치의 전원 복구 절차를 잘지원? 해야함.
+      7          // 소프트웨어적으로는 장치가 복구되었을때 이전상태가 연속적으로 작동하도록 h/w,S/W state를 복구가능해야함.
+      8          // 단순히 초기화가아님.
+      9          // Hotswap을 위해서는....
+     10          
+     11          //사용통계?스케쥴?
+     12          
+     13          // ISR 이 실행되면 Sleep 모드를 lock해야한다.
+     14          
+
+
+ 
+ 
+ 0 bytes of memory
+
+Errors: none
+Warnings: none

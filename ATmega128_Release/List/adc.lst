@@ -1,0 +1,316 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:32:59 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Componen #
+#                    t\adc.cpp                                                #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Componen #
+#                    t\adc.cpp --cpu=m128 -ms -o                              #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\adc.ls #
+#                    t                                                        #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\adc.r90 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Component\adc.cpp
+      1          #include "adc.h"
+      2          
+      3          #include <cassert>
+      4          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          Adc::Adc(IAdcPort * _iadc)
+   \                     ??Adc:
+      6           :ITimerEvent(REPEAT,100)
+      7          {
+   \   00000000   E040               LDI     R20, 0
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8340               ST      Z, R20
+   \   00000006   E644               LDI     R20, 100
+   \   00000008   E050               LDI     R21, 0
+   \   0000000A   8341               STD     Z+1, R20
+   \   0000000C   8352               STD     Z+2, R21
+   \   0000000E   8355               STD     Z+5, R21
+   \   00000010   ....               LDI     R20, LOW(??__vtbl)
+   \   00000012   ....               LDI     R21, (??__vtbl) >> 8
+   \   00000014   8346               STD     Z+6, R20
+   \   00000016   8357               STD     Z+7, R21
+      8            assert(0 != _iadc);
+      9            
+     10            iadc = _iadc;
+   \   00000018   8722               STD     Z+10, R18
+   \   0000001A   8733               STD     Z+11, R19
+     11            ev = 0;
+   \   0000001C   E020               LDI     R18, 0
+   \   0000001E   8720               STD     Z+8, R18
+   \   00000020   8721               STD     Z+9, R18
+     12          }
+   \   00000022   9508               RET
+     13          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     14          Adc::~Adc()
+   \                     `?~Adc`:
+     15          {
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~Adc_1`
+     16            
+     17          }
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~Adc_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~Adc_1`:
+   \   0000000E   9508               RET
+     18            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     19          void Adc::evTick(void)
+   \                     ??evTick:
+     20          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     21            if( 0 != ev)
+   \   00000006   9618               ADIW    R27:R26, 8
+   \   00000008   91ED               LD      R30, X+
+   \   0000000A   91FC               LD      R31, X
+   \   0000000C   9719               SBIW    R27:R26, 9
+   \   0000000E   2F0E               MOV     R16, R30
+   \   00000010   2B0F               OR      R16, R31
+   \   00000012   F0C1               BREQ    ??evTick_1
+     22            {
+     23              ev->Converted( iadc->GetAdc() );
+   \   00000014   8180               LD      R24, Z
+   \   00000016   8191               LDD     R25, Z+1
+   \   00000018   9602               ADIW    R25:R24, 2
+   \   0000001A   01FD               MOVW    R31:R30, R27:R26
+   \   0000001C   8502               LDD     R16, Z+10
+   \   0000001E   8513               LDD     R17, Z+11
+   \   00000020   01F8               MOVW    R31:R30, R17:R16
+   \   00000022   8120               LD      R18, Z
+   \   00000024   81F1               LDD     R31, Z+1
+   \   00000026   2FE2               MOV     R30, R18
+   \   00000028   9634               ADIW    R31:R30, 4
+   \   0000002A   9125               LPM     R18, Z+
+   \   0000002C   91F4               LPM     R31, Z
+   \   0000002E   2FE2               MOV     R30, R18
+   \   00000030   9509               ICALL
+   \   00000032   0198               MOVW    R19:R18, R17:R16
+   \   00000034   01FD               MOVW    R31:R30, R27:R26
+   \   00000036   8500               LDD     R16, Z+8
+   \   00000038   8511               LDD     R17, Z+9
+   \   0000003A   01FC               MOVW    R31:R30, R25:R24
+   \   0000003C   9145               LPM     R20, Z+
+   \   0000003E   91F4               LPM     R31, Z
+   \   00000040   2FE4               MOV     R30, R20
+   \   00000042   9509               ICALL
+     24              
+     25            }
+     26          }
+   \                     ??evTick_1:
+   \   00000044   E0E4               LDI     R30, 4
+   \   00000046   ........           JMP     ?EPILOGUE_B4_L09
+     27          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     28          void  Adc::TimeOutEvent(void)
+   \                     ??TimeOutEvent:
+     29          {
+     30            evTick();  
+   \   00000000   ....               RJMP    ??evTick
+     31          }
+     32          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     33          void Adc::Run(void)
+   \                     ??Run:
+     34          {
+     35            ITimerEvent::Resume();
+   \   00000000   E021               LDI     R18, 1
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004                      REQUIRE ?Subroutine0
+   \   00000004                      ;               // Fall through to label ?Subroutine0
+     36          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   8325               STD     Z+5, R18
+   \   00000002   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     37          void Adc::Stop(void)
+   \                     ??Stop:
+     38          {
+     39            ITimerEvent::Stop();
+   \   00000000   E020               LDI     R18, 0
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8323               STD     Z+3, R18
+   \   00000006   8324               STD     Z+4, R18
+   \   00000008   ....               RJMP    ?Subroutine0
+     40          }
+     41          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     42          void Adc::Addevent(AdcEvent * _ev)
+   \                     ??Addevent:
+     43          {
+     44            assert( 0 != _ev);
+     45            
+     46            if( 0 != _ev)
+   \   00000000   2F42               MOV     R20, R18
+   \   00000002   2B43               OR      R20, R19
+   \   00000004   F019               BREQ    ??Addevent_1
+     47            {
+     48              ev = _ev;
+   \   00000006   01F8               MOVW    R31:R30, R17:R16
+   \   00000008   8720               STD     Z+8, R18
+   \   0000000A   8731               STD     Z+9, R19
+     49            }
+     50          }
+   \                     ??Addevent_1:
+   \   0000000C   9508               RET
+     51          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     52          void Adc::SetFrequency(unsigned char _Hz)
+   \                     ??SetFrequency:
+     53          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     54            float ms;
+     55            
+     56            ms = (1.0/_Hz)*1000;
+     57            
+     58            ITimerEvent::SetIntervalms(ms);
+                                              ^
+Warning[Pa093]: implicit conversion from floating point to integer
+   \   00000006   2F02               MOV     R16, R18
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   E030               LDI     R19, 0
+   \   0000000E   ........           CALL    ?UL2F_L04
+   \   00000012   01A8               MOVW    R21:R20, R17:R16
+   \   00000014   01B9               MOVW    R23:R22, R19:R18
+   \   00000016   E000               LDI     R16, 0
+   \   00000018   E010               LDI     R17, 0
+   \   0000001A   E820               LDI     R18, 128
+   \   0000001C   E33F               LDI     R19, 63
+   \   0000001E   ........           CALL    ?F_DIV_L04
+   \   00000022   E040               LDI     R20, 0
+   \   00000024   E050               LDI     R21, 0
+   \   00000026   E76A               LDI     R22, 122
+   \   00000028   E474               LDI     R23, 68
+   \   0000002A   ........           CALL    ?F_MUL_L04
+   \   0000002E   ........           CALL    ?F2SL_L04
+   \   00000032   2F20               MOV     R18, R16
+   \   00000034   2B21               OR      R18, R17
+   \   00000036   F019               BREQ    ??SetFrequency_1
+   \   00000038   01FD               MOVW    R31:R30, R27:R26
+   \   0000003A   8301               STD     Z+1, R16
+   \   0000003C   8312               STD     Z+2, R17
+     59          
+     60          }
+   \                     ??SetFrequency_1:
+   \   0000003E   91A9               LD      R26, Y+
+   \   00000040   91B9               LD      R27, Y+
+   \   00000042   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Adc *Adc::new Adc(IAdcPort *)
+   \                     `??new Adc`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   E00C               LDI     R16, 12
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    `??operator new`
+   \   0000000E   2F20               MOV     R18, R16
+   \   00000010   2B21               OR      R18, R17
+   \   00000012   F019               BREQ    `??new Adc_1`
+   \   00000014   019C               MOVW    R19:R18, R25:R24
+   \   00000016   ....               RCALL   ??Adc
+   \   00000018   C002               RJMP    `??new Adc_2`
+   \                     `??new Adc_1`:
+   \   0000001A   E000               LDI     R16, 0
+   \   0000001C   E010               LDI     R17, 0
+   \                     `??new Adc_2`:
+   \   0000001E   9189               LD      R24, Y+
+   \   00000020   9199               LD      R25, Y+
+   \   00000022   9508               RET
+     61           
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     Adc::Adc(IAdcPort *)               0      2
+     Adc::Addevent(AdcEvent *)          0      2
+     Adc::Run()                         0      2
+     Adc::SetFrequency(unsigned char)
+                                        2      4
+     Adc::Stop()                        0      2
+     Adc::TimeOutEvent()                0      2
+       -> Adc::evTick()                 0      2
+     Adc::evTick()                      4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     Adc::new Adc(IAdcPort *)           2      2
+       -> operator new(size_t)          2      2
+       -> Adc::Adc(IAdcPort *)          2      2
+     Adc::~Adc()                        0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     Adc::Adc(IAdcPort *)             36
+     Adc::~Adc()                      16
+     Adc::evTick()                    74
+     Adc::TimeOutEvent()               2
+     Adc::Run()                        4
+     ?Subroutine0                      4
+     Adc::Stop()                      10
+     Adc::Addevent(AdcEvent *)        14
+     Adc::SetFrequency(unsigned char)
+                                      68
+     Adc::new Adc(IAdcPort *)         36
+      Others                           4
+
+ 
+ 264 bytes in segment CODE
+   4 bytes in segment NEAR_F
+ 
+ 264 bytes of CODE memory (+ 4 bytes shared)
+
+Errors: none
+Warnings: 1

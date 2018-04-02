@@ -1,0 +1,421 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:44 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Drivers\mcp3204.cpp               #
+#    Command line =  C:\work\TIEL_FrameWork\Drivers\mcp3204.cpp --cpu=m128    #
+#                    -ms -o C:\work\ATmega128_Debug\Obj\ -D xNDEBUG -D        #
+#                    xWATCHDOG_ENABLE -lC C:\work\ATmega128_Debug\List\ -y    #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\mcp3204.lst                 #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\mcp3204.r90                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Drivers\mcp3204.cpp
+      1          ///////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // -------------------------------------------
+      6           
+      7          // Description: SerialIO Class
+      8           
+      9          //
+     10           
+     11          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+     12           
+     13          // Site: ccrs.hanyang.ac.kr
+     14           
+     15          // Copyright (C) 2013-2013 TIEL(TIEL is Embedded S/W library) Project.
+     16           
+     17          //
+     18           
+     19          //////////////////////////////////////////////////////////////////////////////////////////
+     20          //
+     21          //    License type: GNU General Public License (GPL)
+     22          //      
+     23          //    This program is free software: you can redistribute it and/or modify
+     24          //    it under the terms of the GNU General Public License as published by
+     25          //    the Free Software Foundation, either version 3 of the License, or
+     26          //    (at your option) any later version.
+     27          
+     28          //    This program is distributed in the hope that it will be useful,
+     29          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     30          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     31          //    GNU General Public License for more details.
+     32          
+     33          //    You should have received a copy of the GNU General Public License
+     34          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     35          //
+     36          //////////////////////////////////////////////////////////////////////////////////////////
+     37          
+     38          #include "mcp3204.h"
+     39          #include <assert.h>
+     40          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     41          Mcp3204::Mcp3204(ISpi & _spi)
+   \                     ??Mcp3204:
+     42          {
+     43            spi = &_spi;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8321               STD     Z+1, R18
+   \   00000004   8332               STD     Z+2, R19
+     44            
+     45            ch = 0;
+   \   00000006   E040               LDI     R20, 0
+   \   00000008   01F8               MOVW    R31:R30, R17:R16
+   \   0000000A   8340               ST      Z, R20
+     46          }
+   \   0000000C   9508               RET
+     47          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     48          void Mcp3204::Init(void)
+   \                     ??Init:
+     49          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     50            ch = 0;
+   \   00000006   E000               LDI     R16, 0
+   \   00000008   930C               ST      X, R16
+     51            Init_Spi();
+   \   0000000A   9613               ADIW    R27:R26, 3
+   \   0000000C   91ED               LD      R30, X+
+   \   0000000E   91FC               LD      R31, X
+   \   00000010   9714               SBIW    R27:R26, 4
+   \   00000012   018D               MOVW    R17:R16, R27:R26
+   \   00000014   9125               LPM     R18, Z+
+   \   00000016   9134               LPM     R19, Z
+   \   00000018   9731               SBIW    R31:R30, 1
+   \   0000001A   01F9               MOVW    R31:R30, R19:R18
+   \   0000001C   9509               ICALL
+     52            Spi_CS_H();
+   \   0000001E   01FD               MOVW    R31:R30, R27:R26
+   \   00000020   8123               LDD     R18, Z+3
+   \   00000022   8134               LDD     R19, Z+4
+   \   00000024   5F2E               SUBI    R18, 254
+   \   00000026   4F3F               SBCI    R19, 255
+   \   00000028   018D               MOVW    R17:R16, R27:R26
+   \   0000002A   01F9               MOVW    R31:R30, R19:R18
+   \   0000002C   9125               LPM     R18, Z+
+   \   0000002E   9134               LPM     R19, Z
+   \   00000030   9731               SBIW    R31:R30, 1
+   \   00000032   01F9               MOVW    R31:R30, R19:R18
+   \   00000034   9509               ICALL
+     53          }
+   \   00000036   91A9               LD      R26, Y+
+   \   00000038   91B9               LD      R27, Y+
+   \   0000003A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     54          void Mcp3204::SetChannel(unsigned char _ch)
+   \                     ??SetChannel:
+     55          {
+   \   00000000   ........           CALL    ?PROLOGUE3_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   2FA2               MOV     R26, R18
+     56            assert(0x03 >= _ch);
+   \   00000008   30A4               CPI     R26, 4
+   \   0000000A   F050               BRCS    ??SetChannel_1
+   \   0000000C   E348               LDI     R20, 56
+   \   0000000E   E050               LDI     R21, 0
+   \   00000010   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000012   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000014   ....               LDI     R16, LOW(`?<Constant "0x03 >= _ch">`)
+   \   00000016   ....               LDI     R17, (`?<Constant "0x03 >= _ch">`) >> 8
+   \   00000018   ........           CALL    __taabi_assert
+   \   0000001C   ........           CALL    __iar_EmptyStepPoint
+     57            
+     58            ch = 0x03 & _ch;  
+   \                     ??SetChannel_1:
+   \   00000020   2F0A               MOV     R16, R26
+   \   00000022   7003               ANDI    R16, 0x03
+   \   00000024   01FC               MOVW    R31:R30, R25:R24
+   \   00000026   8300               ST      Z, R16
+     59            
+     60          }
+   \   00000028   E0E3               LDI     R30, 3
+   \   0000002A   ........           JMP     ?EPILOGUE_B3_L09
+     61          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     62          unsigned short Mcp3204::GetADC(void)
+   \                     ??GetADC:
+     63          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     64            unsigned short v = 0;
+   \   00000006   E080               LDI     R24, 0
+   \   00000008   E090               LDI     R25, 0
+     65            Spi_CS_H();
+   \   0000000A   01FD               MOVW    R31:R30, R27:R26
+   \   0000000C   8123               LDD     R18, Z+3
+   \   0000000E   8134               LDD     R19, Z+4
+   \   00000010   5F2E               SUBI    R18, 254
+   \   00000012   4F3F               SBCI    R19, 255
+   \   00000014   018D               MOVW    R17:R16, R27:R26
+   \   00000016   01F9               MOVW    R31:R30, R19:R18
+   \   00000018   9125               LPM     R18, Z+
+   \   0000001A   9134               LPM     R19, Z
+   \   0000001C   9731               SBIW    R31:R30, 1
+   \   0000001E   01F9               MOVW    R31:R30, R19:R18
+   \   00000020   9509               ICALL
+     66            Spi_CS_L();
+   \   00000022   01FD               MOVW    R31:R30, R27:R26
+   \   00000024   8123               LDD     R18, Z+3
+   \   00000026   8134               LDD     R19, Z+4
+   \   00000028   5F2C               SUBI    R18, 252
+   \   0000002A   4F3F               SBCI    R19, 255
+   \   0000002C   018D               MOVW    R17:R16, R27:R26
+   \   0000002E   01F9               MOVW    R31:R30, R19:R18
+   \   00000030   9125               LPM     R18, Z+
+   \   00000032   9134               LPM     R19, Z
+   \   00000034   9731               SBIW    R31:R30, 1
+   \   00000036   01F9               MOVW    R31:R30, R19:R18
+   \   00000038   9509               ICALL
+     67            spi->WriteByte(0x06);
+   \   0000003A   01FD               MOVW    R31:R30, R27:R26
+   \   0000003C   8101               LDD     R16, Z+1
+   \   0000003E   8112               LDD     R17, Z+2
+   \   00000040   01F8               MOVW    R31:R30, R17:R16
+   \   00000042   8140               LD      R20, Z
+   \   00000044   8151               LDD     R21, Z+1
+   \   00000046   5F4E               SUBI    R20, 254
+   \   00000048   4F5F               SBCI    R21, 255
+   \   0000004A   E026               LDI     R18, 6
+   \   0000004C   01FD               MOVW    R31:R30, R27:R26
+   \   0000004E   8101               LDD     R16, Z+1
+   \   00000050   8112               LDD     R17, Z+2
+   \   00000052   01FA               MOVW    R31:R30, R21:R20
+   \   00000054   9145               LPM     R20, Z+
+   \   00000056   9154               LPM     R21, Z
+   \   00000058   9731               SBIW    R31:R30, 1
+   \   0000005A   01FA               MOVW    R31:R30, R21:R20
+   \   0000005C   9509               ICALL
+     68            v = spi->ReadByte(ch << 6) & 0x0f;
+   \   0000005E   01FD               MOVW    R31:R30, R27:R26
+   \   00000060   8101               LDD     R16, Z+1
+   \   00000062   8112               LDD     R17, Z+2
+   \   00000064   01F8               MOVW    R31:R30, R17:R16
+   \   00000066   8140               LD      R20, Z
+   \   00000068   8151               LDD     R21, Z+1
+   \   0000006A   5F4C               SUBI    R20, 252
+   \   0000006C   4F5F               SBCI    R21, 255
+   \   0000006E   910C               LD      R16, X
+   \   00000070   E410               LDI     R17, 64
+   \   00000072   9F01               MUL     R16, R17
+   \   00000074   2D20               MOV     R18, R0
+   \   00000076   01FD               MOVW    R31:R30, R27:R26
+   \   00000078   8101               LDD     R16, Z+1
+   \   0000007A   8112               LDD     R17, Z+2
+   \   0000007C   01FA               MOVW    R31:R30, R21:R20
+   \   0000007E   9145               LPM     R20, Z+
+   \   00000080   9154               LPM     R21, Z
+   \   00000082   9731               SBIW    R31:R30, 1
+   \   00000084   01FA               MOVW    R31:R30, R21:R20
+   \   00000086   9509               ICALL
+   \   00000088   E010               LDI     R17, 0
+   \   0000008A   700F               ANDI    R16, 0x0F
+   \   0000008C   7010               ANDI    R17, 0x00
+   \   0000008E   01C8               MOVW    R25:R24, R17:R16
+     69            v <<=8;
+   \   00000090   2F98               MOV     R25, R24
+   \   00000092   E080               LDI     R24, 0
+     70            v |= spi->ReadByte();
+   \   00000094   01FD               MOVW    R31:R30, R27:R26
+   \   00000096   8101               LDD     R16, Z+1
+   \   00000098   8112               LDD     R17, Z+2
+   \   0000009A   01F8               MOVW    R31:R30, R17:R16
+   \   0000009C   8140               LD      R20, Z
+   \   0000009E   8151               LDD     R21, Z+1
+   \   000000A0   5F4C               SUBI    R20, 252
+   \   000000A2   4F5F               SBCI    R21, 255
+   \   000000A4   E020               LDI     R18, 0
+   \   000000A6   01FD               MOVW    R31:R30, R27:R26
+   \   000000A8   8101               LDD     R16, Z+1
+   \   000000AA   8112               LDD     R17, Z+2
+   \   000000AC   01FA               MOVW    R31:R30, R21:R20
+   \   000000AE   9145               LPM     R20, Z+
+   \   000000B0   9154               LPM     R21, Z
+   \   000000B2   9731               SBIW    R31:R30, 1
+   \   000000B4   01FA               MOVW    R31:R30, R21:R20
+   \   000000B6   9509               ICALL
+   \   000000B8   E010               LDI     R17, 0
+   \   000000BA   2B80               OR      R24, R16
+   \   000000BC   2B91               OR      R25, R17
+     71            Spi_CS_H();
+   \   000000BE   01FD               MOVW    R31:R30, R27:R26
+   \   000000C0   8123               LDD     R18, Z+3
+   \   000000C2   8134               LDD     R19, Z+4
+   \   000000C4   5F2E               SUBI    R18, 254
+   \   000000C6   4F3F               SBCI    R19, 255
+   \   000000C8   018D               MOVW    R17:R16, R27:R26
+   \   000000CA   01F9               MOVW    R31:R30, R19:R18
+   \   000000CC   9125               LPM     R18, Z+
+   \   000000CE   9134               LPM     R19, Z
+   \   000000D0   9731               SBIW    R31:R30, 1
+   \   000000D2   01F9               MOVW    R31:R30, R19:R18
+   \   000000D4   9509               ICALL
+     72            
+     73            return v & 0xfff;
+   \   000000D6   7F8F               ANDI    R24, 0xFF
+   \   000000D8   709F               ANDI    R25, 0x0F
+   \   000000DA   018C               MOVW    R17:R16, R25:R24
+   \   000000DC   E0E4               LDI     R30, 4
+   \   000000DE   ........           JMP     ?EPILOGUE_B4_L09
+     74            
+     75          }
+     76          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     77          unsigned short Mcp3204::GetADC(unsigned char _ch)
+   \                     ??GetADC_1:
+     78          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+     79            SetChannel(_ch);
+   \   00000008   2F28               MOV     R18, R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   ....               RCALL   ??SetChannel
+     80            return GetADC();
+   \   0000000E   018D               MOVW    R17:R16, R27:R26
+   \   00000010   ....               RCALL   ??GetADC
+   \   00000012   E0E4               LDI     R30, 4
+   \   00000014   ........           JMP     ?EPILOGUE_B4_L09
+     81          }
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0x03 >= _ch">>`:
+   \   00000000   783033303E20       DC8 "0x03 >= _ch"
+   \              203D635F0068
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`:
+   \   00000000   3A43775C726F       DC8 "C:\\work\\TIEL_FrameWork\\Drivers\\mcp3204.cpp"
+   \              5C6B49544C45
+   \              465F6172656D
+   \              6F576B72445C
+   \              697265767372
+   \              6D5C70633233
+   \              3430632E7070
+   \              00          
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0x03 >= _ch">`:
+   \   00000000                      DS8 12
+   \   0000000C                      REQUIRE `?<Initializer for <Constant "0x03 >= _ch">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`:
+   \   00000000                      DS8 43
+   \   0000002B                      REQUIRE `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Mcp3204 *Mcp3204::new Mcp3204(ISpi &)
+   \                     `??new Mcp3204`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   E005               LDI     R16, 5
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    `??operator new`
+   \   0000000E   01A8               MOVW    R21:R20, R17:R16
+   \   00000010   2B01               OR      R16, R17
+   \   00000012   F021               BREQ    `??new Mcp3204_1`
+   \   00000014   019C               MOVW    R19:R18, R25:R24
+   \   00000016   018A               MOVW    R17:R16, R21:R20
+   \   00000018   ....               RCALL   ??Mcp3204
+   \   0000001A   C002               RJMP    `??new Mcp3204_2`
+   \                     `??new Mcp3204_1`:
+   \   0000001C   E000               LDI     R16, 0
+   \   0000001E   E010               LDI     R17, 0
+   \                     `??new Mcp3204_2`:
+   \   00000020   9189               LD      R24, Y+
+   \   00000022   9199               LD      R25, Y+
+   \   00000024   9508               RET
+     82          
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     Mcp3204::GetADC()                  4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     Mcp3204::GetADC(unsigned char)     4      2
+       -> Mcp3204::SetChannel(unsigned char)
+                                        4      2
+       -> Mcp3204::GetADC()             4      2
+     Mcp3204::Init()                    2      2
+       ->   Indirect call               2      2
+       ->   Indirect call               2      2
+     Mcp3204::Mcp3204(ISpi &)           0      2
+     Mcp3204::SetChannel(unsigned char)
+                                        3      2
+       -> __taabi_assert                3      2
+       -> __iar_EmptyStepPoint          3      2
+     Mcp3204::new Mcp3204(ISpi &)       2      2
+       -> operator new(unsigned int)
+                                        2      2
+       -> Mcp3204::Mcp3204(ISpi &)      2      2
+
+
+   Segment part sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     Mcp3204::Mcp3204(ISpi &)                         14
+     Mcp3204::Init()                                  60
+     Mcp3204::SetChannel(unsigned char)
+                                                      46
+     Mcp3204::GetADC()                               226
+     Mcp3204::GetADC(unsigned char)                   24
+     ?<Initializer for <Constant "0x03 >= _ch">>      12
+     ?<Initializer for <Constant "C:\\work\\TIEL_Fr   43
+     ?<Constant "0x03 >= _ch">                        12
+     ?<Constant "C:\\work\\TIEL_FrameWor...">         43
+     Mcp3204::new Mcp3204(ISpi &)                     38
+      Others                                           7
+
+ 
+ 408 bytes in segment CODE
+   7 bytes in segment INITTAB
+  55 bytes in segment NEAR_I
+  55 bytes in segment NEAR_ID
+ 
+ 463 bytes of CODE memory (+ 7 bytes shared)
+  55 bytes of DATA memory
+
+Errors: none
+Warnings: none

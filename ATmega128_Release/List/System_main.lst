@@ -1,0 +1,183 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:03 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\System\System_ #
+#                    main.cpp                                                 #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\System\System_ #
+#                    main.cpp --cpu=m128 -ms -o D:\Work\IAR\TIEF_Framework\AT #
+#                    mega128_Release\Obj\ -D NDEBUG -D xWATCHDOG_ENABLE -lC   #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\System #
+#                    _main.lst                                                #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\System_ #
+#                    main.r90                                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\System\System_main.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          
+     33          #include "System_Manager.h"
+     34          #include "BCComponentManager.h"
+
+    CreateWatchDog();
+    ^
+"D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Driver_Interface\DriverFactory.h",80  Warning[Pe837]: 
+          omission of explicit type is nonstandard ("int" assumed)
+     35          #include <assert.h>
+     36          
+     37          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     38          int main( void )
+   \                     main:
+     39          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+     40          
+     41            SystemManager *sys;
+     42            
+     43            sys = SystemManager::Instance();
+   \   00000004   ........           CALL    ??Instance
+   \   00000008   01D8               MOVW    R27:R26, R17:R16
+     44            
+     45            GetBCComponentManager()->Init();
+   \   0000000A   ........           CALL    ??GetBCComponentManager
+   \   0000000E   ........           CALL    ??Init
+     46            
+     47            assert(0 != sys);  
+     48            if(0 != sys)
+   \   00000012   2F0A               MOV     R16, R26
+   \   00000014   2B0B               OR      R16, R27
+   \   00000016   F071               BREQ    ??CrossCallReturnLabel_0
+     49            {    
+     50              sys->InitModule();
+   \   00000018   018D               MOVW    R17:R16, R27:R26
+   \   0000001A   ........           CALL    ??InitModule
+     51              sys->Init();
+   \   0000001E   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_2:
+   \   00000020   9713               SBIW    R27:R26, 3
+   \   00000022   9632               ADIW    R31:R30, 2
+   \   00000024   ....               RCALL   ?Subroutine0
+     52              sys->Run();
+   \                     ??CrossCallReturnLabel_1:
+   \   00000026   E021               LDI     R18, 1
+   \   00000028   018D               MOVW    R17:R16, R27:R26
+   \   0000002A   ........           CALL    ??Run
+     53          
+     54              sys->Exit();
+   \   0000002E   ....               RCALL   ?Subroutine1
+     55            }
+   \                     ??CrossCallReturnLabel_3:
+   \   00000030   9634               ADIW    R31:R30, 4
+   \   00000032   ....               RCALL   ?Subroutine0
+     56            
+     57            while(1);
+   \                     ??CrossCallReturnLabel_0:
+   \   00000034   CFFF               RJMP    ??CrossCallReturnLabel_0
+     58            
+     59          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   018D               MOVW    R17:R16, R27:R26
+   \   00000002   9612               ADIW    R27:R26, 2
+   \   00000004   91ED               LD      R30, X+
+   \   00000006   91FC               LD      R31, X
+   \   00000008   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   9125               LPM     R18, Z+
+   \   00000002   91F4               LPM     R31, Z
+   \   00000004   2FE2               MOV     R30, R18
+   \   00000006   9409               IJMP
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     main()                             2      2
+       -> SystemManager::Instance()     2      2
+       -> GetBCComponentManager()       2      2
+       -> BCComponentManager::Init()
+                                        2      2
+       -> SystemManager::InitModule()
+                                        2      2
+       ->   Indirect call               2      2
+       -> SystemManager::Run(unsigned char)
+                                        2      2
+       ->   Indirect call               2      2
+
+
+   Segment part sizes:
+
+     Function/Label Bytes
+     -------------- -----
+     main()           54
+     ?Subroutine1     10
+     ?Subroutine0      8
+
+ 
+ 72 bytes in segment CODE
+ 
+ 72 bytes of CODE memory
+
+Errors: none
+Warnings: 1

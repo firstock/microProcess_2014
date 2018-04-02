@@ -1,0 +1,430 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    01/Dec/2013  06:57:30 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\APP\LAB9\stringprocessing.cpp #
+#    Command line =  D:\Work\IAR\TIEF_Framework\APP\LAB9\stringprocessing.cpp #
+#                     --cpu=m128 -ms -o D:\Work\IAR\TIEF_Framework\ATmega128_ #
+#                    Release\Obj\ -D NDEBUG -D xWATCHDOG_ENABLE -lC           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\string #
+#                    processing.lst                                           #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\stringp #
+#                    rocessing.r90                                            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\APP\LAB9\stringprocessing.cpp
+      1          #include "stringprocessing.h"
+      2          #include <cstring>
+      3          #include <cassert>
+      4          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          StringProcess::StringProcess()
+   \                     ??StringProcess:
+      6          {
+   \   00000000   ....               LDI     R18, LOW(??__vtbl)
+   \   00000002   ....               LDI     R19, (??__vtbl) >> 8
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   A724               STD     Z+44, R18
+   \   00000008   A735               STD     Z+45, R19
+      7            str_count = 0;  
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   A722               STD     Z+42, R18
+      8            iout = 0;
+   \   0000000E   8320               ST      Z, R18
+   \   00000010   8321               STD     Z+1, R18
+      9            state = WATING_SHIFT_EVENT;
+   \   00000012   A723               STD     Z+43, R18
+     10          }
+   \   00000014   9508               RET
+     11          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     12          StringProcess::~StringProcess()
+   \                     `?~StringProcess`:
+     13          {
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~StringProcess_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~StringProcess_1`
+     14            
+     15          }
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~StringProcess_1`:
+   \   0000000E   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     16          void StringProcess::SetIStringOutPut(IStringOutPut *_iout)
+   \                     ??SetIStringOutPut:
+     17          {
+     18            assert(0 != _iout);
+     19            
+     20            iout = _iout;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8320               ST      Z, R18
+   \   00000004   8331               STD     Z+1, R19
+     21          }
+   \   00000006   9508               RET
+     22          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     23          void StringProcess::tm500ms(void)
+   \                     ??tm500ms:
+     24          {
+   \   00000000   ....               RCALL   ?Subroutine2
+     25            if(WATING_TIMER_EVENT == state)
+   \                     ??CrossCallReturnLabel_4:
+   \   00000002   A503               LDD     R16, Z+43
+   \   00000004   3001               CPI     R16, 1
+   \   00000006   F481               BRNE    ??tm500ms_1
+     26            {
+     27              if( 0 != iout )
+   \   00000008   910D               LD      R16, X+
+   \   0000000A   911C               LD      R17, X
+   \   0000000C   9711               SBIW    R27:R26, 1
+   \   0000000E   2B01               OR      R16, R17
+   \   00000010   F059               BREQ    ??tm500ms_1
+     28              {
+     29                iout->Display(stringShiftBuff);
+   \   00000012   019D               MOVW    R19:R18, R27:R26
+   \   00000014   5E2A               SUBI    R18, 234
+   \   00000016   4F3F               SBCI    R19, 255
+   \   00000018   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_2:
+   \   0000001A   9711               SBIW    R27:R26, 1
+   \   0000001C   ....               RCALL   ?Subroutine0
+     30                Shift_StringLeft(stringShiftBuff);
+   \                     ??CrossCallReturnLabel_1:
+   \   0000001E   019D               MOVW    R19:R18, R27:R26
+   \   00000020   5E2A               SUBI    R18, 234
+   \   00000022   4F3F               SBCI    R19, 255
+   \   00000024   018D               MOVW    R17:R16, R27:R26
+   \   00000026   ....               RCALL   ??Shift_StringLeft
+     31              }
+     32              return;
+     33            }
+   \                     ??tm500ms_1:
+   \   00000028                      REQUIRE ?Subroutine3
+   \   00000028                      ;               // Fall through to label ?Subroutine3
+     34          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine3:
+   \   00000000   91A9               LD      R26, Y+
+   \   00000002   91B9               LD      R27, Y+
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01F8               MOVW    R31:R30, R17:R16
+   \   00000008   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   910D               LD      R16, X+
+   \   00000002   911C               LD      R17, X
+   \   00000004   9711               SBIW    R27:R26, 1
+   \   00000006   91ED               LD      R30, X+
+   \   00000008   91FC               LD      R31, X
+   \   0000000A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   8140               LD      R20, Z
+   \   00000002   81F1               LDD     R31, Z+1
+   \   00000004   2FE4               MOV     R30, R20
+   \   00000006   9632               ADIW    R31:R30, 2
+   \   00000008   9145               LPM     R20, Z+
+   \   0000000A   91F4               LPM     R31, Z
+   \   0000000C   2FE4               MOV     R30, R20
+   \   0000000E   9409               IJMP
+     35          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     36          void StringProcess::InputCh(char _ch)
+   \                     ??InputCh:
+     37          {
+     38            if( 0x0d == _ch)
+   \   00000000   302D               CPI     R18, 13
+   \   00000002   F409               BRNE    ??InputCh_1
+     39            {
+     40              Start_Shift();        
+   \   00000004   ....               RJMP    ??Start_Shift
+     41            }
+     42            else // save to tempBuff( save_string() )
+     43            {
+     44              if(STRING_MAX == str_count)
+   \                     ??InputCh_1:
+   \   00000006   01F8               MOVW    R31:R30, R17:R16
+   \   00000008   A532               LDD     R19, Z+42
+   \   0000000A   3134               CPI     R19, 20
+   \   0000000C   F411               BRNE    ??InputCh_2
+     45              {
+     46                str_count = 0;
+   \   0000000E   E030               LDI     R19, 0
+   \   00000010   A732               STD     Z+42, R19
+     47              }
+     48              
+     49              tempBuff[str_count] = _ch;
+   \                     ??InputCh_2:
+   \   00000012   A542               LDD     R20, Z+42
+   \   00000014   E050               LDI     R21, 0
+   \   00000016   0FE4               ADD     R30, R20
+   \   00000018   1FF5               ADC     R31, R21
+   \   0000001A   8322               STD     Z+2, R18
+     50              str_count++;
+   \   0000001C   01F8               MOVW    R31:R30, R17:R16
+   \   0000001E   A502               LDD     R16, Z+42
+   \   00000020   9503               INC     R16
+   \   00000022   A702               STD     Z+42, R16
+     51            }
+     52          
+     53          }
+   \   00000024   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     54          void StringProcess::update_string(void)
+   \                     ??update_string:
+     55          {
+   \   00000000   ....               RCALL   ?Subroutine2
+     56             memcpy(stringShiftBuff,tempBuff,str_count);
+   \                     ??CrossCallReturnLabel_5:
+   \   00000002   A542               LDD     R20, Z+42
+   \   00000004   E050               LDI     R21, 0
+   \   00000006   0198               MOVW    R19:R18, R17:R16
+   \   00000008   5F2E               SUBI    R18, 254
+   \   0000000A   4F3F               SBCI    R19, 255
+   \   0000000C   5E0A               SUBI    R16, 234
+   \   0000000E   4F1F               SBCI    R17, 255
+   \   00000010   ........           CALL    memcpy
+     57             stringShiftBuff[str_count] = 0; //NULL
+   \   00000014   E000               LDI     R16, 0
+   \   00000016   01FD               MOVW    R31:R30, R27:R26
+   \   00000018   A522               LDD     R18, Z+42
+   \   0000001A   0FE2               ADD     R30, R18
+   \   0000001C   1FF0               ADC     R31, R16
+   \   0000001E   8B06               STD     Z+22, R16
+     58             str_count = 0;  
+   \   00000020   01FD               MOVW    R31:R30, R27:R26
+   \   00000022   A702               STD     Z+42, R16
+     59             
+     60             iout->Display("        ");
+   \   00000024   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   00000026   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   00000028   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_3:
+   \   0000002A   ....               RCALL   ?Subroutine0
+     61          }
+   \                     ??CrossCallReturnLabel_0:
+   \   0000002C   ....               RJMP    ?Subroutine3
+     62          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     63          void StringProcess::Start_Shift(void)
+   \                     ??Start_Shift:
+     64          {
+     65            if(WATING_SHIFT_EVENT == state)
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   A523               LDD     R18, Z+43
+   \   00000004   2322               TST     R18
+   \   00000006   F419               BRNE    ??Start_Shift_1
+     66            {
+     67              state = WATING_TIMER_EVENT;
+   \   00000008   E021               LDI     R18, 1
+   \   0000000A   A723               STD     Z+43, R18
+     68              update_string();
+   \   0000000C   ....               RJMP    ??update_string
+     69              return;
+     70            }
+     71            
+     72              if(WATING_TIMER_EVENT == state)
+   \                     ??Start_Shift_1:
+   \   0000000E   3021               CPI     R18, 1
+   \   00000010   F409               BRNE    ??Start_Shift_2
+     73            {
+     74              update_string();
+   \   00000012   ....               RCALL   ??update_string
+     75              return;
+   \                     ??Start_Shift_2:
+   \   00000014   9508               RET
+     76            }
+     77           
+     78            
+     79          }
+     80          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     81          void StringProcess::Shift_StringLeft(char *_str)
+   \                     ??Shift_StringLeft:
+     82          {
+   \   00000000   ........           CALL    ?PROLOGUE5_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004   01D9               MOVW    R27:R26, R19:R18
+     83            char tmp,len;
+     84            
+     85            len = strlen(_str);
+   \   00000006   0189               MOVW    R17:R16, R19:R18
+   \   00000008   ........           CALL    strlen
+   \   0000000C   2F80               MOV     R24, R16
+     86            
+     87            if( 1 >= len) {
+   \   0000000E   3002               CPI     R16, 2
+   \   00000010   F070               BRCS    ??Shift_StringLeft_1
+     88              return;  
+     89            }
+     90            
+     91            tmp = _str[0];
+   \   00000012   01FD               MOVW    R31:R30, R27:R26
+   \   00000014   8040               LD      R4, Z
+     92            strcpy(_str, &(_str[1]) );
+   \   00000016   019D               MOVW    R19:R18, R27:R26
+   \   00000018   5F2F               SUBI    R18, 255
+   \   0000001A   4F3F               SBCI    R19, 255
+   \   0000001C   018D               MOVW    R17:R16, R27:R26
+   \   0000001E   ........           CALL    strcpy
+     93            _str[len - 1] = tmp;
+   \   00000022   E090               LDI     R25, 0
+   \   00000024   0FA8               ADD     R26, R24
+   \   00000026   1FB9               ADC     R27, R25
+   \   00000028   01FD               MOVW    R31:R30, R27:R26
+   \   0000002A   9242               ST      -Z, R4
+     94            _str[len] = 0; //NULL
+   \   0000002C   939C               ST      X, R25
+     95            
+     96          }
+   \                     ??Shift_StringLeft_1:
+   \   0000002E   E0E5               LDI     R30, 5
+   \   00000030   ........           JMP     ?EPILOGUE_B5_L09
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "        ">>`:
+   \   00000000   202020202020       DC8 "        "
+   \              202000      
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "        ">`:
+   \   00000000                      DS8 9
+   \   00000009                      REQUIRE `?<Initializer for <Constant "        ">>`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 StringProcess *StringProcess::new StringProcess()
+   \                     `??new StringProcess`:
+   \   00000000   E20E               LDI     R16, 46
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new StringProcess_1`
+   \   0000000E   ....               RJMP    ??StringProcess
+   \                     `??new StringProcess_1`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   E010               LDI     R17, 0
+   \   00000014   9508               RET
+     97            
+     98          
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     StringProcess::InputCh(char)       0      2
+       -> StringProcess::Start_Shift()
+                                        0      2
+     StringProcess::SetIStringOutPut(IStringOutPut *)
+                                        0      2
+     StringProcess::Shift_StringLeft(char *)
+                                        5      2
+       -> strlen                        5      2
+       -> strcpy                        5      2
+     StringProcess::Start_Shift()       0      2
+       -> StringProcess::update_string()
+                                        0      2
+       -> StringProcess::update_string()
+                                        0      2
+     StringProcess::StringProcess()     0      2
+     StringProcess::new StringProcess()
+                                        0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> StringProcess::StringProcess()
+                                        0      2
+     StringProcess::tm500ms()           2      2
+       ->   Indirect call               2      2
+       -> StringProcess::Shift_StringLeft(char *)
+                                        2      2
+     StringProcess::update_string()     2      2
+       -> memcpy                        2      2
+       ->   Indirect call               2      2
+     StringProcess::~StringProcess()
+                                        0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                           Bytes
+     --------------                           -----
+     StringProcess::StringProcess()             22
+     StringProcess::~StringProcess()
+                                                16
+     StringProcess::SetIStringOutPut(IStringOutPut *)
+                                                 8
+     StringProcess::tm500ms()                   40
+     ?Subroutine3                                6
+     ?Subroutine2                               10
+     ?Subroutine1                               12
+     ?Subroutine0                               16
+     StringProcess::InputCh(char)               38
+     StringProcess::update_string()             46
+     StringProcess::Start_Shift()               22
+     StringProcess::Shift_StringLeft(char *)
+                                                52
+     ?<Initializer for <Constant "        ">>    9
+     ?<Constant "        ">                      9
+     StringProcess::new StringProcess()
+                                                22
+      Others                                     9
+
+ 
+ 310 bytes in segment CODE
+   7 bytes in segment INITTAB
+   2 bytes in segment NEAR_F
+   9 bytes in segment NEAR_I
+   9 bytes in segment NEAR_ID
+ 
+ 319 bytes of CODE memory (+ 9 bytes shared)
+   9 bytes of DATA memory
+
+Errors: none
+Warnings: none

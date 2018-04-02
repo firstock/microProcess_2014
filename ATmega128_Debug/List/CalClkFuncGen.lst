@@ -1,0 +1,2071 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  20:20:51 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\APP\Term_Project\CalClkFuncGen.cpp               #
+#    Command line =  C:\work\APP\Term_Project\CalClkFuncGen.cpp --cpu=m128    #
+#                    -ms -o C:\work\ATmega128_Debug\Obj\ -D xNDEBUG -D        #
+#                    xWATCHDOG_ENABLE -lC C:\work\ATmega128_Debug\List\ -y    #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\CalClkFuncGen.lst           #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\CalClkFuncGen.r90            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\APP\Term_Project\CalClkFuncGen.cpp
+      1          // 변경사항을 알고 싶을시, '수정' 키워드로 검색한다
+      2          // MODE 변경사항에 대해서는, '모드' 키워드로 검색한다
+      3          
+      4          //오후 12:38 2013-12-17
+      5          // 시계기능> 시각입력 까지 되는 소스
+      6          // 오후 4:56 2013-12-19 예전버전으로 돌림> 시험끝나니 예전에 수정한게 생각안남
+      7          // 오후 7:17 2013-12-19 아하하하 짜증난다. 두번째 엎음>첫 버전으로. inputCh에서 return 넘기는순간 flag에 쓰레기값 들어가는걸 해결못해서.
+      8          // 오후 9:52 2013-12-19 히히힛. 이제 광고문안 띄우는 것까지 깔끔하게 됨. 이제부터 광고문안 shift를해볼까.
+      9          // 오전 10:30 2013-12-20 이걸로 다시 엎음. 뒷컴에선 WatchDog 이었는데 앞컴에선 문안도 안나옴.
+     10          // 오전 12:08 2013-12-20 shift 됨
+     11          // 오후 1:52 2013-12-20  모드 변경 기본틀 짜놓음. test까지만. 본격적으로 바꾸기전에 저장.
+     12          // 오후 2:56 2013-12-20  바꾸다가 헷갈림. 느낌 아니까 이걸로 한번 뒤집자.
+     13          // 오후 3:19 2013-12-20  바꾸다가 헷갈림. 쓸데없는 주석을 날려버리자. > 15:24 주석제거.
+     14          // 오후 4:06 2013-12-20  히히힛 모드변경 완료. 되돌아와서도 Clock 잘 실행됨.
+     15          // 오후 4:18 2013-12-20  엔터조건 변수화: Enter_OVsize. 계산 한번만 하려고.
+     16          // - 모드변경 직후, flag 초기화 문제였음.
+     17          // 이제 InputCh에 이런저런 코드를 추가시키면 됨.
+     18          // & Switch 함수에서 모드변경 직후 뭘 입력하고 엔터치라고 알려줘야함.
+     19          // + flag_mode 나머지 계산 한번만> MODE - 수정 13.12.20 16:54
+     20          // 오후 6:36 2013-12-20  이제막 안에 내용 채우려는 중
+     21          // 오후 6:49 2013-12-20  yunsan_cnt 를 static으로 선언했더니 까닭을 알 수 없는 에러가났음
+     22          // - 해결해야하는 문제1: 연산자 전까지 받은 숫자를 버퍼에 넣어서 한뭉치로 출력.
+     23          // - 문제2: 연산자 앞뒤에 있었는지 구분하여 num1,2 배열에 알맞게 넣어놓기.
+     24          //      > goto문 쓰고 싶을 지경. 이걸 제대로 고치려면 index를 몇개 더 넣어야할지도 모르겠음.
+     25          // 5번째 엎음.
+     26          // 오후 6:56 2013-12-20  Function Gen가 쉽다고하니 이거 먼저 해보자.
+     27          // 오후 8:06 2013-12-20  FuncGen line1까지 함(사실, Lab10_Ex1 복붙에 가까움. _v를 의미를 안다면.)
+     28          
+     29          #include "CalClkFuncGen.h"
+     30          #include <cstdio>
+     31          #include <cstring>
+     32          #include <cassert>
+     33          
+     34          #define LCD2empty lcd_line2->Write("        ")    //수정 13.12.20 17:46- 간편하게 LCD 한줄만 비우기.
+     35          #define LCD1empty lcd_line1->Write("        ")
+     36          
+     37          
+     38          
+     39          
+     40          
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+     41          char flag_Clock= 1; //만약 다른 모드에서 MODE1(Timer)으로 바꿀땐 flag_Clock를 1로 초기화해야함.    --(주의)
+   \                     flag_Clock:
+   \   00000000                      DS8 1
+   \   00000001                      REQUIRE `?<Initializer for flag_Clock>`
+     42          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     43          char flag_EnShift= 0; //수정 13.12.20 10:41 - Enable Shift> tm500ms 에서 실행됨.
+   \                     flag_EnShift:
+   \   00000000                      DS8 1
+     44          // 모드가 바뀌면 멈추어야 하므로 바뀌자마자 flag_Shift=0 으로 만들어 주어야 한다.       --(주의)
+     45          // 아마 스위치에서?
+     46          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     47          int flag_mode= 0;    //수정 13.12.20 12:09 - 모드 변경       //수정 13.12.20 15:26- int로 switch~case 때 귀찮음방지.
+   \                     flag_mode:
+   \   00000000                      DS8 2
+     48          // 0: Clock
+     49          // 1: 계산기
+     50          // 2: Function Gen
+     51          
+     52          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     53          CalClkFuncGen::CalClkFuncGen() //클래스 내부의 변수 초기화. 이 시점에서는 하드웨어를 사용할 수 없다
+   \                     ??CalClkFuncGen:
+     54          {
+   \   00000000   ....               LDI     R18, LOW(??__vtbl)
+   \   00000002   ....               LDI     R19, (??__vtbl) >> 8
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8F24               STD     Z+28, R18
+   \   00000008   8F35               STD     Z+29, R19
+     55            hour= 0;
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   01F8               MOVW    R31:R30, R17:R16
+   \   0000000E   8F20               STD     Z+24, R18
+     56            min = 0;
+   \   00000010   E020               LDI     R18, 0
+   \   00000012   01F8               MOVW    R31:R30, R17:R16
+   \   00000014   8F21               STD     Z+25, R18
+     57            sec = 0;
+   \   00000016   E020               LDI     R18, 0
+   \   00000018   01F8               MOVW    R31:R30, R17:R16
+   \   0000001A   8F22               STD     Z+26, R18
+     58            
+     59            serial_cnt= 0;
+   \   0000001C   E020               LDI     R18, 0
+   \   0000001E   01F8               MOVW    R31:R30, R17:R16
+   \   00000020   8B27               STD     Z+23, R18
+     60            
+     61            mystate1= RESET;
+   \   00000022   E020               LDI     R18, 0
+   \   00000024   01F8               MOVW    R31:R30, R17:R16
+   \   00000026   8F23               STD     Z+27, R18
+     62          }
+   \   00000028   9508               RET
+     63          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     64          CalClkFuncGen::~CalClkFuncGen(){}
+   \                     `?~CalClkFuncGen`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   2F08               MOV     R16, R24
+   \   00000008   2B09               OR      R16, R25
+   \   0000000A   F031               BREQ    `?~CalClkFuncGen_1`
+   \   0000000C   2F02               MOV     R16, R18
+   \   0000000E   FF00               SBRS    R16, 0
+   \   00000010   C003               RJMP    `?~CalClkFuncGen_1`
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   ........           CALL    `??operator delete`
+   \                     `?~CalClkFuncGen_1`:
+   \   00000018   9189               LD      R24, Y+
+   \   0000001A   9199               LD      R25, Y+
+   \   0000001C   9508               RET
+     65          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     66          void CalClkFuncGen::Init(void)//이 함수의 호출 직후 부터 하드웨어 사용가능
+   \                     ??Init:
+     67          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+     68            mystate1= USER_STATE1;     // 1
+   \   00000006   E001               LDI     R16, 1
+   \   00000008   01FC               MOVW    R31:R30, R25:R24
+   \   0000000A   8F03               STD     Z+27, R16
+     69           
+     70            serial->Write("##Watch mode##\n");//하이퍼터미널에 떠있음
+   \   0000000C   01FC               MOVW    R31:R30, R25:R24
+   \   0000000E   81A4               LDD     R26, Z+4
+   \   00000010   81B5               LDD     R27, Z+5
+   \   00000012   914D               LD      R20, X+
+   \   00000014   915C               LD      R21, X
+   \   00000016   9711               SBIW    R27:R26, 1
+   \   00000018   5F4E               SUBI    R20, 254
+   \   0000001A   4F5F               SBCI    R21, 255
+   \   0000001C   ....               LDI     R18, LOW(`?<Constant "##Watch mode##\\n">`)
+   \   0000001E   ....               LDI     R19, (`?<Constant "##Watch mode##\\n">`) >> 8
+   \   00000020   01FC               MOVW    R31:R30, R25:R24
+   \   00000022   8104               LDD     R16, Z+4
+   \   00000024   8115               LDD     R17, Z+5
+   \   00000026   01FA               MOVW    R31:R30, R21:R20
+   \   00000028   9145               LPM     R20, Z+
+   \   0000002A   9154               LPM     R21, Z
+   \   0000002C   9731               SBIW    R31:R30, 1
+   \   0000002E   01FA               MOVW    R31:R30, R21:R20
+   \   00000030   9509               ICALL
+     71            serial->Write("1.현재 시간: ");   // 입력> line2에 들어감.
+   \   00000032   01FC               MOVW    R31:R30, R25:R24
+   \   00000034   81A4               LDD     R26, Z+4
+   \   00000036   81B5               LDD     R27, Z+5
+   \   00000038   914D               LD      R20, X+
+   \   0000003A   915C               LD      R21, X
+   \   0000003C   9711               SBIW    R27:R26, 1
+   \   0000003E   5F4E               SUBI    R20, 254
+   \   00000040   4F5F               SBCI    R21, 255
+   \   00000042   ....               LDI     R18, LOW(`?<Constant "1.\\307\\366\\300\\347 \\275\\303\\260\\24`)
+   \   00000044   ....               LDI     R19, (`?<Constant "1.\\307\\366\\300\\347 \\275\\303\\260\\24`) >> 8
+   \   00000046   01FC               MOVW    R31:R30, R25:R24
+   \   00000048   8104               LDD     R16, Z+4
+   \   0000004A   8115               LDD     R17, Z+5
+   \   0000004C   01FA               MOVW    R31:R30, R21:R20
+   \   0000004E   9145               LPM     R20, Z+
+   \   00000050   9154               LPM     R21, Z
+   \   00000052   9731               SBIW    R31:R30, 1
+   \   00000054   01FA               MOVW    R31:R30, R21:R20
+   \   00000056   9509               ICALL
+     72          
+     73          }
+   \   00000058   E0E4               LDI     R30, 4
+   \   0000005A   ........           JMP     ?EPILOGUE_B4_L09
+     74          
+     75          // 시간 갱신
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     76          void CalClkFuncGen::InputTime(char* _ti)
+   \                     ??InputTime:
+     77          {
+     78            //char tmp_reTime[15];
+     79              
+     80            hour= (_ti[0]-48)*10+ (_ti[1]-48);  // ex. 현재시간 091153
+   \   00000000   01F9               MOVW    R31:R30, R19:R18
+   \   00000002   8150               LD      R21, Z
+   \   00000004   E04A               LDI     R20, 10
+   \   00000006   9F54               MUL     R21, R20
+   \   00000008   01F9               MOVW    R31:R30, R19:R18
+   \   0000000A   8141               LDD     R20, Z+1
+   \   0000000C   0E04               ADD     R0, R20
+   \   0000000E   EF40               LDI     R20, 240
+   \   00000010   0E04               ADD     R0, R20
+   \   00000012   01F8               MOVW    R31:R30, R17:R16
+   \   00000014   8E00               STD     Z+24, R0
+     81            min = (_ti[2]-48)*10+ (_ti[3]-48);
+   \   00000016   01F9               MOVW    R31:R30, R19:R18
+   \   00000018   8152               LDD     R21, Z+2
+   \   0000001A   E04A               LDI     R20, 10
+   \   0000001C   9F54               MUL     R21, R20
+   \   0000001E   01F9               MOVW    R31:R30, R19:R18
+   \   00000020   8143               LDD     R20, Z+3
+   \   00000022   0E04               ADD     R0, R20
+   \   00000024   EF40               LDI     R20, 240
+   \   00000026   0E04               ADD     R0, R20
+   \   00000028   01F8               MOVW    R31:R30, R17:R16
+   \   0000002A   8E01               STD     Z+25, R0
+     82            sec = (_ti[4]-48)*10+ (_ti[5]-48);
+   \   0000002C   01F9               MOVW    R31:R30, R19:R18
+   \   0000002E   8154               LDD     R21, Z+4
+   \   00000030   E04A               LDI     R20, 10
+   \   00000032   9F54               MUL     R21, R20
+   \   00000034   01F9               MOVW    R31:R30, R19:R18
+   \   00000036   8145               LDD     R20, Z+5
+   \   00000038   0E04               ADD     R0, R20
+   \   0000003A   EF40               LDI     R20, 240
+   \   0000003C   0E04               ADD     R0, R20
+   \   0000003E   01F8               MOVW    R31:R30, R17:R16
+   \   00000040   8E02               STD     Z+26, R0
+     83            
+     84            // 시간이 정정될때마다 표시?? - 입력하는 순간 표시되서 굳이 추가할 필요 없을듯.
+     85            //sprintf(tmp_reTime,"%02d:%02d:%02d",hour,min,sec);
+     86            //serial->Write(tmp_reTime);
+     87          } 
+   \   00000042   9508               RET
+     88          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     89          void CalClkFuncGen::SetIStringOut(IStringOut * _lcd_line1, IStringOut * _lcd_line2, IStringOut * _serial)
+   \                     ??SetIStringOut:
+     90          {
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   0128               MOVW    R5:R4, R17:R16
+   \   00000006   0139               MOVW    R7:R6, R19:R18
+   \   00000008   01DA               MOVW    R27:R26, R21:R20
+   \   0000000A   01CB               MOVW    R25:R24, R23:R22
+     91            assert( 0 != _lcd_line1);
+   \   0000000C   2D06               MOV     R16, R6
+   \   0000000E   2907               OR      R16, R7
+   \   00000010   F451               BRNE    ??SetIStringOut_1
+   \   00000012   E54B               LDI     R20, 91
+   \   00000014   E050               LDI     R21, 0
+   \   00000016   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`)
+   \   00000018   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`) >> 8
+   \   0000001A   ....               LDI     R16, LOW(`?<Constant "0 != _lcd_line1">`)
+   \   0000001C   ....               LDI     R17, (`?<Constant "0 != _lcd_line1">`) >> 8
+   \   0000001E   ........           CALL    __taabi_assert
+   \   00000022   ........           CALL    __iar_EmptyStepPoint
+     92            assert( 0 != _lcd_line2);
+   \                     ??SetIStringOut_1:
+   \   00000026   2F0A               MOV     R16, R26
+   \   00000028   2B0B               OR      R16, R27
+   \   0000002A   F451               BRNE    ??SetIStringOut_2
+   \   0000002C   E54C               LDI     R20, 92
+   \   0000002E   E050               LDI     R21, 0
+   \   00000030   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`)
+   \   00000032   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`) >> 8
+   \   00000034   ....               LDI     R16, LOW(`?<Constant "0 != _lcd_line2">`)
+   \   00000036   ....               LDI     R17, (`?<Constant "0 != _lcd_line2">`) >> 8
+   \   00000038   ........           CALL    __taabi_assert
+   \   0000003C   ........           CALL    __iar_EmptyStepPoint
+     93            assert( 0 != _serial);
+   \                     ??SetIStringOut_2:
+   \   00000040   2F08               MOV     R16, R24
+   \   00000042   2B09               OR      R16, R25
+   \   00000044   F451               BRNE    ??SetIStringOut_3
+   \   00000046   E54D               LDI     R20, 93
+   \   00000048   E050               LDI     R21, 0
+   \   0000004A   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`)
+   \   0000004C   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`) >> 8
+   \   0000004E   ....               LDI     R16, LOW(`?<Constant "0 != _serial">`)
+   \   00000050   ....               LDI     R17, (`?<Constant "0 != _serial">`) >> 8
+   \   00000052   ........           CALL    __taabi_assert
+   \   00000056   ........           CALL    __iar_EmptyStepPoint
+     94            
+     95            lcd_line1 = _lcd_line1;
+   \                     ??SetIStringOut_3:
+   \   0000005A   01F2               MOVW    R31:R30, R5:R4
+   \   0000005C   8260               ST      Z, R6
+   \   0000005E   8271               STD     Z+1, R7
+     96            lcd_line2 = _lcd_line2;
+   \   00000060   01F2               MOVW    R31:R30, R5:R4
+   \   00000062   83A2               STD     Z+2, R26
+   \   00000064   83B3               STD     Z+3, R27
+     97            serial = _serial;
+   \   00000066   01F2               MOVW    R31:R30, R5:R4
+   \   00000068   8384               STD     Z+4, R24
+   \   0000006A   8395               STD     Z+5, R25
+     98            
+     99          }
+   \   0000006C   E0E8               LDI     R30, 8
+   \   0000006E   ........           JMP     ?EPILOGUE_B8_L09
+    100          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    101          void CalClkFuncGen::SetPwm( IPwmOut * _pwm)
+   \                     ??SetPwm:
+    102          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+    103            assert( 0 != _pwm);
+   \   00000008   2F0A               MOV     R16, R26
+   \   0000000A   2B0B               OR      R16, R27
+   \   0000000C   F451               BRNE    ??SetPwm_1
+   \   0000000E   E647               LDI     R20, 103
+   \   00000010   E050               LDI     R21, 0
+   \   00000012   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`)
+   \   00000014   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`) >> 8
+   \   00000016   ....               LDI     R16, LOW(`?<Constant "0 != _pwm">`)
+   \   00000018   ....               LDI     R17, (`?<Constant "0 != _pwm">`) >> 8
+   \   0000001A   ........           CALL    __taabi_assert
+   \   0000001E   ........           CALL    __iar_EmptyStepPoint
+    104            
+    105            pwm = _pwm;
+   \                     ??SetPwm_1:
+   \   00000022   01FC               MOVW    R31:R30, R25:R24
+   \   00000024   83A6               STD     Z+6, R26
+   \   00000026   83B7               STD     Z+7, R27
+    106          }
+   \   00000028   E0E4               LDI     R30, 4
+   \   0000002A   ........           JMP     ?EPILOGUE_B4_L09
+    107          
+    108          //==============================================================================//
+    109          
+    110          // -----------------------    스위치    --------------------------//
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    111          void CalClkFuncGen::Switch(void)     // 스위치가 눌리때 마다 호출됨
+   \                     ??Switch:
+    112          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+    113            ///
+    114            flag_mode++;
+   \   00000006   ....               LDI     R30, LOW(flag_mode)
+   \   00000008   ....               LDI     R31, (flag_mode) >> 8
+   \   0000000A   8100               LD      R16, Z
+   \   0000000C   8111               LDD     R17, Z+1
+   \   0000000E   5F0F               SUBI    R16, 255
+   \   00000010   4F1F               SBCI    R17, 255
+   \   00000012   8300               ST      Z, R16
+   \   00000014   8311               STD     Z+1, R17
+    115            int MODE= flag_mode%3;             //수정 13.12.20 16:48 - 계산은 한번만.
+   \   00000016   E043               LDI     R20, 3
+   \   00000018   E050               LDI     R21, 0
+   \   0000001A   9100....           LDS     R16, flag_mode
+   \   0000001E   9110....           LDS     R17, (flag_mode + 1)
+   \   00000022   ........           CALL    ?SS_DIVMOD_L02
+   \   00000026   01CA               MOVW    R25:R24, R21:R20
+    116            
+    117            // test
+    118            if(MODE== 0)               // Clock모드
+   \   00000028   2F08               MOV     R16, R24
+   \   0000002A   2B09               OR      R16, R25
+   \   0000002C   F5E9               BRNE    ??Switch_1
+    119            {
+    120              flag_Clock= 1;                  //수정 13.12.20 16:04 - > 0으로 되돌아와서도 Clock 잘 실행됨.
+   \   0000002E   E001               LDI     R16, 1
+   \   00000030   9300....           STS     flag_Clock, R16
+    121              LCD2empty;                      //수정 13.12.20 20:19 - FuncGen 에서 Clock올때 두번째줄 비우기.
+   \   00000034   01FD               MOVW    R31:R30, R27:R26
+   \   00000036   8102               LDD     R16, Z+2
+   \   00000038   8113               LDD     R17, Z+3
+   \   0000003A   01F8               MOVW    R31:R30, R17:R16
+   \   0000003C   8140               LD      R20, Z
+   \   0000003E   8151               LDD     R21, Z+1
+   \   00000040   5F4E               SUBI    R20, 254
+   \   00000042   4F5F               SBCI    R21, 255
+   \   00000044   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   00000046   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   00000048   01FD               MOVW    R31:R30, R27:R26
+   \   0000004A   8102               LDD     R16, Z+2
+   \   0000004C   8113               LDD     R17, Z+3
+   \   0000004E   01FA               MOVW    R31:R30, R21:R20
+   \   00000050   9145               LPM     R20, Z+
+   \   00000052   9154               LPM     R21, Z
+   \   00000054   9731               SBIW    R31:R30, 1
+   \   00000056   01FA               MOVW    R31:R30, R21:R20
+   \   00000058   9509               ICALL
+    122                
+    123              serial->Write("##Watch mode##\n");
+   \   0000005A   01FD               MOVW    R31:R30, R27:R26
+   \   0000005C   8104               LDD     R16, Z+4
+   \   0000005E   8115               LDD     R17, Z+5
+   \   00000060   01F8               MOVW    R31:R30, R17:R16
+   \   00000062   8140               LD      R20, Z
+   \   00000064   8151               LDD     R21, Z+1
+   \   00000066   5F4E               SUBI    R20, 254
+   \   00000068   4F5F               SBCI    R21, 255
+   \   0000006A   ....               LDI     R18, LOW(`?<Constant "##Watch mode##\\n">`)
+   \   0000006C   ....               LDI     R19, (`?<Constant "##Watch mode##\\n">`) >> 8
+   \   0000006E   01FD               MOVW    R31:R30, R27:R26
+   \   00000070   8104               LDD     R16, Z+4
+   \   00000072   8115               LDD     R17, Z+5
+   \   00000074   01FA               MOVW    R31:R30, R21:R20
+   \   00000076   9145               LPM     R20, Z+
+   \   00000078   9154               LPM     R21, Z
+   \   0000007A   9731               SBIW    R31:R30, 1
+   \   0000007C   01FA               MOVW    R31:R30, R21:R20
+   \   0000007E   9509               ICALL
+    124              serial->Write("1.현재 시간:\n");
+   \   00000080   01FD               MOVW    R31:R30, R27:R26
+   \   00000082   8104               LDD     R16, Z+4
+   \   00000084   8115               LDD     R17, Z+5
+   \   00000086   01F8               MOVW    R31:R30, R17:R16
+   \   00000088   8140               LD      R20, Z
+   \   0000008A   8151               LDD     R21, Z+1
+   \   0000008C   5F4E               SUBI    R20, 254
+   \   0000008E   4F5F               SBCI    R21, 255
+   \   00000090   ....               LDI     R18, LOW(`?<Constant "1.\\307\\366\\300\\347 \\275\\303\\260\\24_1`)
+   \   00000092   ....               LDI     R19, (`?<Constant "1.\\307\\366\\300\\347 \\275\\303\\260\\24_1`) >> 8
+   \   00000094   01FD               MOVW    R31:R30, R27:R26
+   \   00000096   8104               LDD     R16, Z+4
+   \   00000098   8115               LDD     R17, Z+5
+   \   0000009A   01FA               MOVW    R31:R30, R21:R20
+   \   0000009C   9145               LPM     R20, Z+
+   \   0000009E   9154               LPM     R21, Z
+   \   000000A0   9731               SBIW    R31:R30, 1
+   \   000000A2   01FA               MOVW    R31:R30, R21:R20
+   \   000000A4   9509               ICALL
+   \   000000A6   C069               RJMP    ??Switch_2
+    125              
+    126            }
+    127            else if(MODE== 1)          // 계산기 모드
+   \                     ??Switch_1:
+   \   000000A8   3081               CPI     R24, 1
+   \   000000AA   E000               LDI     R16, 0
+   \   000000AC   0790               CPC     R25, R16
+   \   000000AE   F5E1               BRNE    ??Switch_3
+    128            {
+    129              LCD2empty;                      // 수정 13.12.20 18:24- line2 비우기. 포맷 맞추기
+   \   000000B0   01FD               MOVW    R31:R30, R27:R26
+   \   000000B2   8102               LDD     R16, Z+2
+   \   000000B4   8113               LDD     R17, Z+3
+   \   000000B6   01F8               MOVW    R31:R30, R17:R16
+   \   000000B8   8140               LD      R20, Z
+   \   000000BA   8151               LDD     R21, Z+1
+   \   000000BC   5F4E               SUBI    R20, 254
+   \   000000BE   4F5F               SBCI    R21, 255
+   \   000000C0   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   000000C2   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   000000C4   01FD               MOVW    R31:R30, R27:R26
+   \   000000C6   8102               LDD     R16, Z+2
+   \   000000C8   8113               LDD     R17, Z+3
+   \   000000CA   01FA               MOVW    R31:R30, R21:R20
+   \   000000CC   9145               LPM     R20, Z+
+   \   000000CE   9154               LPM     R21, Z
+   \   000000D0   9731               SBIW    R31:R30, 1
+   \   000000D2   01FA               MOVW    R31:R30, R21:R20
+   \   000000D4   9509               ICALL
+    130              flag_EnShift= 0;                // string 그만 밀기.
+   \   000000D6   E000               LDI     R16, 0
+   \   000000D8   9300....           STS     flag_EnShift, R16
+    131              serial->Write("##Calcul mode##\n");
+   \   000000DC   01FD               MOVW    R31:R30, R27:R26
+   \   000000DE   8104               LDD     R16, Z+4
+   \   000000E0   8115               LDD     R17, Z+5
+   \   000000E2   01F8               MOVW    R31:R30, R17:R16
+   \   000000E4   8140               LD      R20, Z
+   \   000000E6   8151               LDD     R21, Z+1
+   \   000000E8   5F4E               SUBI    R20, 254
+   \   000000EA   4F5F               SBCI    R21, 255
+   \   000000EC   ....               LDI     R18, LOW(`?<Constant "##Calcul mode##\\n">`)
+   \   000000EE   ....               LDI     R19, (`?<Constant "##Calcul mode##\\n">`) >> 8
+   \   000000F0   01FD               MOVW    R31:R30, R27:R26
+   \   000000F2   8104               LDD     R16, Z+4
+   \   000000F4   8115               LDD     R17, Z+5
+   \   000000F6   01FA               MOVW    R31:R30, R21:R20
+   \   000000F8   9145               LPM     R20, Z+
+   \   000000FA   9154               LPM     R21, Z
+   \   000000FC   9731               SBIW    R31:R30, 1
+   \   000000FE   01FA               MOVW    R31:R30, R21:R20
+   \   00000100   9509               ICALL
+    132              lcd_line1->Write("##Calc##");   // 수정 13.12.20 18:20- 포맷 지키기.
+   \   00000102   91ED               LD      R30, X+
+   \   00000104   91FC               LD      R31, X
+   \   00000106   9711               SBIW    R27:R26, 1
+   \   00000108   8140               LD      R20, Z
+   \   0000010A   8151               LDD     R21, Z+1
+   \   0000010C   5F4E               SUBI    R20, 254
+   \   0000010E   4F5F               SBCI    R21, 255
+   \   00000110   ....               LDI     R18, LOW(`?<Constant "##Calc##">`)
+   \   00000112   ....               LDI     R19, (`?<Constant "##Calc##">`) >> 8
+   \   00000114   910D               LD      R16, X+
+   \   00000116   911C               LD      R17, X
+   \   00000118   9711               SBIW    R27:R26, 1
+   \   0000011A   01FA               MOVW    R31:R30, R21:R20
+   \   0000011C   9145               LPM     R20, Z+
+   \   0000011E   9154               LPM     R21, Z
+   \   00000120   9731               SBIW    R31:R30, 1
+   \   00000122   01FA               MOVW    R31:R30, R21:R20
+   \   00000124   9509               ICALL
+   \   00000126   C029               RJMP    ??Switch_2
+    133              //여기서 뭔가 입력한 후 엔터 치란 말을 해야함.
+    134                 
+    135            }
+    136            else if(MODE== 2)                 // Function Gen 모드
+   \                     ??Switch_3:
+   \   00000128   3082               CPI     R24, 2
+   \   0000012A   E000               LDI     R16, 0
+   \   0000012C   0790               CPC     R25, R16
+   \   0000012E   F529               BRNE    ??Switch_2
+    137            {
+    138              LCD1empty;              //수정 13.12.20 19:11- LCD 첫줄 비우기.
+   \   00000130   91ED               LD      R30, X+
+   \   00000132   91FC               LD      R31, X
+   \   00000134   9711               SBIW    R27:R26, 1
+   \   00000136   8140               LD      R20, Z
+   \   00000138   8151               LDD     R21, Z+1
+   \   0000013A   5F4E               SUBI    R20, 254
+   \   0000013C   4F5F               SBCI    R21, 255
+   \   0000013E   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   00000140   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   00000142   910D               LD      R16, X+
+   \   00000144   911C               LD      R17, X
+   \   00000146   9711               SBIW    R27:R26, 1
+   \   00000148   01FA               MOVW    R31:R30, R21:R20
+   \   0000014A   9145               LPM     R20, Z+
+   \   0000014C   9154               LPM     R21, Z
+   \   0000014E   9731               SBIW    R31:R30, 1
+   \   00000150   01FA               MOVW    R31:R30, R21:R20
+   \   00000152   9509               ICALL
+    139              serial->Write("##Function Generator mode##\n");
+   \   00000154   01FD               MOVW    R31:R30, R27:R26
+   \   00000156   8104               LDD     R16, Z+4
+   \   00000158   8115               LDD     R17, Z+5
+   \   0000015A   01F8               MOVW    R31:R30, R17:R16
+   \   0000015C   8140               LD      R20, Z
+   \   0000015E   8151               LDD     R21, Z+1
+   \   00000160   5F4E               SUBI    R20, 254
+   \   00000162   4F5F               SBCI    R21, 255
+   \   00000164   ....               LDI     R18, LOW(`?<Constant "##Function Generator ...">`)
+   \   00000166   ....               LDI     R19, (`?<Constant "##Function Generator ...">`) >> 8
+   \   00000168   01FD               MOVW    R31:R30, R27:R26
+   \   0000016A   8104               LDD     R16, Z+4
+   \   0000016C   8115               LDD     R17, Z+5
+   \   0000016E   01FA               MOVW    R31:R30, R21:R20
+   \   00000170   9145               LPM     R20, Z+
+   \   00000172   9154               LPM     R21, Z
+   \   00000174   9731               SBIW    R31:R30, 1
+   \   00000176   01FA               MOVW    R31:R30, R21:R20
+   \   00000178   9509               ICALL
+    140              //lcd_line1->Write("ADC:");   // 여기다 말고. 수정 13.12.20 19:46
+    141          
+    142              //여기서 뭔가 입력한 후 엔터 치란 말을 해야함.
+    143              
+    144            }
+    145            //serial->Write("Switch\n");        // test
+    146          }
+   \                     ??Switch_2:
+   \   0000017A   E0E4               LDI     R30, 4
+   \   0000017C   ........           JMP     ?EPILOGUE_B4_L09
+    147          // ----------------------    스위치 영역   --------------------------//
+    148          
+    149          
+    150          
+    151          //------------------------------------------------------------------------------//
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    152          void CalClkFuncGen::InputCh(char _ch) // 시리얼로부터 입력이 들어 오면 실행됨       [A1]
+   \                     ??InputCh:
+    153          {
+   \   00000000   ........           CALL    ?PROLOGUE16_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R13_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R14_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R15_is_cg_reg
+   \   00000004   9723               SBIW    R29:R28, 3
+   \   00000006   8328               ST      Y, R18
+   \   00000008   01D8               MOVW    R27:R26, R17:R16
+    154              int Enter_OVsize= ('\n' == _ch  || '\r' == _ch  || STRING_SIZE - 1 <= serial_cnt);  //엔터 혹은 사이즈초과.
+   \   0000000A   8108               LD      R16, Y
+   \   0000000C   300A               CPI     R16, 10
+   \   0000000E   F039               BREQ    ??InputCh_1
+   \   00000010   8108               LD      R16, Y
+   \   00000012   300D               CPI     R16, 13
+   \   00000014   F021               BREQ    ??InputCh_1
+   \   00000016   01FD               MOVW    R31:R30, R27:R26
+   \   00000018   8907               LDD     R16, Z+23
+   \   0000001A   300E               CPI     R16, 14
+   \   0000001C   F010               BRCS    ??InputCh_2
+   \                     ??InputCh_1:
+   \   0000001E   E081               LDI     R24, 1
+   \   00000020   C001               RJMP    ??InputCh_3
+   \                     ??InputCh_2:
+   \   00000022   E080               LDI     R24, 0
+   \                     ??InputCh_3:
+   \   00000024   E090               LDI     R25, 0
+    155              int MODE= flag_mode%3;      //수정 13.12.20 16:48 - 계산은 한번만. 모드변경.
+   \   00000026   E043               LDI     R20, 3
+   \   00000028   E050               LDI     R21, 0
+   \   0000002A   9100....           LDS     R16, flag_mode
+   \   0000002E   9110....           LDS     R17, (flag_mode + 1)
+   \   00000032   ........           CALL    ?SS_DIVMOD_L02
+   \   00000036   012A               MOVW    R5:R4, R21:R20
+    156              
+    157              float num_1[3], num_2[3];   // 첫번째, 두번째 입력값 각기 저장
+                           ^
+Warning[Pe177]: variable "num_1" was declared but never referenced
+
+      float num_1[3], num_2[3];   // 첫번째, 두번째 입력값 각기 저장
+                      ^
+"C:\work\APP\Term_Project\CalClkFuncGen.cpp",157  Warning[Pe177]: variable
+          "num_2" was declared but never referenced
+    158              float result[3];
+                           ^
+Warning[Pe177]: variable "result" was declared but never referenced
+    159          
+    160              char yunsan_cnt= 0;         // 연산자를 몇번째 눌렀는지
+   \   00000038   2477               CLR     R7
+    161                                          // 시도1. 초기화가 불만이라고 static으로 선언하면 ERROR.- 는 확실치않음.
+    162                                          // 수정 시도1 13.12.20 18:56
+    163          
+    164              char cal_state;             // (+ - * /)
+                          ^
+Warning[Pe550]: variable "cal_state" was set but never used
+    165              const int PLUS= 0, MINUS= 1, MUL= 2, DIV= 3, EQUAL= 4;
+   \   0000003A   2488               CLR     R8
+   \   0000003C   2499               CLR     R9
+   \   0000003E   E001               LDI     R16, 1
+   \   00000040   E010               LDI     R17, 0
+   \   00000042   8309               STD     Y+1, R16
+   \   00000044   831A               STD     Y+2, R17
+   \   00000046   E002               LDI     R16, 2
+   \   00000048   2EE0               MOV     R14, R16
+   \   0000004A   24FF               CLR     R15
+   \   0000004C   E003               LDI     R16, 3
+   \   0000004E   2EC0               MOV     R12, R16
+   \   00000050   24DD               CLR     R13
+   \   00000052   E004               LDI     R16, 4
+   \   00000054   2EA0               MOV     R10, R16
+   \   00000056   24BB               CLR     R11
+    166              
+    167              /// 수정 시작 13.12.20 16:43 - Calcul 통째 계산을 위한 n번째 스파게티 소스.
+    168              // 구상: ex) 28+16=' '
+    169              // - 계산대상은 2개까지, 하이퍼터미널에 입력하는 중에 serialbuff 속 다음 글자가 뭐인지에 따라
+    170              //   if~else 문으로 바쁘게 판단.
+    171              // - 3자리+2자리 계산에 대비하여 다음글자 넣기전에 lcd_line2->Write("      ");등으로 LCD비우기.
+    172              //      > 나눗셈 예외 /0 따위.
+    173              // - 계산 및 계산 결과는 출력(함수)에서 한방에 처리.
+    174              
+    175              
+    176              
+    177          // ----------------------- 계산기- 한글자씩 처리 -------------------//
+    178              // 시간부족 ㅂㅂ. 틀만 되어있고 구현 못함 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    179                                                        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    180                                                        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    181                                                        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    182                                                        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    183                                                        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    
+    184              if(MODE== 1)
+   \   00000058   E001               LDI     R16, 1
+   \   0000005A   1640               CP      R4, R16
+   \   0000005C   E000               LDI     R16, 0
+   \   0000005E   0650               CPC     R5, R16
+   \   00000060   F009               BREQ    $+2+2
+   \   00000062   C0D5               RJMP    ??InputCh_4
+    185              {
+    186                ///
+    187                if(48<= _ch && _ch <= 57)   //숫자일때. 조건문 보는 시간 줄이려고. <수정 13.12.20 17:48
+   \   00000064   8108               LD      R16, Y
+   \   00000066   3300               CPI     R16, 48
+   \   00000068   F0E8               BRCS    ??InputCh_5
+   \   0000006A   8108               LD      R16, Y
+   \   0000006C   330A               CPI     R16, 58
+   \   0000006E   F4D0               BRCC    ??InputCh_5
+    188                {
+    189                  //lcd_line2->Write("number"); //test
+    190                  lcd_line2->Write(&_ch);     //수정 13.12.20 18:16 - 인자는 pointer로!
+   \   00000070   01FD               MOVW    R31:R30, R27:R26
+   \   00000072   8102               LDD     R16, Z+2
+   \   00000074   8113               LDD     R17, Z+3
+   \   00000076   01F8               MOVW    R31:R30, R17:R16
+   \   00000078   8140               LD      R20, Z
+   \   0000007A   8151               LDD     R21, Z+1
+   \   0000007C   5F4E               SUBI    R20, 254
+   \   0000007E   4F5F               SBCI    R21, 255
+   \   00000080   019E               MOVW    R19:R18, R29:R28
+   \   00000082   01FD               MOVW    R31:R30, R27:R26
+   \   00000084   8102               LDD     R16, Z+2
+   \   00000086   8113               LDD     R17, Z+3
+   \   00000088   01FA               MOVW    R31:R30, R21:R20
+   \   0000008A   9145               LPM     R20, Z+
+   \   0000008C   9154               LPM     R21, Z
+   \   0000008E   9731               SBIW    R31:R30, 1
+   \   00000090   01FA               MOVW    R31:R30, R21:R20
+   \   00000092   9509               ICALL
+    191                                              //수정 13.12.20 18:29 - buff 좀 모아서 한번에 출력해야함!
+    192                                              // 일단 test용도로 살려둠.
+    193                  
+    194                  if(yunsan_cnt== 0)        // num / --- / ---
+   \   00000094   2077               TST     R7
+   \   00000096   F409               BRNE    $+2+2
+   \   00000098   C0BA               RJMP    ??InputCh_4
+    195                  {
+    196                    //하려는것: 첫번째 피연산자 일때 serial_cnt 순서대로 num_1[]에 넣고
+    197                  }
+    198                  else if(yunsan_cnt== 1)   // --- / num / ---
+   \   0000009A   E001               LDI     R16, 1
+   \   0000009C   1670               CP      R7, R16
+   \   0000009E   F409               BRNE    $+2+2
+   \   000000A0   C0B6               RJMP    ??InputCh_4
+    199                  {
+    200                    //하려는것: 두번째 피연산자 일때 serial_cnt 순서대로 num_2[]에 넣고
+    201                  }
+    202                  else if(yunsan_cnt== 2)   // --- / --- / res
+   \   000000A2   C0B5               RJMP    ??InputCh_4
+    203                  {
+    204                    // 꼭필요? 밑에 '=' 이후에 하는거랑 중복..?
+    205                  }
+    206                }
+    207                else
+    208                {
+    209                  //[M] 여기서 LCD2empty 안빼도 됨. 포맷고려해도
+    210                  if(_ch== '+')         {LCD2empty; cal_state= PLUS;   lcd_line2->Write("PLUS");}  //test '}//'로 test O/X
+   \                     ??InputCh_5:
+   \   000000A4   8108               LD      R16, Y
+   \   000000A6   320B               CPI     R16, 43
+   \   000000A8   F541               BRNE    ??InputCh_6
+   \   000000AA   01FD               MOVW    R31:R30, R27:R26
+   \   000000AC   8102               LDD     R16, Z+2
+   \   000000AE   8113               LDD     R17, Z+3
+   \   000000B0   01F8               MOVW    R31:R30, R17:R16
+   \   000000B2   8140               LD      R20, Z
+   \   000000B4   8151               LDD     R21, Z+1
+   \   000000B6   5F4E               SUBI    R20, 254
+   \   000000B8   4F5F               SBCI    R21, 255
+   \   000000BA   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   000000BC   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   000000BE   01FD               MOVW    R31:R30, R27:R26
+   \   000000C0   8102               LDD     R16, Z+2
+   \   000000C2   8113               LDD     R17, Z+3
+   \   000000C4   01FA               MOVW    R31:R30, R21:R20
+   \   000000C6   9145               LPM     R20, Z+
+   \   000000C8   9154               LPM     R21, Z
+   \   000000CA   9731               SBIW    R31:R30, 1
+   \   000000CC   01FA               MOVW    R31:R30, R21:R20
+   \   000000CE   9509               ICALL
+   \   000000D0   2466               CLR     R6
+   \   000000D2   01FD               MOVW    R31:R30, R27:R26
+   \   000000D4   8102               LDD     R16, Z+2
+   \   000000D6   8113               LDD     R17, Z+3
+   \   000000D8   01F8               MOVW    R31:R30, R17:R16
+   \   000000DA   8140               LD      R20, Z
+   \   000000DC   8151               LDD     R21, Z+1
+   \   000000DE   5F4E               SUBI    R20, 254
+   \   000000E0   4F5F               SBCI    R21, 255
+   \   000000E2   ....               LDI     R18, LOW(`?<Constant "PLUS">`)
+   \   000000E4   ....               LDI     R19, (`?<Constant "PLUS">`) >> 8
+   \   000000E6   01FD               MOVW    R31:R30, R27:R26
+   \   000000E8   8102               LDD     R16, Z+2
+   \   000000EA   8113               LDD     R17, Z+3
+   \   000000EC   01FA               MOVW    R31:R30, R21:R20
+   \   000000EE   9145               LPM     R20, Z+
+   \   000000F0   9154               LPM     R21, Z
+   \   000000F2   9731               SBIW    R31:R30, 1
+   \   000000F4   01FA               MOVW    R31:R30, R21:R20
+   \   000000F6   9509               ICALL
+   \   000000F8   C089               RJMP    ??InputCh_7
+    211                  else if(_ch== '-')    {LCD2empty; cal_state= MINUS;  lcd_line2->Write("MINUS");} //test
+   \                     ??InputCh_6:
+   \   000000FA   8108               LD      R16, Y
+   \   000000FC   320D               CPI     R16, 45
+   \   000000FE   F549               BRNE    ??InputCh_8
+   \   00000100   01FD               MOVW    R31:R30, R27:R26
+   \   00000102   8102               LDD     R16, Z+2
+   \   00000104   8113               LDD     R17, Z+3
+   \   00000106   01F8               MOVW    R31:R30, R17:R16
+   \   00000108   8140               LD      R20, Z
+   \   0000010A   8151               LDD     R21, Z+1
+   \   0000010C   5F4E               SUBI    R20, 254
+   \   0000010E   4F5F               SBCI    R21, 255
+   \   00000110   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   00000112   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   00000114   01FD               MOVW    R31:R30, R27:R26
+   \   00000116   8102               LDD     R16, Z+2
+   \   00000118   8113               LDD     R17, Z+3
+   \   0000011A   01FA               MOVW    R31:R30, R21:R20
+   \   0000011C   9145               LPM     R20, Z+
+   \   0000011E   9154               LPM     R21, Z
+   \   00000120   9731               SBIW    R31:R30, 1
+   \   00000122   01FA               MOVW    R31:R30, R21:R20
+   \   00000124   9509               ICALL
+   \   00000126   2466               CLR     R6
+   \   00000128   9463               INC     R6
+   \   0000012A   01FD               MOVW    R31:R30, R27:R26
+   \   0000012C   8102               LDD     R16, Z+2
+   \   0000012E   8113               LDD     R17, Z+3
+   \   00000130   01F8               MOVW    R31:R30, R17:R16
+   \   00000132   8140               LD      R20, Z
+   \   00000134   8151               LDD     R21, Z+1
+   \   00000136   5F4E               SUBI    R20, 254
+   \   00000138   4F5F               SBCI    R21, 255
+   \   0000013A   ....               LDI     R18, LOW(`?<Constant "MINUS">`)
+   \   0000013C   ....               LDI     R19, (`?<Constant "MINUS">`) >> 8
+   \   0000013E   01FD               MOVW    R31:R30, R27:R26
+   \   00000140   8102               LDD     R16, Z+2
+   \   00000142   8113               LDD     R17, Z+3
+   \   00000144   01FA               MOVW    R31:R30, R21:R20
+   \   00000146   9145               LPM     R20, Z+
+   \   00000148   9154               LPM     R21, Z
+   \   0000014A   9731               SBIW    R31:R30, 1
+   \   0000014C   01FA               MOVW    R31:R30, R21:R20
+   \   0000014E   9509               ICALL
+   \   00000150   C05D               RJMP    ??InputCh_7
+    212                  else if(_ch== '*')    {LCD2empty; cal_state= MUL;    lcd_line2->Write("MUL");}   //test
+   \                     ??InputCh_8:
+   \   00000152   8108               LD      R16, Y
+   \   00000154   320A               CPI     R16, 42
+   \   00000156   F549               BRNE    ??InputCh_9
+   \   00000158   01FD               MOVW    R31:R30, R27:R26
+   \   0000015A   8102               LDD     R16, Z+2
+   \   0000015C   8113               LDD     R17, Z+3
+   \   0000015E   01F8               MOVW    R31:R30, R17:R16
+   \   00000160   8140               LD      R20, Z
+   \   00000162   8151               LDD     R21, Z+1
+   \   00000164   5F4E               SUBI    R20, 254
+   \   00000166   4F5F               SBCI    R21, 255
+   \   00000168   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   0000016A   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   0000016C   01FD               MOVW    R31:R30, R27:R26
+   \   0000016E   8102               LDD     R16, Z+2
+   \   00000170   8113               LDD     R17, Z+3
+   \   00000172   01FA               MOVW    R31:R30, R21:R20
+   \   00000174   9145               LPM     R20, Z+
+   \   00000176   9154               LPM     R21, Z
+   \   00000178   9731               SBIW    R31:R30, 1
+   \   0000017A   01FA               MOVW    R31:R30, R21:R20
+   \   0000017C   9509               ICALL
+   \   0000017E   E002               LDI     R16, 2
+   \   00000180   2E60               MOV     R6, R16
+   \   00000182   01FD               MOVW    R31:R30, R27:R26
+   \   00000184   8102               LDD     R16, Z+2
+   \   00000186   8113               LDD     R17, Z+3
+   \   00000188   01F8               MOVW    R31:R30, R17:R16
+   \   0000018A   8140               LD      R20, Z
+   \   0000018C   8151               LDD     R21, Z+1
+   \   0000018E   5F4E               SUBI    R20, 254
+   \   00000190   4F5F               SBCI    R21, 255
+   \   00000192   ....               LDI     R18, LOW(`?<Constant "MUL">`)
+   \   00000194   ....               LDI     R19, (`?<Constant "MUL">`) >> 8
+   \   00000196   01FD               MOVW    R31:R30, R27:R26
+   \   00000198   8102               LDD     R16, Z+2
+   \   0000019A   8113               LDD     R17, Z+3
+   \   0000019C   01FA               MOVW    R31:R30, R21:R20
+   \   0000019E   9145               LPM     R20, Z+
+   \   000001A0   9154               LPM     R21, Z
+   \   000001A2   9731               SBIW    R31:R30, 1
+   \   000001A4   01FA               MOVW    R31:R30, R21:R20
+   \   000001A6   9509               ICALL
+   \   000001A8   C031               RJMP    ??InputCh_7
+    213                  else if(_ch== '/')    {LCD2empty; cal_state= DIV;   }// lcd_line2->Write("DIV");}   //test
+   \                     ??InputCh_9:
+   \   000001AA   8108               LD      R16, Y
+   \   000001AC   320F               CPI     R16, 47
+   \   000001AE   F4B1               BRNE    ??InputCh_10
+   \   000001B0   01FD               MOVW    R31:R30, R27:R26
+   \   000001B2   8102               LDD     R16, Z+2
+   \   000001B4   8113               LDD     R17, Z+3
+   \   000001B6   01F8               MOVW    R31:R30, R17:R16
+   \   000001B8   8140               LD      R20, Z
+   \   000001BA   8151               LDD     R21, Z+1
+   \   000001BC   5F4E               SUBI    R20, 254
+   \   000001BE   4F5F               SBCI    R21, 255
+   \   000001C0   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   000001C2   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   000001C4   01FD               MOVW    R31:R30, R27:R26
+   \   000001C6   8102               LDD     R16, Z+2
+   \   000001C8   8113               LDD     R17, Z+3
+   \   000001CA   01FA               MOVW    R31:R30, R21:R20
+   \   000001CC   9145               LPM     R20, Z+
+   \   000001CE   9154               LPM     R21, Z
+   \   000001D0   9731               SBIW    R31:R30, 1
+   \   000001D2   01FA               MOVW    R31:R30, R21:R20
+   \   000001D4   9509               ICALL
+   \   000001D6   E003               LDI     R16, 3
+   \   000001D8   2E60               MOV     R6, R16
+   \   000001DA   C018               RJMP    ??InputCh_7
+    214                  
+    215                  else if(_ch== '=')    
+   \                     ??InputCh_10:
+   \   000001DC   8108               LD      R16, Y
+   \   000001DE   330D               CPI     R16, 61
+   \   000001E0   F4A9               BRNE    ??InputCh_7
+    216                  {
+    217                    LCD2empty; cal_state= EQUAL; 
+   \   000001E2   01FD               MOVW    R31:R30, R27:R26
+   \   000001E4   8102               LDD     R16, Z+2
+   \   000001E6   8113               LDD     R17, Z+3
+   \   000001E8   01F8               MOVW    R31:R30, R17:R16
+   \   000001EA   8140               LD      R20, Z
+   \   000001EC   8151               LDD     R21, Z+1
+   \   000001EE   5F4E               SUBI    R20, 254
+   \   000001F0   4F5F               SBCI    R21, 255
+   \   000001F2   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   000001F4   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   000001F6   01FD               MOVW    R31:R30, R27:R26
+   \   000001F8   8102               LDD     R16, Z+2
+   \   000001FA   8113               LDD     R17, Z+3
+   \   000001FC   01FA               MOVW    R31:R30, R21:R20
+   \   000001FE   9145               LPM     R20, Z+
+   \   00000200   9154               LPM     R21, Z
+   \   00000202   9731               SBIW    R31:R30, 1
+   \   00000204   01FA               MOVW    R31:R30, R21:R20
+   \   00000206   9509               ICALL
+   \   00000208   E004               LDI     R16, 4
+   \   0000020A   2E60               MOV     R6, R16
+    218                  }
+    219                          
+    220                  yunsan_cnt++;        // 연산자를 눌렀다.
+   \                     ??InputCh_7:
+   \   0000020C   9473               INC     R7
+    221                }
+    222                /// 수정 13.12.20 17:58- else~if_ 숫자,연산자 반응확인
+    223              }
+    224              
+    225          // ----------------------- 계산기- 한글자씩 처리 영역 -------------------//
+    226              
+    227              
+    228              
+    229          
+    230              
+    231          ///////////////////   엔터  //////////////////////
+    232              if(Enter_OVsize)
+   \                     ??InputCh_4:
+   \   0000020E   2F08               MOV     R16, R24
+   \   00000210   2B09               OR      R16, R25
+   \   00000212   F409               BRNE    $+2+2
+   \   00000214   C07E               RJMP    ??InputCh_11
+    233                                   // 수정 13.12.20 16:17 - 왠지 앞으로 '엔터'조건 많이 쓸것 같아서.
+    234              {
+    235                serialbuff[serial_cnt] = 0;     // char*
+   \   00000216   E000               LDI     R16, 0
+   \   00000218   01FD               MOVW    R31:R30, R27:R26
+   \   0000021A   8927               LDD     R18, Z+23
+   \   0000021C   E030               LDI     R19, 0
+   \   0000021E   01FD               MOVW    R31:R30, R27:R26
+   \   00000220   0FE2               ADD     R30, R18
+   \   00000222   1FF3               ADC     R31, R19
+   \   00000224   8700               STD     Z+8, R16
+    236                serial_cnt = 0;
+   \   00000226   E000               LDI     R16, 0
+   \   00000228   01FD               MOVW    R31:R30, R27:R26
+   \   0000022A   8B07               STD     Z+23, R16
+    237           
+    238                
+    239          // ------------------ Clock ----------------------- //
+    240                if(MODE== 0)
+   \   0000022C   2D04               MOV     R16, R4
+   \   0000022E   2905               OR      R16, R5
+   \   00000230   F5F1               BRNE    ??InputCh_12
+    241                {
+    242                  if(flag_Clock== 2)
+   \   00000232   9100....           LDS     R16, flag_Clock
+   \   00000236   3002               CPI     R16, 2
+   \   00000238   F439               BRNE    ??InputCh_13
+    243                  {
+    244                    flag_EnShift=1;       //수정 13.12.20 10:41 - 이 순간부터 문자열 Shift 됨.
+   \   0000023A   E001               LDI     R16, 1
+   \   0000023C   9300....           STS     flag_EnShift, R16
+    245                    
+    246          
+    247                    //lcd_line2->Write(serialbuff);   // test
+    248            
+    249                    flag_Clock= 0;        // 수정 13.12.19 20:18 - 한번만 실행되도록.  
+   \   00000240   E000               LDI     R16, 0
+   \   00000242   9300....           STS     flag_Clock, R16
+   \   00000246   C071               RJMP    ??InputCh_14
+    250                                          // 만약 다른 모드에서 MODE1으로 바꿀땐 flag_Clock를 1로 초기화해야함.   --(주의)
+    251                  }
+    252                  else if(flag_Clock== 1)
+   \                     ??InputCh_13:
+   \   00000248   9100....           LDS     R16, flag_Clock
+   \   0000024C   3001               CPI     R16, 1
+   \   0000024E   F571               BRNE    ??InputCh_15
+    253                  {
+    254                    lcd_line2->Write("        ");
+   \   00000250   01FD               MOVW    R31:R30, R27:R26
+   \   00000252   8102               LDD     R16, Z+2
+   \   00000254   8113               LDD     R17, Z+3
+   \   00000256   01F8               MOVW    R31:R30, R17:R16
+   \   00000258   8140               LD      R20, Z
+   \   0000025A   8151               LDD     R21, Z+1
+   \   0000025C   5F4E               SUBI    R20, 254
+   \   0000025E   4F5F               SBCI    R21, 255
+   \   00000260   ....               LDI     R18, LOW(`?<Constant "        ">`)
+   \   00000262   ....               LDI     R19, (`?<Constant "        ">`) >> 8
+   \   00000264   01FD               MOVW    R31:R30, R27:R26
+   \   00000266   8102               LDD     R16, Z+2
+   \   00000268   8113               LDD     R17, Z+3
+   \   0000026A   01FA               MOVW    R31:R30, R21:R20
+   \   0000026C   9145               LPM     R20, Z+
+   \   0000026E   9154               LPM     R21, Z
+   \   00000270   9731               SBIW    R31:R30, 1
+   \   00000272   01FA               MOVW    R31:R30, R21:R20
+   \   00000274   9509               ICALL
+    255                    InputTime(serialbuff);                // 수정 13.12.17 12:07
+   \   00000276   019D               MOVW    R19:R18, R27:R26
+   \   00000278   5F28               SUBI    R18, 248
+   \   0000027A   4F3F               SBCI    R19, 255
+   \   0000027C   018D               MOVW    R17:R16, R27:R26
+   \   0000027E   ....               RCALL   ??InputTime
+    256          
+    257                    serial->Write("2.광고(15자 이내): "); // 수정 13.12.19 21:46
+   \   00000280   01FD               MOVW    R31:R30, R27:R26
+   \   00000282   8104               LDD     R16, Z+4
+   \   00000284   8115               LDD     R17, Z+5
+   \   00000286   01F8               MOVW    R31:R30, R17:R16
+   \   00000288   8140               LD      R20, Z
+   \   0000028A   8151               LDD     R21, Z+1
+   \   0000028C   5F4E               SUBI    R20, 254
+   \   0000028E   4F5F               SBCI    R21, 255
+   \   00000290   ....               LDI     R18, LOW(`?<Constant "2.\\261\\244\\260\\355(15\\300\\332 \\300`)
+   \   00000292   ....               LDI     R19, (`?<Constant "2.\\261\\244\\260\\355(15\\300\\332 \\300`) >> 8
+   \   00000294   01FD               MOVW    R31:R30, R27:R26
+   \   00000296   8104               LDD     R16, Z+4
+   \   00000298   8115               LDD     R17, Z+5
+   \   0000029A   01FA               MOVW    R31:R30, R21:R20
+   \   0000029C   9145               LPM     R20, Z+
+   \   0000029E   9154               LPM     R21, Z
+   \   000002A0   9731               SBIW    R31:R30, 1
+   \   000002A2   01FA               MOVW    R31:R30, R21:R20
+   \   000002A4   9509               ICALL
+    258                  
+    259                    flag_Clock= 2;   
+   \   000002A6   E002               LDI     R16, 2
+   \   000002A8   9300....           STS     flag_Clock, R16
+    260                  }
+    261                  return;
+   \                     ??InputCh_15:
+   \   000002AC   C03E               RJMP    ??InputCh_14
+    262                }
+    263          // ------------------ Calcul ------------------ //   // 수정 13.12.20 15:37 - 기본틀
+    264                //return;   //수정 13.12.20 15:49 윗 괄호로 옮김.- 엔터로 들어왔지만 clock mode가 아니면 return 안됨.
+    265           
+    266                else if(MODE== 1)   // 스위치 한번더 누르고 엔터를 누르면 반응함.
+   \                     ??InputCh_12:
+   \   000002AE   E001               LDI     R16, 1
+   \   000002B0   1640               CP      R4, R16
+   \   000002B2   E000               LDI     R16, 0
+   \   000002B4   0650               CPC     R5, R16
+   \   000002B6   F4A1               BRNE    ??InputCh_16
+    267                {
+    268                  // 결과값 출력.
+    269                  serial->Write("계산기\n");  //test
+   \   000002B8   01FD               MOVW    R31:R30, R27:R26
+   \   000002BA   8104               LDD     R16, Z+4
+   \   000002BC   8115               LDD     R17, Z+5
+   \   000002BE   01F8               MOVW    R31:R30, R17:R16
+   \   000002C0   8140               LD      R20, Z
+   \   000002C2   8151               LDD     R21, Z+1
+   \   000002C4   5F4E               SUBI    R20, 254
+   \   000002C6   4F5F               SBCI    R21, 255
+   \   000002C8   ....               LDI     R18, LOW(`?<Constant "\\260\\350\\273\\352\\261\\342\\n">`)
+   \   000002CA   ....               LDI     R19, (`?<Constant "\\260\\350\\273\\352\\261\\342\\n">`) >> 8
+   \   000002CC   01FD               MOVW    R31:R30, R27:R26
+   \   000002CE   8104               LDD     R16, Z+4
+   \   000002D0   8115               LDD     R17, Z+5
+   \   000002D2   01FA               MOVW    R31:R30, R21:R20
+   \   000002D4   9145               LPM     R20, Z+
+   \   000002D6   9154               LPM     R21, Z
+   \   000002D8   9731               SBIW    R31:R30, 1
+   \   000002DA   01FA               MOVW    R31:R30, R21:R20
+   \   000002DC   9509               ICALL
+    270                  return;         //수정 13.12.20 17:00 이게 없어야 엔터치면 값 초기화??? (보류)        --(*)
+   \   000002DE   C025               RJMP    ??InputCh_14
+    271                }
+    272                
+    273          // ------------------  Function Gen  ------------------ // 
+    274                else if(MODE== 2)
+   \                     ??InputCh_16:
+   \   000002E0   E002               LDI     R16, 2
+   \   000002E2   1640               CP      R4, R16
+   \   000002E4   E000               LDI     R16, 0
+   \   000002E6   0650               CPC     R5, R16
+   \   000002E8   F4A1               BRNE    ??InputCh_11
+    275                {
+    276                  serial->Write("Function Gen\n");     //test
+   \   000002EA   01FD               MOVW    R31:R30, R27:R26
+   \   000002EC   8104               LDD     R16, Z+4
+   \   000002EE   8115               LDD     R17, Z+5
+   \   000002F0   01F8               MOVW    R31:R30, R17:R16
+   \   000002F2   8140               LD      R20, Z
+   \   000002F4   8151               LDD     R21, Z+1
+   \   000002F6   5F4E               SUBI    R20, 254
+   \   000002F8   4F5F               SBCI    R21, 255
+   \   000002FA   ....               LDI     R18, LOW(`?<Constant "Function Gen\\n">`)
+   \   000002FC   ....               LDI     R19, (`?<Constant "Function Gen\\n">`) >> 8
+   \   000002FE   01FD               MOVW    R31:R30, R27:R26
+   \   00000300   8104               LDD     R16, Z+4
+   \   00000302   8115               LDD     R17, Z+5
+   \   00000304   01FA               MOVW    R31:R30, R21:R20
+   \   00000306   9145               LPM     R20, Z+
+   \   00000308   9154               LPM     R21, Z
+   \   0000030A   9731               SBIW    R31:R30, 1
+   \   0000030C   01FA               MOVW    R31:R30, R21:R20
+   \   0000030E   9509               ICALL
+    277                  return;
+   \   00000310   C00C               RJMP    ??InputCh_14
+    278                }
+    279              }
+    280          // return 하면 serial_cnt랑 buff가 0으로 초기화. 값 안 늘고.
+    281          ////////////////////  엔터의 영역  //////////////////////   
+    282              
+    283              
+    284              
+    285              serialbuff[serial_cnt] = _ch;    
+   \                     ??InputCh_11:
+   \   00000312   8128               LD      R18, Y
+   \   00000314   01FD               MOVW    R31:R30, R27:R26
+   \   00000316   8907               LDD     R16, Z+23
+   \   00000318   E010               LDI     R17, 0
+   \   0000031A   01FD               MOVW    R31:R30, R27:R26
+   \   0000031C   0FE0               ADD     R30, R16
+   \   0000031E   1FF1               ADC     R31, R17
+   \   00000320   8720               STD     Z+8, R18
+    286              serial_cnt++;  
+   \   00000322   01FD               MOVW    R31:R30, R27:R26
+   \   00000324   8907               LDD     R16, Z+23
+   \   00000326   9503               INC     R16
+   \   00000328   8B07               STD     Z+23, R16
+    287          }
+   \                     ??InputCh_14:
+   \   0000032A   9623               ADIW    R29:R28, 3
+   \   0000032C   E1E0               LDI     R30, 16
+   \   0000032E   ........           JMP     ?EPILOGUE_B16_L09
+    288          
+    289          
+    290          
+    291          
+    292          
+    293          // ----------------------------  Function Gen  ---------------------------- //  ●
+    294          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    295          void CalClkFuncGen::InputAdc(unsigned short _v) //ADC 값이 주기적으로 들어옴- tm_xx_s 마냥 자동실행되는듯.
+   \                     ??InputAdc:
+    296          {
+   \   00000000   ........           CALL    ?PROLOGUE16_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R13_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R14_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R15_is_cg_reg
+   \   00000004   976C               SBIW    R29:R28, 28
+   \   00000006   01D8               MOVW    R27:R26, R17:R16
+   \   00000008   01C9               MOVW    R25:R24, R19:R18
+    297            //구상:  _v 변수에 예전에 했던 ADC형식을 그대로 대입.
+    298            /// 조언굿.
+    299            char tmp_c[13], tmp_v[13];
+    300          
+    301            // 숫자큰 변수가 MSB
+    302            unsigned short c1,c2,c3;  
+    303            unsigned short v1,v2,v3,v4;
+    304              
+    305            if(flag_mode%3== 2)     //Function Gen
+   \   0000000A   E043               LDI     R20, 3
+   \   0000000C   E050               LDI     R21, 0
+   \   0000000E   9100....           LDS     R16, flag_mode
+   \   00000012   9110....           LDS     R17, (flag_mode + 1)
+   \   00000016   ........           CALL    ?SS_DIVMOD_L02
+   \   0000001A   3042               CPI     R20, 2
+   \   0000001C   E000               LDI     R16, 0
+   \   0000001E   0750               CPC     R21, R16
+   \   00000020   F009               BREQ    $+2+2
+   \   00000022   C09B               RJMP    ??InputAdc_1
+    306            {
+    307              c3 = _v *5/1023;      // 0~1023 -> 0.00~5.00
+   \   00000024   E005               LDI     R16, 5
+   \   00000026   E010               LDI     R17, 0
+   \   00000028   01AC               MOVW    R21:R20, R25:R24
+   \   0000002A   ........           CALL    ?S_EC_MUL_L02
+   \   0000002E   0198               MOVW    R19:R18, R17:R16
+   \   00000030   EF4F               LDI     R20, 255
+   \   00000032   E053               LDI     R21, 3
+   \   00000034   0189               MOVW    R17:R16, R19:R18
+   \   00000036   ........           CALL    ?US_DIVMOD_L02
+   \   0000003A   0168               MOVW    R13:R12, R17:R16
+    308              c2 = (_v*50/1023) %10;
+   \   0000003C   E302               LDI     R16, 50
+   \   0000003E   E010               LDI     R17, 0
+   \   00000040   01AC               MOVW    R21:R20, R25:R24
+   \   00000042   ........           CALL    ?S_EC_MUL_L02
+   \   00000046   0198               MOVW    R19:R18, R17:R16
+   \   00000048   EF4F               LDI     R20, 255
+   \   0000004A   E053               LDI     R21, 3
+   \   0000004C   0189               MOVW    R17:R16, R19:R18
+   \   0000004E   ........           CALL    ?US_DIVMOD_L02
+   \   00000052   0198               MOVW    R19:R18, R17:R16
+   \   00000054   E04A               LDI     R20, 10
+   \   00000056   E050               LDI     R21, 0
+   \   00000058   0189               MOVW    R17:R16, R19:R18
+   \   0000005A   ........           CALL    ?US_DIVMOD_L02
+   \   0000005E   017A               MOVW    R15:R14, R21:R20
+    309              c1 = _v *500/1023 %10 ;
+   \   00000060   EF04               LDI     R16, 244
+   \   00000062   E011               LDI     R17, 1
+   \   00000064   01AC               MOVW    R21:R20, R25:R24
+   \   00000066   ........           CALL    ?S_EC_MUL_L02
+   \   0000006A   0198               MOVW    R19:R18, R17:R16
+   \   0000006C   EF4F               LDI     R20, 255
+   \   0000006E   E053               LDI     R21, 3
+   \   00000070   0189               MOVW    R17:R16, R19:R18
+   \   00000072   ........           CALL    ?US_DIVMOD_L02
+   \   00000076   0198               MOVW    R19:R18, R17:R16
+   \   00000078   E04A               LDI     R20, 10
+   \   0000007A   E050               LDI     R21, 0
+   \   0000007C   0189               MOVW    R17:R16, R19:R18
+   \   0000007E   ........           CALL    ?US_DIVMOD_L02
+   \   00000082   8348               ST      Y, R20
+   \   00000084   8359               STD     Y+1, R21
+    310             
+    311              v4 = _v / 1000;       // 0~1023 -> 0~1
+   \   00000086   EE48               LDI     R20, 232
+   \   00000088   E053               LDI     R21, 3
+   \   0000008A   018C               MOVW    R17:R16, R25:R24
+   \   0000008C   ........           CALL    ?US_DIVMOD_L02
+   \   00000090   0138               MOVW    R7:R6, R17:R16
+    312              v3 = (_v % 1000) / 100;
+   \   00000092   EE48               LDI     R20, 232
+   \   00000094   E053               LDI     R21, 3
+   \   00000096   018C               MOVW    R17:R16, R25:R24
+   \   00000098   ........           CALL    ?US_DIVMOD_L02
+   \   0000009C   018A               MOVW    R17:R16, R21:R20
+   \   0000009E   0198               MOVW    R19:R18, R17:R16
+   \   000000A0   E644               LDI     R20, 100
+   \   000000A2   E050               LDI     R21, 0
+   \   000000A4   0189               MOVW    R17:R16, R19:R18
+   \   000000A6   ........           CALL    ?US_DIVMOD_L02
+   \   000000AA   0148               MOVW    R9:R8, R17:R16
+    313              v1 = _v % 100;
+   \   000000AC   E644               LDI     R20, 100
+   \   000000AE   E050               LDI     R21, 0
+   \   000000B0   018C               MOVW    R17:R16, R25:R24
+   \   000000B2   ........           CALL    ?US_DIVMOD_L02
+   \   000000B6   012A               MOVW    R5:R4, R21:R20
+    314              v2 = v1/10;
+   \   000000B8   E04A               LDI     R20, 10
+   \   000000BA   E050               LDI     R21, 0
+   \   000000BC   0182               MOVW    R17:R16, R5:R4
+   \   000000BE   ........           CALL    ?US_DIVMOD_L02
+   \   000000C2   0158               MOVW    R11:R10, R17:R16
+    315              v1 = v1 % 10;
+   \   000000C4   E04A               LDI     R20, 10
+   \   000000C6   E050               LDI     R21, 0
+   \   000000C8   0182               MOVW    R17:R16, R5:R4
+   \   000000CA   ........           CALL    ?US_DIVMOD_L02
+   \   000000CE   012A               MOVW    R5:R4, R21:R20
+    316                          
+    317              sprintf(tmp_c,"ADC:%d.%d%d",c3,c2,c1);
+   \   000000D0   8108               LD      R16, Y
+   \   000000D2   8119               LDD     R17, Y+1
+   \   000000D4   931A               ST      -Y, R17
+   \   000000D6   930A               ST      -Y, R16
+   \   000000D8   92FA               ST      -Y, R15
+   \   000000DA   92EA               ST      -Y, R14
+   \   000000DC   92DA               ST      -Y, R13
+   \   000000DE   92CA               ST      -Y, R12
+   \   000000E0   ....               LDI     R18, LOW(`?<Constant "ADC:%d.%d%d">`)
+   \   000000E2   ....               LDI     R19, (`?<Constant "ADC:%d.%d%d">`) >> 8
+   \   000000E4   018E               MOVW    R17:R16, R29:R28
+   \   000000E6   5E0B               SUBI    R16, 235
+   \   000000E8   4F1F               SBCI    R17, 255
+   \   000000EA   ........           CALL    sprintf
+   \   000000EE   9626               ADIW    R29:R28, 6
+    318              lcd_line1->Write(tmp_c);
+   \   000000F0   91ED               LD      R30, X+
+   \   000000F2   91FC               LD      R31, X
+   \   000000F4   9711               SBIW    R27:R26, 1
+   \   000000F6   8140               LD      R20, Z
+   \   000000F8   8151               LDD     R21, Z+1
+   \   000000FA   5F4E               SUBI    R20, 254
+   \   000000FC   4F5F               SBCI    R21, 255
+   \   000000FE   019E               MOVW    R19:R18, R29:R28
+   \   00000100   5F21               SUBI    R18, 241
+   \   00000102   4F3F               SBCI    R19, 255
+   \   00000104   910D               LD      R16, X+
+   \   00000106   911C               LD      R17, X
+   \   00000108   9711               SBIW    R27:R26, 1
+   \   0000010A   01FA               MOVW    R31:R30, R21:R20
+   \   0000010C   9145               LPM     R20, Z+
+   \   0000010E   9154               LPM     R21, Z
+   \   00000110   9731               SBIW    R31:R30, 1
+   \   00000112   01FA               MOVW    R31:R30, R21:R20
+   \   00000114   9509               ICALL
+    319              
+    320              sprintf(tmp_v,"%d%d%d%%duty",v4,v3,v2);
+   \   00000116   92BA               ST      -Y, R11
+   \   00000118   92AA               ST      -Y, R10
+   \   0000011A   929A               ST      -Y, R9
+   \   0000011C   928A               ST      -Y, R8
+   \   0000011E   927A               ST      -Y, R7
+   \   00000120   926A               ST      -Y, R6
+   \   00000122   ....               LDI     R18, LOW(`?<Constant "%d%d%d%%duty">`)
+   \   00000124   ....               LDI     R19, (`?<Constant "%d%d%d%%duty">`) >> 8
+   \   00000126   018E               MOVW    R17:R16, R29:R28
+   \   00000128   5F08               SUBI    R16, 248
+   \   0000012A   4F1F               SBCI    R17, 255
+   \   0000012C   ........           CALL    sprintf
+   \   00000130   9626               ADIW    R29:R28, 6
+    321              lcd_line2->Write(tmp_v);
+   \   00000132   01FD               MOVW    R31:R30, R27:R26
+   \   00000134   8102               LDD     R16, Z+2
+   \   00000136   8113               LDD     R17, Z+3
+   \   00000138   01F8               MOVW    R31:R30, R17:R16
+   \   0000013A   8140               LD      R20, Z
+   \   0000013C   8151               LDD     R21, Z+1
+   \   0000013E   5F4E               SUBI    R20, 254
+   \   00000140   4F5F               SBCI    R21, 255
+   \   00000142   019E               MOVW    R19:R18, R29:R28
+   \   00000144   5F2E               SUBI    R18, 254
+   \   00000146   4F3F               SBCI    R19, 255
+   \   00000148   01FD               MOVW    R31:R30, R27:R26
+   \   0000014A   8102               LDD     R16, Z+2
+   \   0000014C   8113               LDD     R17, Z+3
+   \   0000014E   01FA               MOVW    R31:R30, R21:R20
+   \   00000150   9145               LPM     R20, Z+
+   \   00000152   9154               LPM     R21, Z
+   \   00000154   9731               SBIW    R31:R30, 1
+   \   00000156   01FA               MOVW    R31:R30, R21:R20
+   \   00000158   9509               ICALL
+    322          
+    323            }
+    324            /// 수정 13.12.20 19:59
+    325            // 수정 13.12.20 20:04- line1
+    326            // 수정 13.12.20 20:16- line2
+    327            
+    328            pwm->SetDuty(_v);				// _v 에 0~1023값이 계속 들어옴.
+   \                     ??InputAdc_1:
+   \   0000015A   01FD               MOVW    R31:R30, R27:R26
+   \   0000015C   8106               LDD     R16, Z+6
+   \   0000015E   8117               LDD     R17, Z+7
+   \   00000160   01F8               MOVW    R31:R30, R17:R16
+   \   00000162   8140               LD      R20, Z
+   \   00000164   8151               LDD     R21, Z+1
+   \   00000166   5F4E               SUBI    R20, 254
+   \   00000168   4F5F               SBCI    R21, 255
+   \   0000016A   019C               MOVW    R19:R18, R25:R24
+   \   0000016C   01FD               MOVW    R31:R30, R27:R26
+   \   0000016E   8106               LDD     R16, Z+6
+   \   00000170   8117               LDD     R17, Z+7
+   \   00000172   01FA               MOVW    R31:R30, R21:R20
+   \   00000174   9145               LPM     R20, Z+
+   \   00000176   9154               LPM     R21, Z
+   \   00000178   9731               SBIW    R31:R30, 1
+   \   0000017A   01FA               MOVW    R31:R30, R21:R20
+   \   0000017C   9509               ICALL
+    329          }
+   \   0000017E   966C               ADIW    R29:R28, 28
+   \   00000180   E1E0               LDI     R30, 16
+   \   00000182   ........           JMP     ?EPILOGUE_B16_L09
+    330          
+    331          
+    332          // --------------------------  Function Gen  영역---------------------------- //
+    333          
+    334          
+    335          
+    336          
+    337          
+    338          
+    339          // 매초 시간표시
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    340          void CalClkFuncGen::tm1s(void)// 1초 마다 실행됨
+   \                     ??tm1s:
+    341          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   972F               SBIW    R29:R28, 15
+   \   00000006   01D8               MOVW    R27:R26, R17:R16
+    342            char tmp[15];
+    343            sec++;
+   \   00000008   01FD               MOVW    R31:R30, R27:R26
+   \   0000000A   8D02               LDD     R16, Z+26
+   \   0000000C   9503               INC     R16
+   \   0000000E   8F02               STD     Z+26, R16
+    344            if(60<= sec)  {min++; sec=0;}
+   \   00000010   01FD               MOVW    R31:R30, R27:R26
+   \   00000012   8D02               LDD     R16, Z+26
+   \   00000014   330C               CPI     R16, 60
+   \   00000016   F038               BRCS    ??tm1s_1
+   \   00000018   01FD               MOVW    R31:R30, R27:R26
+   \   0000001A   8D01               LDD     R16, Z+25
+   \   0000001C   9503               INC     R16
+   \   0000001E   8F01               STD     Z+25, R16
+   \   00000020   E000               LDI     R16, 0
+   \   00000022   01FD               MOVW    R31:R30, R27:R26
+   \   00000024   8F02               STD     Z+26, R16
+    345            if(60<= min)  {hour++; min=0;}
+   \                     ??tm1s_1:
+   \   00000026   01FD               MOVW    R31:R30, R27:R26
+   \   00000028   8D01               LDD     R16, Z+25
+   \   0000002A   330C               CPI     R16, 60
+   \   0000002C   F038               BRCS    ??tm1s_2
+   \   0000002E   01FD               MOVW    R31:R30, R27:R26
+   \   00000030   8D00               LDD     R16, Z+24
+   \   00000032   9503               INC     R16
+   \   00000034   8F00               STD     Z+24, R16
+   \   00000036   E000               LDI     R16, 0
+   \   00000038   01FD               MOVW    R31:R30, R27:R26
+   \   0000003A   8F01               STD     Z+25, R16
+    346            if(24<= hour) {hour= 0;}
+   \                     ??tm1s_2:
+   \   0000003C   01FD               MOVW    R31:R30, R27:R26
+   \   0000003E   8D00               LDD     R16, Z+24
+   \   00000040   3108               CPI     R16, 24
+   \   00000042   F018               BRCS    ??tm1s_3
+   \   00000044   E000               LDI     R16, 0
+   \   00000046   01FD               MOVW    R31:R30, R27:R26
+   \   00000048   8F00               STD     Z+24, R16
+    347            
+    348            sprintf(tmp,"%02d:%02d:%02d",hour,min,sec);
+   \                     ??tm1s_3:
+   \   0000004A   01FD               MOVW    R31:R30, R27:R26
+   \   0000004C   8D02               LDD     R16, Z+26
+   \   0000004E   E010               LDI     R17, 0
+   \   00000050   931A               ST      -Y, R17
+   \   00000052   930A               ST      -Y, R16
+   \   00000054   01FD               MOVW    R31:R30, R27:R26
+   \   00000056   8D01               LDD     R16, Z+25
+   \   00000058   E010               LDI     R17, 0
+   \   0000005A   931A               ST      -Y, R17
+   \   0000005C   930A               ST      -Y, R16
+   \   0000005E   01FD               MOVW    R31:R30, R27:R26
+   \   00000060   8D00               LDD     R16, Z+24
+   \   00000062   E010               LDI     R17, 0
+   \   00000064   931A               ST      -Y, R17
+   \   00000066   930A               ST      -Y, R16
+   \   00000068   ....               LDI     R18, LOW(`?<Constant "%02d:%02d:%02d">`)
+   \   0000006A   ....               LDI     R19, (`?<Constant "%02d:%02d:%02d">`) >> 8
+   \   0000006C   018E               MOVW    R17:R16, R29:R28
+   \   0000006E   5F0A               SUBI    R16, 250
+   \   00000070   4F1F               SBCI    R17, 255
+   \   00000072   ........           CALL    sprintf
+   \   00000076   9626               ADIW    R29:R28, 6
+    349            
+    350            if(flag_mode%3== 0)    lcd_line1->Write(tmp);   // Clock 모드 일때만 시간출력
+   \   00000078   E043               LDI     R20, 3
+   \   0000007A   E050               LDI     R21, 0
+   \   0000007C   9100....           LDS     R16, flag_mode
+   \   00000080   9110....           LDS     R17, (flag_mode + 1)
+   \   00000084   ........           CALL    ?SS_DIVMOD_L02
+   \   00000088   2B45               OR      R20, R21
+   \   0000008A   F489               BRNE    ??tm1s_4
+   \   0000008C   91ED               LD      R30, X+
+   \   0000008E   91FC               LD      R31, X
+   \   00000090   9711               SBIW    R27:R26, 1
+   \   00000092   8140               LD      R20, Z
+   \   00000094   8151               LDD     R21, Z+1
+   \   00000096   5F4E               SUBI    R20, 254
+   \   00000098   4F5F               SBCI    R21, 255
+   \   0000009A   019E               MOVW    R19:R18, R29:R28
+   \   0000009C   910D               LD      R16, X+
+   \   0000009E   911C               LD      R17, X
+   \   000000A0   9711               SBIW    R27:R26, 1
+   \   000000A2   01FA               MOVW    R31:R30, R21:R20
+   \   000000A4   9145               LPM     R20, Z+
+   \   000000A6   9154               LPM     R21, Z
+   \   000000A8   9731               SBIW    R31:R30, 1
+   \   000000AA   01FA               MOVW    R31:R30, R21:R20
+   \   000000AC   9509               ICALL
+    351                                        // 수정 13.12.20 15:37 - (주의)사항 적용
+    352          
+    353          }
+   \                     ??tm1s_4:
+   \   000000AE   962F               ADIW    R29:R28, 15
+   \   000000B0   91A9               LD      R26, Y+
+   \   000000B2   91B9               LD      R27, Y+
+   \   000000B4   9508               RET
+    354          
+    355          
+    356          //-------- 이제 SHIFT를 해볼까 ---------//  13.12.19 21:57 부터 오전 12:08 2013-12-20 까지.
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    357          void CalClkFuncGen::StrShift(char* _serialbuff)      //serialbuff 넣을예정
+   \                     ??StrShift:
+    358          {
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   0138               MOVW    R7:R6, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+    359            unsigned char i=0, j, tmp=0;
+   \   00000008   E0A0               LDI     R26, 0
+   \   0000000A   E0B0               LDI     R27, 0
+    360            j = strlen(_serialbuff)-1;
+   \   0000000C   018C               MOVW    R17:R16, R25:R24
+   \   0000000E   ........           CALL    strlen
+   \   00000012   950A               DEC     R16
+   \   00000014   2E40               MOV     R4, R16
+    361             
+    362            tmp= _serialbuff[0];	  // 첫 글자 임시 저장 
+   \   00000016   01FC               MOVW    R31:R30, R25:R24
+   \   00000018   8100               LD      R16, Z
+   \   0000001A   2FB0               MOV     R27, R16
+    363            for(i=0; i<j; i++)      // 한글자 씩 앞으로 이동 
+   \   0000001C   E0A0               LDI     R26, 0
+   \                     ??StrShift_1:
+   \   0000001E   15A4               CP      R26, R4
+   \   00000020   F470               BRCC    ??StrShift_2
+    364            {
+    365              _serialbuff[i] = _serialbuff[i+1];
+   \   00000022   2F0A               MOV     R16, R26
+   \   00000024   E010               LDI     R17, 0
+   \   00000026   01FC               MOVW    R31:R30, R25:R24
+   \   00000028   0FE0               ADD     R30, R16
+   \   0000002A   1FF1               ADC     R31, R17
+   \   0000002C   8121               LDD     R18, Z+1
+   \   0000002E   2F0A               MOV     R16, R26
+   \   00000030   E010               LDI     R17, 0
+   \   00000032   01FC               MOVW    R31:R30, R25:R24
+   \   00000034   0FE0               ADD     R30, R16
+   \   00000036   1FF1               ADC     R31, R17
+   \   00000038   8320               ST      Z, R18
+    366            }
+   \   0000003A   95A3               INC     R26
+   \   0000003C   CFF0               RJMP    ??StrShift_1
+    367            _serialbuff[j] = tmp;	  // 마지막 메모리에 첫 글자 저장 
+   \                     ??StrShift_2:
+   \   0000003E   2455               CLR     R5
+   \   00000040   01FC               MOVW    R31:R30, R25:R24
+   \   00000042   0DE4               ADD     R30, R4
+   \   00000044   1DF5               ADC     R31, R5
+   \   00000046   83B0               ST      Z, R27
+    368          }
+   \   00000048   E0E8               LDI     R30, 8
+   \   0000004A   ........           JMP     ?EPILOGUE_B8_L09
+    369          
+    370          
+    371          // --------------                           ----------------- //
+    372          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    373          void CalClkFuncGen::tm500ms(void) //0.5초마다 실행됨
+   \                     ??tm500ms:
+    374          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+    375            if(flag_EnShift==1)
+   \   00000006   9100....           LDS     R16, flag_EnShift
+   \   0000000A   3001               CPI     R16, 1
+   \   0000000C   F4C9               BRNE    ??tm500ms_1
+    376            {
+    377              StrShift(serialbuff);
+   \   0000000E   019C               MOVW    R19:R18, R25:R24
+   \   00000010   5F28               SUBI    R18, 248
+   \   00000012   4F3F               SBCI    R19, 255
+   \   00000014   018C               MOVW    R17:R16, R25:R24
+   \   00000016   ....               RCALL   ??StrShift
+    378              lcd_line2->Write(serialbuff);    // test
+   \   00000018   01FC               MOVW    R31:R30, R25:R24
+   \   0000001A   81A2               LDD     R26, Z+2
+   \   0000001C   81B3               LDD     R27, Z+3
+   \   0000001E   914D               LD      R20, X+
+   \   00000020   915C               LD      R21, X
+   \   00000022   9711               SBIW    R27:R26, 1
+   \   00000024   5F4E               SUBI    R20, 254
+   \   00000026   4F5F               SBCI    R21, 255
+   \   00000028   019C               MOVW    R19:R18, R25:R24
+   \   0000002A   5F28               SUBI    R18, 248
+   \   0000002C   4F3F               SBCI    R19, 255
+   \   0000002E   01FC               MOVW    R31:R30, R25:R24
+   \   00000030   8102               LDD     R16, Z+2
+   \   00000032   8113               LDD     R17, Z+3
+   \   00000034   01FA               MOVW    R31:R30, R21:R20
+   \   00000036   9145               LPM     R20, Z+
+   \   00000038   9154               LPM     R21, Z
+   \   0000003A   9731               SBIW    R31:R30, 1
+   \   0000003C   01FA               MOVW    R31:R30, R21:R20
+   \   0000003E   9509               ICALL
+    379            }
+    380          }
+   \                     ??tm500ms_1:
+   \   00000040   E0E4               LDI     R30, 4
+   \   00000042   ........           JMP     ?EPILOGUE_B4_L09
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "##Watch mode##\\n"`:
+   \   00000000   232361576374       DC8 "##Watch mode##\012"
+   \              20686F6D6564
+   \              2323000A    
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "1.\\307\\366\\300\\34`:
+   \   00000000   2E31F6C7E7C0       DC8 "1.\307\366\300\347 \275\303\260\243: "
+   \              BD20B0C33AA3
+   \              0020        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _lcd_line1">`:
+   \   00000000   20303D215F20       DC8 "0 != _lcd_line1"
+   \              636C5F64696C
+   \              656E0031    
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "C:\\\\work\\\\APP\\\\Te`:
+   \   00000000   3A43775C726F       DC8 "C:\\work\\APP\\Term_Project\\CalClkFuncGen.cpp"
+   \              5C6B50415C50
+   \              65546D72505F
+   \              6F72656A7463
+   \              435C6C616C43
+   \              466B6E754763
+   \              6E65632E7070
+   \              00          
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _lcd_line2">`:
+   \   00000000   20303D215F20       DC8 "0 != _lcd_line2"
+   \              636C5F64696C
+   \              656E0032    
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _serial">>`:
+   \   00000000   20303D215F20       DC8 "0 != _serial"
+   \              657369726C61
+   \              00          
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _pwm">>`:
+   \   00000000   20303D215F20       DC8 "0 != _pwm"
+   \              7770006D    
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "        ">>`:
+   \   00000000   202020202020       DC8 "        "
+   \              202000      
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "1.\\307\\366\\300\\34_1`:
+   \   00000000   2E31F6C7E7C0       DC8 "1.\307\366\300\347 \275\303\260\243:\012"
+   \              BD20B0C33AA3
+   \              000A        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "##Calcul mode##\\n`:
+   \   00000000   23236143636C       DC8 "##Calcul mode##\012"
+   \              6C756D20646F
+   \              23650A2300  
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "##Calc##">>`:
+   \   00000000   23236143636C       DC8 "##Calc##"
+   \              232300      
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "##Function Genera`:
+   \   00000000   23237546636E       DC8 "##Function Generator mode##\012"
+   \              69746E6F4720
+   \              6E6572657461
+   \              726F6D20646F
+   \              23650A2300  
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "PLUS">>`:
+   \   00000000   4C50535500         DC8 "PLUS"
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "MINUS">>`:
+   \   00000000   494D554E0053       DC8 "MINUS"
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "MUL">>`:
+   \   00000000   554D004C           DC8 "MUL"
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "2.\\261\\244\\260\\35`:
+   \   00000000   2E32A4B1EDB0       DC8 "2.\261\244\260\355(15\300\332 \300\314\263\273): "
+   \              3128C03520DA
+   \              CCC0BBB33A29
+   \              0020        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "\\260\\350\\273\\352\\`:
+   \   00000000   E8B0EABBE2B1       DC8 "\260\350\273\352\261\342\012"
+   \              000A        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "Function Gen\\n">>`:
+   \   00000000   7546636E6974       DC8 "Function Gen\012"
+   \              6E6F47206E65
+   \              000A        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "ADC:%d.%d%d">>`:
+   \   00000000   44413A436425       DC8 "ADC:%d.%d%d"
+   \              252E25640064
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "%d%d%d%%duty">>`:
+   \   00000000   642564256425       DC8 "%d%d%d%%duty"
+   \              252575647974
+   \              00          
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "%02d:%02d:%02d">>`:
+   \   00000000   30256432253A       DC8 "%02d:%02d:%02d"
+   \              32303A643025
+   \              643200      
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for flag_Clock>`:
+   \   00000000   01                 DC8 1
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "##Watch mode##\\n">`:
+   \   00000000                      DS8 16
+   \   00000010                      REQUIRE `?<Initializer for <Constant "##Watch mode##\\n"`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "1.\\307\\366\\300\\347 \\275\\303\\260\\24`:
+   \   00000000                      DS8 14
+   \   0000000E                      REQUIRE `?<Initializer for <Constant "1.\\307\\366\\300\\34`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _lcd_line1">`:
+   \   00000000                      DS8 16
+   \   00000010                      REQUIRE `?<Initializer for <Constant "0 != _lcd_line1">`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "C:\\\\work\\\\APP\\\\Term_Proj...">`:
+   \   00000000                      DS8 43
+   \   0000002B                      REQUIRE `?<Initializer for <Constant "C:\\\\work\\\\APP\\\\Te`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _lcd_line2">`:
+   \   00000000                      DS8 16
+   \   00000010                      REQUIRE `?<Initializer for <Constant "0 != _lcd_line2">`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _serial">`:
+   \   00000000                      DS8 13
+   \   0000000D                      REQUIRE `?<Initializer for <Constant "0 != _serial">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _pwm">`:
+   \   00000000                      DS8 10
+   \   0000000A                      REQUIRE `?<Initializer for <Constant "0 != _pwm">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "        ">`:
+   \   00000000                      DS8 9
+   \   00000009                      REQUIRE `?<Initializer for <Constant "        ">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "1.\\307\\366\\300\\347 \\275\\303\\260\\24_1`:
+   \   00000000                      DS8 14
+   \   0000000E                      REQUIRE `?<Initializer for <Constant "1.\\307\\366\\300\\34_1`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "##Calcul mode##\\n">`:
+   \   00000000                      DS8 17
+   \   00000011                      REQUIRE `?<Initializer for <Constant "##Calcul mode##\\n`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "##Calc##">`:
+   \   00000000                      DS8 9
+   \   00000009                      REQUIRE `?<Initializer for <Constant "##Calc##">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "##Function Generator ...">`:
+   \   00000000                      DS8 29
+   \   0000001D                      REQUIRE `?<Initializer for <Constant "##Function Genera`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "PLUS">`:
+   \   00000000                      DS8 5
+   \   00000005                      REQUIRE `?<Initializer for <Constant "PLUS">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "MINUS">`:
+   \   00000000                      DS8 6
+   \   00000006                      REQUIRE `?<Initializer for <Constant "MINUS">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "MUL">`:
+   \   00000000                      DS8 4
+   \   00000004                      REQUIRE `?<Initializer for <Constant "MUL">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "2.\\261\\244\\260\\355(15\\300\\332 \\300`:
+   \   00000000                      DS8 20
+   \   00000014                      REQUIRE `?<Initializer for <Constant "2.\\261\\244\\260\\35`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "\\260\\350\\273\\352\\261\\342\\n">`:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for <Constant "\\260\\350\\273\\352\\`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "Function Gen\\n">`:
+   \   00000000                      DS8 14
+   \   0000000E                      REQUIRE `?<Initializer for <Constant "Function Gen\\n">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "ADC:%d.%d%d">`:
+   \   00000000                      DS8 12
+   \   0000000C                      REQUIRE `?<Initializer for <Constant "ADC:%d.%d%d">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "%d%d%d%%duty">`:
+   \   00000000                      DS8 13
+   \   0000000D                      REQUIRE `?<Initializer for <Constant "%d%d%d%%duty">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "%02d:%02d:%02d">`:
+   \   00000000                      DS8 15
+   \   0000000F                      REQUIRE `?<Initializer for <Constant "%02d:%02d:%02d">>`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 CalClkFuncGen *CalClkFuncGen::new CalClkFuncGen()
+   \                     `??new CalClkFuncGen`:
+   \   00000000   E10E               LDI     R16, 30
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   0198               MOVW    R19:R18, R17:R16
+   \   0000000A   2B01               OR      R16, R17
+   \   0000000C   F019               BREQ    `??new CalClkFuncGen_1`
+   \   0000000E   0189               MOVW    R17:R16, R19:R18
+   \   00000010   ....               RCALL   ??CalClkFuncGen
+   \   00000012   9508               RET
+   \                     `??new CalClkFuncGen_1`:
+   \   00000014   E000               LDI     R16, 0
+   \   00000016   E010               LDI     R17, 0
+   \   00000018   9508               RET
+    381           
+    382          // ----------------------------------------------------------- //
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     CalClkFuncGen::CalClkFuncGen()     0      2
+     CalClkFuncGen::Init()              4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     CalClkFuncGen::InputAdc(unsigned short)
+                                       50      4
+       -> sprintf                      50      2
+       ->   Indirect call              44      2
+       -> sprintf                      50      2
+       ->   Indirect call              44      2
+       ->   Indirect call              44      2
+     CalClkFuncGen::InputCh(char)      19      4
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       -> CalClkFuncGen::InputTime(char *)
+                                       19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+       ->   Indirect call              19      2
+     CalClkFuncGen::InputTime(char *)
+                                        0      2
+     CalClkFuncGen::SetIStringOut(IStringOut *, IStringOut *, IStringOut *)
+                                        8      2
+       -> __taabi_assert                8      2
+       -> __iar_EmptyStepPoint          8      2
+       -> __taabi_assert                8      2
+       -> __iar_EmptyStepPoint          8      2
+       -> __taabi_assert                8      2
+       -> __iar_EmptyStepPoint          8      2
+     CalClkFuncGen::SetPwm(IPwmOut *)
+                                        4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+     CalClkFuncGen::StrShift(char *)
+                                        8      2
+       -> strlen                        8      2
+     CalClkFuncGen::Switch()            4      4
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     CalClkFuncGen::new CalClkFuncGen()
+                                        0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> CalClkFuncGen::CalClkFuncGen()
+                                        0      2
+     CalClkFuncGen::tm1s()             23      4
+       -> sprintf                      23      2
+       ->   Indirect call              17      2
+     CalClkFuncGen::tm500ms()           4      2
+       -> CalClkFuncGen::StrShift(char *)
+                                        4      2
+       ->   Indirect call               4      2
+     CalClkFuncGen::~CalClkFuncGen()
+                                        2      2
+       -> operator delete(void *)       2      2
+
+
+   Segment part sizes:
+
+     Function/Label                                   Bytes
+     --------------                                   -----
+     flag_Clock                                          1
+     flag_EnShift                                        1
+     flag_mode                                           2
+     CalClkFuncGen::CalClkFuncGen()                     42
+     CalClkFuncGen::~CalClkFuncGen()
+                                                        30
+     CalClkFuncGen::Init()                              94
+     CalClkFuncGen::InputTime(char *)
+                                                        68
+     CalClkFuncGen::SetIStringOut(IStringOut *, IStringOut *, IStringOut *)
+                                                       114
+     CalClkFuncGen::SetPwm(IPwmOut *)
+                                                        46
+     CalClkFuncGen::Switch()                           384
+     CalClkFuncGen::InputCh(char)                      818
+     CalClkFuncGen::InputAdc(unsigned short)
+                                                       390
+     CalClkFuncGen::tm1s()                             182
+     CalClkFuncGen::StrShift(char *)
+                                                        78
+     CalClkFuncGen::tm500ms()                           70
+     ?<Initializer for <Constant "##Watch mode##\n"     16
+     ?<Initializer for <Constant "1.\307\366\300\34     14
+     ?<Initializer for <Constant "0 != _lcd_line1">     16
+     ?<Initializer for <Constant "C:\\work\\APP\\Te     43
+     ?<Initializer for <Constant "0 != _lcd_line2">     16
+     ?<Initializer for <Constant "0 != _serial">>       13
+     ?<Initializer for <Constant "0 != _pwm">>          10
+     ?<Initializer for <Constant "        ">>            9
+     ?<Initializer for <Constant "1.\307\366\300\34_1   14
+     ?<Initializer for <Constant "##Calcul mode##\n     17
+     ?<Initializer for <Constant "##Calc##">>            9
+     ?<Initializer for <Constant "##Function Genera     29
+     ?<Initializer for <Constant "PLUS">>                5
+     ?<Initializer for <Constant "MINUS">>               6
+     ?<Initializer for <Constant "MUL">>                 4
+     ?<Initializer for <Constant "2.\261\244\260\35     20
+     ?<Initializer for <Constant "\260\350\273\352\      8
+     ?<Initializer for <Constant "Function Gen\n">>     14
+     ?<Initializer for <Constant "ADC:%d.%d%d">>        12
+     ?<Initializer for <Constant "%d%d%d%%duty">>       13
+     ?<Initializer for <Constant "%02d:%02d:%02d">>     15
+     ?<Initializer for flag_Clock>                       1
+     ?<Constant "##Watch mode##\n">                     16
+     ?<Constant "1.\307\366\300\347 \275\303\260\24     14
+     ?<Constant "0 != _lcd_line1">                      16
+     ?<Constant "C:\\work\\APP\\Term_Proj...">          43
+     ?<Constant "0 != _lcd_line2">                      16
+     ?<Constant "0 != _serial">                         13
+     ?<Constant "0 != _pwm">                            10
+     ?<Constant "        ">                              9
+     ?<Constant "1.\307\366\300\347 \275\303\260\24_1   14
+     ?<Constant "##Calcul mode##\n">                    17
+     ?<Constant "##Calc##">                              9
+     ?<Constant "##Function Generator ...">             29
+     ?<Constant "PLUS">                                  5
+     ?<Constant "MINUS">                                 6
+     ?<Constant "MUL">                                   4
+     ?<Constant "2.\261\244\260\355(15\300\332 \300     20
+     ?<Constant "\260\350\273\352\261\342\n">            8
+     ?<Constant "Function Gen\n">                       14
+     ?<Constant "ADC:%d.%d%d">                          12
+     ?<Constant "%d%d%d%%duty">                         13
+     ?<Constant "%02d:%02d:%02d">                       15
+     CalClkFuncGen::new CalClkFuncGen()
+                                                        26
+      Others                                            16
+
+ 
+ 2 342 bytes in segment CODE
+    14 bytes in segment INITTAB
+     2 bytes in segment NEAR_F
+   304 bytes in segment NEAR_I
+   304 bytes in segment NEAR_ID
+     3 bytes in segment NEAR_Z
+ 
+ 2 646 bytes of CODE memory (+ 16 bytes shared)
+   307 bytes of DATA memory
+
+Errors: none
+Warnings: 4

@@ -1,0 +1,396 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:06 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\BSP\MC_E02SMB_ #
+#                    v1_3\dio_adaptor.cpp                                     #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\BSP\MC_E02SMB_ #
+#                    v1_3\dio_adaptor.cpp --cpu=m128 -ms -o                   #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\dio_ad #
+#                    aptor.lst                                                #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\dio_ada #
+#                    ptor.r90                                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\BSP\MC_E02SMB_v1_3\dio_adaptor.cpp
+      1          #include "dio_adaptor.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 E02SMBLed::~E02SMBLed()
+   \                     `?~E02SMBLed`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~E02SMBLed_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~E02SMBLed_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~E02SMBLed_1`:
+   \   0000000E   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DigialIn::~DigialIn()
+   \                     `?~DigialIn`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~DigialIn_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~DigialIn_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~DigialIn_1`:
+   \   0000000E   9508               RET
+      2          
+      3          #include <assert.h>
+      4          #include <ioavr.h>
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   <__C17> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x32
+   \   <__C18> volatile __io _A_PORTD
+   \                     _A_PORTD:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x63
+   \   <__C60> volatile __io _A_PING
+   \                     _A_PING:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x64
+   \   <__C61> volatile __io _A_DDRG
+   \                     _A_DDRG:
+   \   00000000                      DS8 1
+      5          
+      6          #define E02SMB_LED_DDR   DDRD
+      7          #define E02SMB_LED_PORT  PORTD
+      8          #define E02SMB_LED_PIN   PIND
+      9          #define E02SMB_LED_PORT_MASK 0xf0
+     10          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     11          E02SMBLed::E02SMBLed()
+   \                     ??E02SMBLed:
+   \   00000000   ....               RCALL   ?Subroutine2
+     12          {
+   \                     ??CrossCallReturnLabel_0:
+   \   00000002   ........           CALL    ??Led
+   \   00000006   ....               LDI     R16, LOW(??__vtbl)
+   \   00000008   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000A   9611               ADIW    R27:R26, 1
+   \   0000000C   930D               ST      X+, R16
+   \   0000000E   931C               ST      X, R17
+   \   00000010   9712               SBIW    R27:R26, 2
+     13            E02SMB_LED_DDR |= E02SMB_LED_PORT_MASK;  
+   \   00000012   B301               IN      R16, 0x11
+   \   00000014   6F00               ORI     R16, 0xF0
+   \   00000016   BB01               OUT     0x11, R16
+     14            
+     15            SetPort(0);    
+   \   00000018   E020               LDI     R18, 0
+   \   0000001A   018D               MOVW    R17:R16, R27:R26
+   \   0000001C   ....               RCALL   ??SetPort
+     16          }
+   \   0000001E                      REQUIRE ?Subroutine3
+   \   0000001E                      REQUIRE _A_DDRD
+   \   0000001E                      ;               // Fall through to label ?Subroutine3
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine3:
+   \   00000000   018D               MOVW    R17:R16, R27:R26
+   \   00000002   91A9               LD      R26, Y+
+   \   00000004   91B9               LD      R27, Y+
+   \   00000006   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   9508               RET
+     17          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     18          void E02SMBLed::SetPort(unsigned char _v)
+   \                     ??SetPort:
+     19          {
+     20            assert( (E02SMB_LED_DDR & E02SMB_LED_PORT_MASK) == E02SMB_LED_PORT_MASK);
+     21          //  assert(0x0f >= _v);
+     22            
+     23            _v = _v & 0x0f;
+     24            
+     25            E02SMB_LED_PORT = ~((E02SMB_LED_PORT & 0x0f) | ( _v  << 4));
+   \   00000000   B302               IN      R16, 0x12
+   \   00000002   700F               ANDI    R16, 0x0F
+   \   00000004   9522               SWAP    R18
+   \   00000006   7F20               ANDI    R18, 0xF0
+   \   00000008   2B02               OR      R16, R18
+   \   0000000A   9500               COM     R16
+   \   0000000C   BB02               OUT     0x12, R16
+     26            
+     27          }
+   \   0000000E   9508               RET
+   \   00000010                      REQUIRE _A_PORTD
+     28          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     29          unsigned char E02SMBLed::GetPort(void)
+   \                     ??GetPort:
+     30          {
+     31          
+     32            assert( (E02SMB_LED_DDR & E02SMB_LED_PORT_MASK) == E02SMB_LED_PORT_MASK);
+     33            
+     34            return ~( E02SMB_LED_PORT >> 4);
+   \   00000000   B302               IN      R16, 0x12
+   \   00000002   9502               SWAP    R16
+   \   00000004   700F               ANDI    R16, 0x0F
+   \   00000006   9500               COM     R16
+   \   00000008   9508               RET
+   \   0000000A                      REQUIRE _A_PORTD
+     35            
+     36          }
+     37          
+     38          
+     39          
+     40          #define DIGITAL_IN_DDR   DDRG
+     41          #define DIGITAL_IN_PORT  PORTG
+     42          #define DIGITAL_IN_PIN   PING
+     43          #define DIGITAL_IN_PORT_NUM 4
+     44          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     45          DigialIn::DigialIn(DInEvent & _ev)
+   \                     ??DigialIn:
+   \   00000000   ....               RCALL   ?Subroutine2
+     46          :DIn(_ev,50)
+     47          {
+   \                     ??CrossCallReturnLabel_1:
+   \   00000002   E342               LDI     R20, 50
+   \   00000004   ........           CALL    ??DIn
+   \   00000008   ....               RJMP    ?Subroutine0
+   \   0000000A                      REQUIRE _A_DDRG
+     48            DIGITAL_IN_DDR &= ~(1 << DIGITAL_IN_PORT_NUM);   //clear
+     49            
+     50            
+     51            //ISR
+     52          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   ....               LDI     R16, LOW(??__vtbl_1)
+   \   00000002   ....               LDI     R17, (??__vtbl_1) >> 8
+   \   00000004   9615               ADIW    R27:R26, 5
+   \   00000006   930D               ST      X+, R16
+   \   00000008   931C               ST      X, R17
+   \   0000000A   9716               SBIW    R27:R26, 6
+   \   0000000C   91000064           LDS     R16, 100
+   \   00000010   7E0F               ANDI    R16, 0xEF
+   \   00000012   93000064           STS     100, R16
+   \   00000016   ....               RJMP    ?Subroutine3
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     53          DigialIn::DigialIn()
+   \                     ??DigialIn_1:
+   \   00000000   ....               RCALL   ?Subroutine2
+     54          {
+   \                     ??CrossCallReturnLabel_2:
+   \   00000002   ........           CALL    ??DIn_1
+   \   00000006                      REQUIRE ?Subroutine0
+   \   00000006                      REQUIRE _A_DDRG
+   \   00000006                      ;               // Fall through to label ?Subroutine0
+     55            DIGITAL_IN_DDR &= ~(1 << DIGITAL_IN_PORT_NUM);   //clear
+     56          }
+     57          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     58          unsigned char DigialIn::GetPort(void)
+   \                     ??GetPort_1:
+     59          {
+     60            assert( 0 == ( DIGITAL_IN_DDR & (1 << DIGITAL_IN_PORT_NUM) ));
+     61           
+     62            if(  DIGITAL_IN_PIN & ( 1 << DIGITAL_IN_PORT_NUM ) )
+   \   00000000   9100....           LDS     R16, _A_PING
+   \   00000004   FF04               SBRS    R16, 4
+   \   00000006   C002               RJMP    ??GetPort_2
+     63            {
+     64              return 1;
+   \   00000008   E001               LDI     R16, 1
+   \   0000000A   9508               RET
+     65            }
+     66            else
+     67            {
+     68              return 0; 
+   \                     ??GetPort_2:
+   \   0000000C   E000               LDI     R16, 0
+   \   0000000E   9508               RET
+   \   00000010                      REQUIRE _A_PING
+     69            }     
+     70            
+     71          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 E02SMBLed *E02SMBLed::new E02SMBLed()
+   \                     `??new E02SMBLed`:
+   \   00000000   E00D               LDI     R16, 13
+   \   00000002   ....               RCALL   ??Subroutine5_0
+   \                     ??CrossCallReturnLabel_5:
+   \   00000004   F009               BREQ    `??new E02SMBLed_1`
+   \   00000006   ....               RJMP    ??E02SMBLed
+   \                     `??new E02SMBLed_1`:
+   \   00000008                      REQUIRE ?Subroutine4
+   \   00000008                      ;               // Fall through to label ?Subroutine4
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine4:
+   \   00000000   E000               LDI     R16, 0
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DigialIn *DigialIn::new DigialIn(DInEvent &)
+   \                     `??new DigialIn`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_3:
+   \   00000008   F019               BREQ    `??new DigialIn_2`
+   \   0000000A   019C               MOVW    R19:R18, R25:R24
+   \   0000000C   ....               RCALL   ??DigialIn
+   \   0000000E   C002               RJMP    `??new DigialIn_3`
+   \                     `??new DigialIn_2`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   E010               LDI     R17, 0
+   \                     `??new DigialIn_3`:
+   \   00000014   9189               LD      R24, Y+
+   \   00000016   9199               LD      R25, Y+
+   \   00000018   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   E007               LDI     R16, 7
+   \   00000002                      REQUIRE ??Subroutine5_0
+   \   00000002                      ;               // Fall through to label ??Subroutine5_0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??Subroutine5_0:
+   \   00000000   E010               LDI     R17, 0
+   \   00000002   ........           CALL    `??operator new`
+   \   00000006   2F20               MOV     R18, R16
+   \   00000008   2B21               OR      R18, R17
+   \   0000000A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DigialIn *DigialIn::new DigialIn()
+   \                     `??new DigialIn_1`:
+   \   00000000   ....               RCALL   ?Subroutine1
+   \                     ??CrossCallReturnLabel_4:
+   \   00000002   F009               BREQ    `??new DigialIn_4`
+   \   00000004   ....               RJMP    ??DigialIn_1
+   \                     `??new DigialIn_4`:
+   \   00000006   ....               RJMP    ?Subroutine4
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     DigialIn::DigialIn()               2      2
+       -> DIn::DIn()                    2      2
+     DigialIn::DigialIn(DInEvent &)     2      2
+       -> DIn::DIn(DInEvent &, unsigned char)
+                                        2      2
+     DigialIn::GetPort()                0      2
+     DigialIn::new DigialIn()           0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> DigialIn::DigialIn()          0      2
+     DigialIn::new DigialIn(DInEvent &)
+                                        2      2
+       -> operator new(unsigned int)
+                                        2      2
+       -> DigialIn::DigialIn(DInEvent &)
+                                        2      2
+     DigialIn::~DigialIn()              0      2
+       -> operator delete(void *)       0      2
+     E02SMBLed::E02SMBLed()             2      2
+       -> Led::Led()                    2      2
+       -> E02SMBLed::SetPort(unsigned char)
+                                        2      2
+     E02SMBLed::GetPort()               0      2
+     E02SMBLed::SetPort(unsigned char)
+                                        0      2
+     E02SMBLed::new E02SMBLed()         0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> E02SMBLed::E02SMBLed()        0      2
+     E02SMBLed::~E02SMBLed()            0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     E02SMBLed::~E02SMBLed()          16
+     DigialIn::~DigialIn()            16
+     _A_DDRD                           1
+     _A_PORTD                          1
+     _A_PING                           1
+     _A_DDRG                           1
+     E02SMBLed::E02SMBLed()           30
+     ?Subroutine3                      8
+     ?Subroutine2                      8
+     E02SMBLed::SetPort(unsigned char)
+                                      16
+     E02SMBLed::GetPort()             10
+     DigialIn::DigialIn(DInEvent &)   10
+     ?Subroutine0                     24
+     DigialIn::DigialIn()              6
+     DigialIn::GetPort()              16
+     E02SMBLed::new E02SMBLed()        8
+     ?Subroutine4                      6
+     DigialIn::new DigialIn(DInEvent &)
+                                      26
+     ?Subroutine1                      2
+     ??Subroutine5_0                  12
+     DigialIn::new DigialIn()          8
+      Others                          10
+
+ 
+   4 bytes in segment ABSOLUTE
+ 222 bytes in segment CODE
+  10 bytes in segment NEAR_F
+ 
+ 190 bytes of CODE memory (+ 42 bytes shared)
+   0 bytes of DATA memory (+  4 bytes shared)
+
+Errors: none
+Warnings: none

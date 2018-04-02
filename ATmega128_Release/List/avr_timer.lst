@@ -1,0 +1,331 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:06 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_timer.cpp                                           #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_timer.cpp --cpu=m128 -ms -o                         #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\avr_ti #
+#                    mer.lst                                                  #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\avr_tim #
+#                    er.r90                                                   #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver\avr_timer.cpp
+      1          
+      2          #include "avr_timer.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Avr_timer0::~Avr_timer0()
+   \                     `?~Avr_timer0`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~Avr_timer0_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~Avr_timer0_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~Avr_timer0_1`:
+   \   0000000E   9508               RET
+      3          #include "avr_common.h"
+      4          
+      5          #include <ioavr.h> 
+
+   \                                 In  segment ABSOLUTE, at 0x43
+   \   <__C34> volatile __io _A_OCR2
+   \                     _A_OCR2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x44
+   \   <__C35> volatile __io _A_TCNT2
+   \                     _A_TCNT2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x45
+   \   <__C36> volatile __io _A_TCCR2
+   \                     _A_TCCR2:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x57
+   \   <__C50> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+      6          #include <inavr.h>
+      7          
+      8          
+      9          
+     10          //static Avr_timer0 * timer0 = 0;
+     11          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     12          volatile unsigned char timeout;
+   \                     timeout:
+   \   00000000                      DS8 1
+     13          
+     14          #if defined(__ATmega164P__) | defined(__ATmega164PA__)|defined(__ATmega324P__)
+     15          #pragma vector = TIMER0_OVF_vect // for atmega164
+     16          __interrupt void timer0_ovf(void)
+     17          {
+     18           //8ms @ 8Mhz
+     19            
+     20            timeout = 1;
+     21          
+     22          }
+     23          #endif
+     24          
+     25          
+     26          #if defined(__ATmega128__)
+     27          
+     28          #if AVR_TIMER == TIMER_0
+     29          #pragma vector = TIMER0_COMP_vect
+     30          #elif AVR_TIMER == TIMER_2
+     31          #pragma vector = TIMER2_COMP_vect
+     32          #endif
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     33          __interrupt void timer_cmp(void)
+   \                     ??timer_cmp:
+     34          {
+   \   00000000   930A               ST      -Y, R16
+     35           //10ms @ 16Mhz
+     36            
+     37            timeout = 1;
+   \   00000002   E001               LDI     R16, 1
+   \   00000004   9300....           STS     timeout, R16
+     38           
+     39          
+     40          }
+   \   00000008   9109               LD      R16, Y+
+   \   0000000A   9518               RETI
+     41          
+     42          #endif
+     43          
+     44          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     45          Avr_timer0::Avr_timer0(void)
+   \                     ??Avr_timer0:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     46          {
+   \   00000006   ....               LDI     R16, LOW(??__vtbl)
+   \   00000008   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000A   930D               ST      X+, R16
+   \   0000000C   931C               ST      X, R17
+   \   0000000E   9711               SBIW    R27:R26, 1
+     47            timeout=0;
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   9300....           STS     timeout, R16
+     48            Init();
+   \   00000016   018D               MOVW    R17:R16, R27:R26
+   \   00000018   ....               RCALL   ??Init
+     49           
+     50          }
+   \   0000001A   018D               MOVW    R17:R16, R27:R26
+   \   0000001C   91A9               LD      R26, Y+
+   \   0000001E   91B9               LD      R27, Y+
+   \   00000020   9508               RET
+     51          
+     52          
+     53          #define TICKS_PER_SEC 100 //10ms
+     54          //#define TICKS_PER_SEC 1000 //1ms
+     55          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     56          void Avr_timer0::Init(void)
+   \                     ??Init:
+     57          {
+     58          #if defined(__ATmega164P__) | defined(__ATmega164PA__)|defined(__ATmega324P__)
+     59              TIMSK0 |= (1 << TOIE0);  //8ms @ 8Mhz
+     60              TCCR0B |= (1 << CS02); //8ms @ 8Mhz
+     61          #endif 
+     62              
+     63          #if defined(__ATmega128__)
+     64          #if AVR_TIMER == TIMER_0    
+     65                 TCCR0 =  ( 1 << WGM01) | ( 1 << CS02) | ( 1 << CS01) | (1 << CS00); //1024
+     66                 OCR0 = (F_CPU/TICKS_PER_SEC/1024) - 1;   
+     67                 TCNT0 = 0x00;   
+     68                 TIMSK |= ( 1 << OCIE0); 
+     69          #elif AVR_TIMER == TIMER_2
+     70                 TCCR2 =  ( 1 << WGM21) | ( 1 << CS22) | (1 << CS20); //1024
+   \   00000000   E00D               LDI     R16, 13
+   \   00000002   BD05               OUT     0x25, R16
+     71                 OCR2 = (F_CPU/TICKS_PER_SEC/1024) - 1;   
+   \   00000004   E90B               LDI     R16, 155
+   \   00000006   BD03               OUT     0x23, R16
+     72                 TCNT2 = 0x00;   
+   \   00000008   E000               LDI     R16, 0
+   \   0000000A   BD04               OUT     0x24, R16
+     73                 TIMSK |= ( 1 << OCIE2); 
+   \   0000000C   B707               IN      R16, 0x37
+   \   0000000E   6800               ORI     R16, 0x80
+   \   00000010   BF07               OUT     0x37, R16
+     74          #endif       
+     75          #endif
+     76          
+     77             __enable_interrupt();
+   \   00000012   9478               SEI
+     78          
+     79          #if defined(__ATmega164P__) | defined(__ATmega164PA__)| defined(__ATmega324P__)
+     80              
+     81          #endif
+     82             
+     83          #if defined(__ATmega128__)
+     84              
+     85          #endif    
+     86              // set prescaler to 256 and start the timer
+     87              
+     88            
+     89          }
+   \   00000014   9508               RET
+   \   00000016                      REQUIRE _A_OCR2
+   \   00000016                      REQUIRE _A_TCNT2
+   \   00000016                      REQUIRE _A_TCCR2
+   \   00000016                      REQUIRE _A_TIMSK
+     90            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   E010               LDI     R17, 0
+   \   00000002   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     91          unsigned short Avr_timer0::GetTimeOutMS(void)
+   \                     ??GetTimeOutMS:
+     92          {
+     93          #if defined(__ATmega164P__) | defined(__ATmega164PA__)| defined(__ATmega324P__)  
+     94            return 8; //8ms
+     95          #endif
+     96            
+     97          #if defined(__ATmega128__)
+     98            return 10; //10ms    
+   \   00000000   E00A               LDI     R16, 10
+   \   00000002   ....               RJMP    ?Subroutine0
+     99          #endif   
+    100            
+    101          }
+    102          
+    103          
+    104          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    105          char Avr_timer0::isTimeOut(void)
+   \                     ??isTimeOut:
+    106          {
+    107            
+    108            if(timeout)
+   \   00000000   9100....           LDS     R16, timeout
+   \   00000004   2300               TST     R16
+   \   00000006   E000               LDI     R16, 0
+   \   00000008   F019               BREQ    ??isTimeOut_1
+    109            {
+    110              timeout = 0;
+   \   0000000A   9300....           STS     timeout, R16
+    111              return 1;
+   \   0000000E   E001               LDI     R16, 1
+    112            }
+    113            
+    114            return 0;
+   \                     ??isTimeOut_1:
+   \   00000010   9508               RET
+    115          }
+
+   \                                 In  segment INTVEC, offset 0x24, root
+   \                     `??timer_cmp??INTVEC 36`:
+   \   00000024   ........           JMP     ??timer_cmp
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Avr_timer0 *Avr_timer0::new Avr_timer0()
+   \                     `??new Avr_timer0`:
+   \   00000000   E002               LDI     R16, 2
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new Avr_timer0_1`
+   \   0000000E   ....               RJMP    ??Avr_timer0
+   \                     `??new Avr_timer0_1`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012                      REQUIRE ?Subroutine0
+   \   00000012                      ;               // Fall through to label ?Subroutine0
+
+   Maximum stack usage in bytes:
+
+     Function                      CSTACK RSTACK
+     --------                      ------ ------
+     Avr_timer0::Avr_timer0()          2      2
+       -> Avr_timer0::Init()           2      2
+     Avr_timer0::GetTimeOutMS()        0      2
+     Avr_timer0::Init()                0      2
+     Avr_timer0::isTimeOut()           0      2
+     Avr_timer0::new Avr_timer0()      0      2
+       -> operator new(size_t)         0      2
+       -> Avr_timer0::Avr_timer0()     0      2
+     Avr_timer0::~Avr_timer0()         0      2
+       -> operator delete(void *)      0      2
+     timer_cmp()                       3      2
+
+
+   Segment part sizes:
+
+     Function/Label               Bytes
+     --------------               -----
+     Avr_timer0::~Avr_timer0()      16
+     _A_OCR2                         1
+     _A_TCNT2                        1
+     _A_TCCR2                        1
+     _A_TIMSK                        1
+     timeout                         1
+     timer_cmp()                    12
+     Avr_timer0::Avr_timer0()       34
+     Avr_timer0::Init()             22
+     ?Subroutine0                    4
+     Avr_timer0::GetTimeOutMS()      4
+     Avr_timer0::isTimeOut()        18
+     ??timer_cmp??INTVEC 36          4
+     Avr_timer0::new Avr_timer0()   18
+      Others                        15
+
+ 
+   4 bytes in segment ABSOLUTE
+ 128 bytes in segment CODE
+   7 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   8 bytes in segment NEAR_F
+   1 byte  in segment NEAR_Z
+ 
+ 112 bytes of CODE memory (+ 35 bytes shared)
+   1 byte  of DATA memory (+  4 bytes shared)
+
+Errors: none
+Warnings: none

@@ -1,0 +1,1141 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:45 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Basic_Component\serialIO.cpp      #
+#    Command line =  C:\work\TIEL_FrameWork\Basic_Component\serialIO.cpp      #
+#                    --cpu=m128 -ms -o C:\work\ATmega128_Debug\Obj\ -D        #
+#                    xNDEBUG -D xWATCHDOG_ENABLE -lC                          #
+#                    C:\work\ATmega128_Debug\List\ -y                         #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\serialIO.lst                #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\serialIO.r90                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Basic_Component\serialIO.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          #include "serialio.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 RingBuffer::~RingBuffer()
+   \                     `?~RingBuffer`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   2F08               MOV     R16, R24
+   \   00000008   2B09               OR      R16, R25
+   \   0000000A   F031               BREQ    `?~RingBuffer_1`
+   \   0000000C   2F02               MOV     R16, R18
+   \   0000000E   FF00               SBRS    R16, 0
+   \   00000010   C003               RJMP    `?~RingBuffer_1`
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   ........           CALL    `??operator delete`
+   \                     `?~RingBuffer_1`:
+   \   00000018   9189               LD      R24, Y+
+   \   0000001A   9199               LD      R25, Y+
+   \   0000001C   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 void SerialEvent::SetSerialIO(SerialIO &)
+   \                     ??SetSerialIO:
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8320               ST      Z, R18
+   \   00000004   8331               STD     Z+1, R19
+   \   00000006   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SerialIO::~SerialIO()
+   \                     `?~SerialIO`:
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+   \   00000008   2F08               MOV     R16, R24
+   \   0000000A   2B09               OR      R16, R25
+   \   0000000C   F0A1               BREQ    `?~SerialIO_1`
+   \   0000000E   E022               LDI     R18, 2
+   \   00000010   E030               LDI     R19, 0
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   5E0D               SUBI    R16, 237
+   \   00000016   4F1F               SBCI    R17, 255
+   \   00000018   ........           CALL    `?~RingBuffer`
+   \   0000001C   E022               LDI     R18, 2
+   \   0000001E   E030               LDI     R19, 0
+   \   00000020   018C               MOVW    R17:R16, R25:R24
+   \   00000022   5F0B               SUBI    R16, 251
+   \   00000024   4F1F               SBCI    R17, 255
+   \   00000026   ........           CALL    `?~RingBuffer`
+   \   0000002A   2F0A               MOV     R16, R26
+   \   0000002C   FF00               SBRS    R16, 0
+   \   0000002E   C003               RJMP    `?~SerialIO_1`
+   \   00000030   018C               MOVW    R17:R16, R25:R24
+   \   00000032   ........           CALL    `??operator delete`
+   \                     `?~SerialIO_1`:
+   \   00000036   E0E4               LDI     R30, 4
+   \   00000038   ........           JMP     ?EPILOGUE_B4_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 void ISerialPort::SetSerialIO(SerialIO &)
+   \                     ??SetSerialIO_1:
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+   \   00000008   01FD               MOVW    R31:R30, R27:R26
+   \   0000000A   8100               LD      R16, Z
+   \   0000000C   8111               LDD     R17, Z+1
+   \   0000000E   2B01               OR      R16, R17
+   \   00000010   F051               BREQ    ??SetSerialIO_2
+   \   00000012   E749               LDI     R20, 121
+   \   00000014   E050               LDI     R21, 0
+   \   00000016   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">_1`)
+   \   00000018   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">_1`) >> 8
+   \   0000001A   ....               LDI     R16, LOW(`?<Constant "0 == seIO">`)
+   \   0000001C   ....               LDI     R17, (`?<Constant "0 == seIO">`) >> 8
+   \   0000001E   ........           CALL    __taabi_assert
+   \   00000022   ........           CALL    __iar_EmptyStepPoint
+   \                     ??SetSerialIO_2:
+   \   00000026   938D               ST      X+, R24
+   \   00000028   939C               ST      X, R25
+   \   0000002A   9711               SBIW    R27:R26, 1
+   \   0000002C   E0E4               LDI     R30, 4
+   \   0000002E   ........           JMP     ?EPILOGUE_B4_L09
+     33          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     34          SerialIO::SerialIO(ISerialPort & _sp, SerialEvent & _se, WRITE_OPT_T _write_opt)
+   \                     ??SerialIO:
+   \   00000000   ........           CALL    ?PROLOGUE7_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004   0128               MOVW    R5:R4, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+   \   00000008   01CA               MOVW    R25:R24, R21:R20
+   \   0000000A   2E66               MOV     R6, R22
+   \   0000000C   ....               LDI     R16, LOW(??__vtbl)
+   \   0000000E   ....               LDI     R17, (??__vtbl) >> 8
+   \   00000010   01F2               MOVW    R31:R30, R5:R4
+   \   00000012   A301               STD     Z+33, R16
+   \   00000014   A312               STD     Z+34, R17
+     35          :sp(&_sp),se(&_se), write_opt(_write_opt)
+   \   00000016   01F2               MOVW    R31:R30, R5:R4
+   \   00000018   8260               ST      Z, R6
+   \   0000001A   01F2               MOVW    R31:R30, R5:R4
+   \   0000001C   8381               STD     Z+1, R24
+   \   0000001E   8392               STD     Z+2, R25
+   \   00000020   01F2               MOVW    R31:R30, R5:R4
+   \   00000022   83A3               STD     Z+3, R26
+   \   00000024   83B4               STD     Z+4, R27
+     36          {
+   \   00000026   0182               MOVW    R17:R16, R5:R4
+   \   00000028   5F0B               SUBI    R16, 251
+   \   0000002A   4F1F               SBCI    R17, 255
+   \   0000002C   ........           CALL    ??RingBuffer
+   \   00000030   0182               MOVW    R17:R16, R5:R4
+   \   00000032   5E0D               SUBI    R16, 237
+   \   00000034   4F1F               SBCI    R17, 255
+   \   00000036   ........           CALL    ??RingBuffer
+     37           sp->SetSerialIO(*this);
+   \   0000003A   0192               MOVW    R19:R18, R5:R4
+   \   0000003C   01F2               MOVW    R31:R30, R5:R4
+   \   0000003E   8103               LDD     R16, Z+3
+   \   00000040   8114               LDD     R17, Z+4
+   \   00000042   ........           CALL    ??SetSerialIO_1
+     38           se->SetSerialIO(*this);
+   \   00000046   0192               MOVW    R19:R18, R5:R4
+   \   00000048   01F2               MOVW    R31:R30, R5:R4
+   \   0000004A   8101               LDD     R16, Z+1
+   \   0000004C   8112               LDD     R17, Z+2
+   \   0000004E   ........           CALL    ??SetSerialIO
+     39            
+     40          }
+   \   00000052   0182               MOVW    R17:R16, R5:R4
+   \   00000054   E0E7               LDI     R30, 7
+   \   00000056   ........           JMP     ?EPILOGUE_B7_L09
+     41          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     42          SerialIO::SerialIO(ISerialPort & _sp)
+   \                     ??SerialIO_1:
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+   \   00000008   ....               LDI     R16, LOW(??__vtbl)
+   \   0000000A   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000C   01FD               MOVW    R31:R30, R27:R26
+   \   0000000E   A301               STD     Z+33, R16
+   \   00000010   A312               STD     Z+34, R17
+     43          :sp(&_sp),se(0), write_opt(ANSYNC)
+   \   00000012   E000               LDI     R16, 0
+   \   00000014   930C               ST      X, R16
+   \   00000016   E000               LDI     R16, 0
+   \   00000018   E010               LDI     R17, 0
+   \   0000001A   01FD               MOVW    R31:R30, R27:R26
+   \   0000001C   8301               STD     Z+1, R16
+   \   0000001E   8312               STD     Z+2, R17
+   \   00000020   01FD               MOVW    R31:R30, R27:R26
+   \   00000022   8383               STD     Z+3, R24
+   \   00000024   8394               STD     Z+4, R25
+     44          {
+   \   00000026   018D               MOVW    R17:R16, R27:R26
+   \   00000028   5F0B               SUBI    R16, 251
+   \   0000002A   4F1F               SBCI    R17, 255
+   \   0000002C   ........           CALL    ??RingBuffer
+   \   00000030   018D               MOVW    R17:R16, R27:R26
+   \   00000032   5E0D               SUBI    R16, 237
+   \   00000034   4F1F               SBCI    R17, 255
+   \   00000036   ........           CALL    ??RingBuffer
+     45           sp->SetSerialIO(*this);
+   \   0000003A   019D               MOVW    R19:R18, R27:R26
+   \   0000003C   01FD               MOVW    R31:R30, R27:R26
+   \   0000003E   8103               LDD     R16, Z+3
+   \   00000040   8114               LDD     R17, Z+4
+   \   00000042   ........           CALL    ??SetSerialIO_1
+     46          
+     47          }
+   \   00000046   018D               MOVW    R17:R16, R27:R26
+   \   00000048   E0E4               LDI     R30, 4
+   \   0000004A   ........           JMP     ?EPILOGUE_B4_L09
+     48          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     49          char SerialIO::SetEvent(SerialEvent & _se)
+   \                     ??SetEvent:
+     50          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+     51            assert(0 == se);
+   \   00000008   01FD               MOVW    R31:R30, R27:R26
+   \   0000000A   8101               LDD     R16, Z+1
+   \   0000000C   8112               LDD     R17, Z+2
+   \   0000000E   2B01               OR      R16, R17
+   \   00000010   F051               BREQ    ??SetEvent_1
+   \   00000012   E343               LDI     R20, 51
+   \   00000014   E050               LDI     R21, 0
+   \   00000016   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000018   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   0000001A   ....               LDI     R16, LOW(`?<Constant "0 == se">`)
+   \   0000001C   ....               LDI     R17, (`?<Constant "0 == se">`) >> 8
+   \   0000001E   ........           CALL    __taabi_assert
+   \   00000022   ........           CALL    __iar_EmptyStepPoint
+     52            if(0 == se)
+   \                     ??SetEvent_1:
+   \   00000026   01FD               MOVW    R31:R30, R27:R26
+   \   00000028   8101               LDD     R16, Z+1
+   \   0000002A   8112               LDD     R17, Z+2
+   \   0000002C   2B01               OR      R16, R17
+   \   0000002E   F459               BRNE    ??SetEvent_2
+     53            {
+     54             se = &_se; 
+   \   00000030   01FD               MOVW    R31:R30, R27:R26
+   \   00000032   8381               STD     Z+1, R24
+   \   00000034   8392               STD     Z+2, R25
+     55             se->SetSerialIO(*this);
+   \   00000036   019D               MOVW    R19:R18, R27:R26
+   \   00000038   01FD               MOVW    R31:R30, R27:R26
+   \   0000003A   8101               LDD     R16, Z+1
+   \   0000003C   8112               LDD     R17, Z+2
+   \   0000003E   ........           CALL    ??SetSerialIO
+     56             return 1;
+   \   00000042   E001               LDI     R16, 1
+   \   00000044   C001               RJMP    ??SetEvent_3
+     57            } 
+     58            
+     59            return 0;
+   \                     ??SetEvent_2:
+   \   00000046   E000               LDI     R16, 0
+   \                     ??SetEvent_3:
+   \   00000048   E0E4               LDI     R30, 4
+   \   0000004A   ........           JMP     ?EPILOGUE_B4_L09
+     60            
+     61          }
+     62          
+     63          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     64          void SerialIO::rxFlush(void)
+   \                     ??rxFlush:
+     65          {
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+     66            RxBuff.Flush();
+   \   00000006   018C               MOVW    R17:R16, R25:R24
+   \   00000008   5F0B               SUBI    R16, 251
+   \   0000000A   4F1F               SBCI    R17, 255
+   \   0000000C   ........           CALL    ??Flush
+     67          }
+   \   00000010   9189               LD      R24, Y+
+   \   00000012   9199               LD      R25, Y+
+   \   00000014   9508               RET
+     68          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     69          void SerialIO::txFlush(void)
+   \                     ??txFlush:
+     70          {
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+     71            TxBuff.Flush();;
+   \   00000006   018C               MOVW    R17:R16, R25:R24
+   \   00000008   5E0D               SUBI    R16, 237
+   \   0000000A   4F1F               SBCI    R17, 255
+   \   0000000C   ........           CALL    ??Flush
+     72          }
+   \   00000010   9189               LD      R24, Y+
+   \   00000012   9199               LD      R25, Y+
+   \   00000014   9508               RET
+     73            
+     74          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     75          char SerialIO::Write( unsigned char  _byte)
+   \                     ??Write:
+     76          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+     77          //  if(ANSYNC == write_opt)
+     78          //    ;
+     79          
+     80          //  if(!PushBackTxBuff(_byte) )
+     81           //   return 0;
+     82            while(!PushBackTxBuff(_byte));
+   \                     ??Write_4:
+   \   00000008   2F28               MOV     R18, R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   ....               RCALL   ??PushBackTxBuff
+   \   0000000E   2300               TST     R16
+   \   00000010   F3D9               BREQ    ??Write_4
+     83            assert(0 != sp);
+   \   00000012   01FD               MOVW    R31:R30, R27:R26
+   \   00000014   8103               LDD     R16, Z+3
+   \   00000016   8114               LDD     R17, Z+4
+   \   00000018   2B01               OR      R16, R17
+   \   0000001A   F451               BRNE    ??Write_5
+   \   0000001C   E543               LDI     R20, 83
+   \   0000001E   E050               LDI     R21, 0
+   \   00000020   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000022   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000024   ....               LDI     R16, LOW(`?<Constant "0 != sp">`)
+   \   00000026   ....               LDI     R17, (`?<Constant "0 != sp">`) >> 8
+   \   00000028   ........           CALL    __taabi_assert
+   \   0000002C   ........           CALL    __iar_EmptyStepPoint
+     84            if(0 != sp ){
+   \                     ??Write_5:
+   \   00000030   01FD               MOVW    R31:R30, R27:R26
+   \   00000032   8103               LDD     R16, Z+3
+   \   00000034   8114               LDD     R17, Z+4
+   \   00000036   2B01               OR      R16, R17
+   \   00000038   F089               BREQ    ??Write_6
+     85              sp->SendTxEvent();
+   \   0000003A   01FD               MOVW    R31:R30, R27:R26
+   \   0000003C   8103               LDD     R16, Z+3
+   \   0000003E   8114               LDD     R17, Z+4
+   \   00000040   01F8               MOVW    R31:R30, R17:R16
+   \   00000042   8126               LDD     R18, Z+6
+   \   00000044   8137               LDD     R19, Z+7
+   \   00000046   5F2A               SUBI    R18, 250
+   \   00000048   4F3F               SBCI    R19, 255
+   \   0000004A   01FD               MOVW    R31:R30, R27:R26
+   \   0000004C   8103               LDD     R16, Z+3
+   \   0000004E   8114               LDD     R17, Z+4
+   \   00000050   01F9               MOVW    R31:R30, R19:R18
+   \   00000052   9125               LPM     R18, Z+
+   \   00000054   9134               LPM     R19, Z
+   \   00000056   9731               SBIW    R31:R30, 1
+   \   00000058   01F9               MOVW    R31:R30, R19:R18
+   \   0000005A   9509               ICALL
+     86            }
+     87            
+     88            return 1;
+   \                     ??Write_6:
+   \   0000005C   E001               LDI     R16, 1
+   \   0000005E   E0E4               LDI     R30, 4
+   \   00000060   ........           JMP     ?EPILOGUE_B4_L09
+     89          }
+     90          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     91          unsigned char SerialIO::Write(const unsigned char  _bytes[],unsigned char _size)
+   \                     ??Write_1:
+     92          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+   \   00000008   2E54               MOV     R5, R20
+     93            unsigned char i;
+     94            
+     95            assert( 0 != _bytes);
+   \   0000000A   2F08               MOV     R16, R24
+   \   0000000C   2B09               OR      R16, R25
+   \   0000000E   F451               BRNE    ??Write_7
+   \   00000010   E54F               LDI     R20, 95
+   \   00000012   E050               LDI     R21, 0
+   \   00000014   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000016   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000018   ....               LDI     R16, LOW(`?<Constant "0 != _bytes">`)
+   \   0000001A   ....               LDI     R17, (`?<Constant "0 != _bytes">`) >> 8
+   \   0000001C   ........           CALL    __taabi_assert
+   \   00000020   ........           CALL    __iar_EmptyStepPoint
+     96            assert( 0 != _size);
+   \                     ??Write_7:
+   \   00000024   2055               TST     R5
+   \   00000026   F451               BRNE    ??Write_8
+   \   00000028   E640               LDI     R20, 96
+   \   0000002A   E050               LDI     R21, 0
+   \   0000002C   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   0000002E   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000030   ....               LDI     R16, LOW(`?<Constant "0 != _size">`)
+   \   00000032   ....               LDI     R17, (`?<Constant "0 != _size">`) >> 8
+   \   00000034   ........           CALL    __taabi_assert
+   \   00000038   ........           CALL    __iar_EmptyStepPoint
+     97            
+     98            if(0 == _bytes || 0 == _size) 
+   \                     ??Write_8:
+   \   0000003C   2F08               MOV     R16, R24
+   \   0000003E   2B09               OR      R16, R25
+   \   00000040   F011               BREQ    ??Write_9
+   \   00000042   2055               TST     R5
+   \   00000044   F411               BRNE    ??Write_10
+     99              return 0;//throw error
+   \                     ??Write_9:
+   \   00000046   E000               LDI     R16, 0
+   \   00000048   C012               RJMP    ??Write_11
+    100            
+    101            for(i = 0 ; i < _size ; i++)
+   \                     ??Write_10:
+   \   0000004A   2444               CLR     R4
+   \                     ??Write_12:
+   \   0000004C   1445               CP      R4, R5
+   \   0000004E   F470               BRCC    ??Write_13
+    102            {
+    103              if(!Write(_bytes[i]))
+   \   00000050   2D04               MOV     R16, R4
+   \   00000052   E010               LDI     R17, 0
+   \   00000054   01FC               MOVW    R31:R30, R25:R24
+   \   00000056   0FE0               ADD     R30, R16
+   \   00000058   1FF1               ADC     R31, R17
+   \   0000005A   8120               LD      R18, Z
+   \   0000005C   018D               MOVW    R17:R16, R27:R26
+   \   0000005E   ....               RCALL   ??Write
+   \   00000060   2300               TST     R16
+   \   00000062   F411               BRNE    ??Write_14
+    104                return i;
+   \   00000064   2D04               MOV     R16, R4
+   \   00000066   C003               RJMP    ??Write_11
+    105            }
+   \                     ??Write_14:
+   \   00000068   9443               INC     R4
+   \   0000006A   CFF0               RJMP    ??Write_12
+    106            
+    107            return i;
+   \                     ??Write_13:
+   \   0000006C   2D04               MOV     R16, R4
+   \                     ??Write_11:
+   \   0000006E   E0E6               LDI     R30, 6
+   \   00000070   ........           JMP     ?EPILOGUE_B6_L09
+    108          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    109          unsigned char SerialIO::Write( const char   _string[])
+   \                     ??Write_2:
+    110          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   0128               MOVW    R5:R4, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+    111            unsigned int i;
+    112            
+    113            assert( 0 != _string);
+   \   00000008   2F0A               MOV     R16, R26
+   \   0000000A   2B0B               OR      R16, R27
+   \   0000000C   F451               BRNE    ??Write_15
+   \   0000000E   E741               LDI     R20, 113
+   \   00000010   E050               LDI     R21, 0
+   \   00000012   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000014   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000016   ....               LDI     R16, LOW(`?<Constant "0 != _string">`)
+   \   00000018   ....               LDI     R17, (`?<Constant "0 != _string">`) >> 8
+   \   0000001A   ........           CALL    __taabi_assert
+   \   0000001E   ........           CALL    __iar_EmptyStepPoint
+    114          //  assert( 0 != _size);
+    115            
+    116            if(0 == _string ) 
+   \                     ??Write_15:
+   \   00000022   2F0A               MOV     R16, R26
+   \   00000024   2B0B               OR      R16, R27
+   \   00000026   F411               BRNE    ??Write_16
+    117              return 0;//throw error
+   \   00000028   E000               LDI     R16, 0
+   \   0000002A   C022               RJMP    ??Write_17
+    118            
+    119            for(i = 0 ; _string[i] != '\0' ; i++)
+   \                     ??Write_16:
+   \   0000002C   E080               LDI     R24, 0
+   \   0000002E   E090               LDI     R25, 0
+   \                     ??Write_18:
+   \   00000030   01FD               MOVW    R31:R30, R27:R26
+   \   00000032   0FE8               ADD     R30, R24
+   \   00000034   1FF9               ADC     R31, R25
+   \   00000036   8100               LD      R16, Z
+   \   00000038   2300               TST     R16
+   \   0000003A   F0C9               BREQ    ??Write_19
+    120            {
+    121              if('\n' == _string[i])
+   \   0000003C   01FD               MOVW    R31:R30, R27:R26
+   \   0000003E   0FE8               ADD     R30, R24
+   \   00000040   1FF9               ADC     R31, R25
+   \   00000042   8100               LD      R16, Z
+   \   00000044   300A               CPI     R16, 10
+   \   00000046   F439               BRNE    ??Write_20
+    122              {
+    123                if(!Write('\r'))
+   \   00000048   E02D               LDI     R18, 13
+   \   0000004A   0182               MOVW    R17:R16, R5:R4
+   \   0000004C   ....               RCALL   ??Write
+   \   0000004E   2300               TST     R16
+   \   00000050   F411               BRNE    ??Write_20
+    124                  return i; 
+   \   00000052   2F08               MOV     R16, R24
+   \   00000054   C00D               RJMP    ??Write_17
+    125              }
+    126              if(!Write(_string[i]))
+   \                     ??Write_20:
+   \   00000056   01FD               MOVW    R31:R30, R27:R26
+   \   00000058   0FE8               ADD     R30, R24
+   \   0000005A   1FF9               ADC     R31, R25
+   \   0000005C   8120               LD      R18, Z
+   \   0000005E   0182               MOVW    R17:R16, R5:R4
+   \   00000060   ....               RCALL   ??Write
+   \   00000062   2300               TST     R16
+   \   00000064   F411               BRNE    ??Write_21
+    127                return i;
+   \   00000066   2F08               MOV     R16, R24
+   \   00000068   C003               RJMP    ??Write_17
+    128            }
+   \                     ??Write_21:
+   \   0000006A   9601               ADIW    R25:R24, 1
+   \   0000006C   CFE1               RJMP    ??Write_18
+    129            
+    130            return i;  
+   \                     ??Write_19:
+   \   0000006E   2F08               MOV     R16, R24
+   \                     ??Write_17:
+   \   00000070   E0E6               LDI     R30, 6
+   \   00000072   ........           JMP     ?EPILOGUE_B6_L09
+    131          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    132          unsigned char SerialIO::Write(   char  CONST  *_string)
+   \                     ??Write_3:
+    133          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   0128               MOVW    R5:R4, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+    134            unsigned int i;
+    135            
+    136            assert( 0 != _string);
+   \   00000008   2F0A               MOV     R16, R26
+   \   0000000A   2B0B               OR      R16, R27
+   \   0000000C   F451               BRNE    ??Write_22
+   \   0000000E   E848               LDI     R20, 136
+   \   00000010   E050               LDI     R21, 0
+   \   00000012   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000014   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000016   ....               LDI     R16, LOW(`?<Constant "0 != _string">`)
+   \   00000018   ....               LDI     R17, (`?<Constant "0 != _string">`) >> 8
+   \   0000001A   ........           CALL    __taabi_assert
+   \   0000001E   ........           CALL    __iar_EmptyStepPoint
+    137          //  assert( 0 != _size);
+    138            
+    139            if(0 == _string ) 
+   \                     ??Write_22:
+   \   00000022   2F0A               MOV     R16, R26
+   \   00000024   2B0B               OR      R16, R27
+   \   00000026   F411               BRNE    ??Write_23
+    140              return 0;//throw error
+   \   00000028   E000               LDI     R16, 0
+   \   0000002A   C022               RJMP    ??Write_24
+    141            
+    142            for(i = 0 ; _string[i] != '\0' ; i++)
+   \                     ??Write_23:
+   \   0000002C   E080               LDI     R24, 0
+   \   0000002E   E090               LDI     R25, 0
+   \                     ??Write_25:
+   \   00000030   01FD               MOVW    R31:R30, R27:R26
+   \   00000032   0FE8               ADD     R30, R24
+   \   00000034   1FF9               ADC     R31, R25
+   \   00000036   9104               LPM     R16, Z
+   \   00000038   2300               TST     R16
+   \   0000003A   F0C9               BREQ    ??Write_26
+    143            {
+    144              if('\n' == _string[i])
+   \   0000003C   01FD               MOVW    R31:R30, R27:R26
+   \   0000003E   0FE8               ADD     R30, R24
+   \   00000040   1FF9               ADC     R31, R25
+   \   00000042   9104               LPM     R16, Z
+   \   00000044   300A               CPI     R16, 10
+   \   00000046   F439               BRNE    ??Write_27
+    145              {
+    146                if(!Write('\r'))
+   \   00000048   E02D               LDI     R18, 13
+   \   0000004A   0182               MOVW    R17:R16, R5:R4
+   \   0000004C   ....               RCALL   ??Write
+   \   0000004E   2300               TST     R16
+   \   00000050   F411               BRNE    ??Write_27
+    147                  return i; 
+   \   00000052   2F08               MOV     R16, R24
+   \   00000054   C00D               RJMP    ??Write_24
+    148              }
+    149              if(!Write(_string[i]))
+   \                     ??Write_27:
+   \   00000056   01FD               MOVW    R31:R30, R27:R26
+   \   00000058   0FE8               ADD     R30, R24
+   \   0000005A   1FF9               ADC     R31, R25
+   \   0000005C   9124               LPM     R18, Z
+   \   0000005E   0182               MOVW    R17:R16, R5:R4
+   \   00000060   ....               RCALL   ??Write
+   \   00000062   2300               TST     R16
+   \   00000064   F411               BRNE    ??Write_28
+    150                return i;
+   \   00000066   2F08               MOV     R16, R24
+   \   00000068   C003               RJMP    ??Write_24
+    151            }
+   \                     ??Write_28:
+   \   0000006A   9601               ADIW    R25:R24, 1
+   \   0000006C   CFE1               RJMP    ??Write_25
+    152            
+    153            return i;  
+   \                     ??Write_26:
+   \   0000006E   2F08               MOV     R16, R24
+   \                     ??Write_24:
+   \   00000070   E0E6               LDI     R30, 6
+   \   00000072   ........           JMP     ?EPILOGUE_B6_L09
+    154          }
+    155            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    156          char SerialIO::evTick(void)
+   \                     ??evTick:
+    157          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   9721               SBIW    R29:R28, 1
+   \   00000006   01D8               MOVW    R27:R26, R17:R16
+    158            unsigned char data;
+    159            
+    160            if(PopRxBuff(data))
+   \   00000008   019E               MOVW    R19:R18, R29:R28
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   ....               RCALL   ??PopRxBuff
+   \   0000000E   2300               TST     R16
+   \   00000010   F0C9               BREQ    ??evTick_1
+    161            {
+    162              if(0 != se)
+   \   00000012   01FD               MOVW    R31:R30, R27:R26
+   \   00000014   8101               LDD     R16, Z+1
+   \   00000016   8112               LDD     R17, Z+2
+   \   00000018   2B01               OR      R16, R17
+   \   0000001A   F091               BREQ    ??evTick_2
+    163                se->Receive(data);
+   \   0000001C   9611               ADIW    R27:R26, 1
+   \   0000001E   91ED               LD      R30, X+
+   \   00000020   91FC               LD      R31, X
+   \   00000022   9712               SBIW    R27:R26, 2
+   \   00000024   8142               LDD     R20, Z+2
+   \   00000026   8153               LDD     R21, Z+3
+   \   00000028   5F4E               SUBI    R20, 254
+   \   0000002A   4F5F               SBCI    R21, 255
+   \   0000002C   8128               LD      R18, Y
+   \   0000002E   01FD               MOVW    R31:R30, R27:R26
+   \   00000030   8101               LDD     R16, Z+1
+   \   00000032   8112               LDD     R17, Z+2
+   \   00000034   01FA               MOVW    R31:R30, R21:R20
+   \   00000036   9145               LPM     R20, Z+
+   \   00000038   9154               LPM     R21, Z
+   \   0000003A   9731               SBIW    R31:R30, 1
+   \   0000003C   01FA               MOVW    R31:R30, R21:R20
+   \   0000003E   9509               ICALL
+    164              return 1;
+   \                     ??evTick_2:
+   \   00000040   E001               LDI     R16, 1
+   \   00000042   C001               RJMP    ??evTick_3
+    165            }
+    166            else
+    167            {
+    168              return 0;
+   \                     ??evTick_1:
+   \   00000044   E000               LDI     R16, 0
+   \                     ??evTick_3:
+   \   00000046   9621               ADIW    R29:R28, 1
+   \   00000048   91A9               LD      R26, Y+
+   \   0000004A   91B9               LD      R27, Y+
+   \   0000004C   9508               RET
+    169            }
+    170              
+    171                      
+    172          }
+    173          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    174          char SerialIO::PushBackRxBuff(unsigned char _d)
+   \                     ??PushBackRxBuff:
+    175          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+    176             return RxBuff.PushBack(_d);
+   \   00000008   2F28               MOV     R18, R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   5F0B               SUBI    R16, 251
+   \   0000000E   4F1F               SBCI    R17, 255
+   \   00000010   ........           CALL    ??PushBack
+   \   00000014   E0E4               LDI     R30, 4
+   \   00000016   ........           JMP     ?EPILOGUE_B4_L09
+    177            
+    178          }
+    179          
+    180          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    181          char SerialIO::PopRxBuff(unsigned char & _return)
+   \                     ??PopRxBuff:
+    182          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+    183           
+    184            return RxBuff.Pop(_return);
+   \   00000008   019C               MOVW    R19:R18, R25:R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   5F0B               SUBI    R16, 251
+   \   0000000E   4F1F               SBCI    R17, 255
+   \   00000010   ........           CALL    ??Pop
+   \   00000014   E0E4               LDI     R30, 4
+   \   00000016   ........           JMP     ?EPILOGUE_B4_L09
+    185            
+    186          }
+    187            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    188          char SerialIO::PushBackTxBuff(unsigned char _d)
+   \                     ??PushBackTxBuff:
+    189          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+    190            return TxBuff.PushBack(_d);
+   \   00000008   2F28               MOV     R18, R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   5E0D               SUBI    R16, 237
+   \   0000000E   4F1F               SBCI    R17, 255
+   \   00000010   ........           CALL    ??PushBack
+   \   00000014   E0E4               LDI     R30, 4
+   \   00000016   ........           JMP     ?EPILOGUE_B4_L09
+    191          }
+    192          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    193          char SerialIO::PopTxBuff(unsigned char & _return)
+   \                     ??PopTxBuff:
+    194          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+    195            return TxBuff.Pop(_return);
+   \   00000008   019C               MOVW    R19:R18, R25:R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   5E0D               SUBI    R16, 237
+   \   0000000E   4F1F               SBCI    R17, 255
+   \   00000010   ........           CALL    ??Pop
+   \   00000014   E0E4               LDI     R30, 4
+   \   00000016   ........           JMP     ?EPILOGUE_B4_L09
+    196          }
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 == se">>`:
+   \   00000000   20303D3D7320       DC8 "0 == se"
+   \              0065        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`:
+   \   00000000   3A43775C726F       DC8 43H, 3AH, 5CH, 77H, 6FH, 72H, 6BH, 5CH
+   \              5C6B        
+   \   00000008   49544C45465F       DC8 54H, 49H, 45H, 4CH, 5FH, 46H, 72H, 61H
+   \              6172        
+   \   00000010   656D6F576B72       DC8 6DH, 65H, 57H, 6FH, 72H, 6BH, 5CH, 42H
+   \              425C        
+   \   00000018   73616369435F       DC8 61H, 73H, 69H, 63H, 5FH, 43H, 6FH, 6DH
+   \              6D6F        
+   \   00000020   6F70656E746E       DC8 70H, 6FH, 6EH, 65H, 6EH, 74H, 5CH, 73H
+   \              735C        
+   \   00000028   72656169496C       DC8 65H, 72H, 69H, 61H, 6CH, 49H, 4FH, 2EH
+   \              2E4F        
+   \   00000030   70630070           DC8 63H, 70H, 70H, 0
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != sp">>`:
+   \   00000000   20303D217320       DC8 "0 != sp"
+   \              0070        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _bytes">>`:
+   \   00000000   20303D215F20       DC8 "0 != _bytes"
+   \              796265740073
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _size">>`:
+   \   00000000   20303D215F20       DC8 "0 != _size"
+   \              6973657A00  
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 != _string">>`:
+   \   00000000   20303D215F20       DC8 "0 != _string"
+   \              74736972676E
+   \              00          
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0 == seIO">>`:
+   \   00000000   20303D3D7320       DC8 "0 == seIO"
+   \              4965004F    
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr_1`:
+   \   00000000   3A43775C726F       DC8 "C:\\work\\TIEL_FrameWork\\Basic_Component\\serialio.h"
+   \              5C6B49544C45
+   \              465F6172656D
+   \              6F576B72425C
+   \              73616369435F
+   \              6D6F6F70656E
+   \              746E735C7265
+   \              6169696C2E6F
+   \              0068        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 == se">`:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for <Constant "0 == se">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`:
+   \   00000000                      DS8 52
+   \   00000034                      REQUIRE `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != sp">`:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for <Constant "0 != sp">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _bytes">`:
+   \   00000000                      DS8 12
+   \   0000000C                      REQUIRE `?<Initializer for <Constant "0 != _bytes">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _size">`:
+   \   00000000                      DS8 11
+   \   0000000B                      REQUIRE `?<Initializer for <Constant "0 != _size">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 != _string">`:
+   \   00000000                      DS8 13
+   \   0000000D                      REQUIRE `?<Initializer for <Constant "0 != _string">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0 == seIO">`:
+   \   00000000                      DS8 10
+   \   0000000A                      REQUIRE `?<Initializer for <Constant "0 == seIO">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "C:\\\\work\\\\TIEL_FrameWor...">_1`:
+   \   00000000                      DS8 50
+   \   00000032                      REQUIRE `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr_1`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SerialIO *SerialIO::new SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+   \                     `??new SerialIO`:
+   \   00000000   ........           CALL    ?PROLOGUE5_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+   \   00000008   2E44               MOV     R4, R20
+   \   0000000A   E203               LDI     R16, 35
+   \   0000000C   E010               LDI     R17, 0
+   \   0000000E   ........           CALL    `??operator new`
+   \   00000012   0108               MOVW    R1:R0, R17:R16
+   \   00000014   2B01               OR      R16, R17
+   \   00000016   F031               BREQ    `??new SerialIO_2`
+   \   00000018   2D64               MOV     R22, R4
+   \   0000001A   01AC               MOVW    R21:R20, R25:R24
+   \   0000001C   019D               MOVW    R19:R18, R27:R26
+   \   0000001E   0180               MOVW    R17:R16, R1:R0
+   \   00000020   ....               RCALL   ??SerialIO
+   \   00000022   C002               RJMP    `??new SerialIO_3`
+   \                     `??new SerialIO_2`:
+   \   00000024   E000               LDI     R16, 0
+   \   00000026   E010               LDI     R17, 0
+   \                     `??new SerialIO_3`:
+   \   00000028   E0E5               LDI     R30, 5
+   \   0000002A   ........           JMP     ?EPILOGUE_B5_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SerialIO *SerialIO::new SerialIO(ISerialPort &)
+   \                     `??new SerialIO_1`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   E203               LDI     R16, 35
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    `??operator new`
+   \   0000000E   01A8               MOVW    R21:R20, R17:R16
+   \   00000010   2B01               OR      R16, R17
+   \   00000012   F021               BREQ    `??new SerialIO_4`
+   \   00000014   019C               MOVW    R19:R18, R25:R24
+   \   00000016   018A               MOVW    R17:R16, R21:R20
+   \   00000018   ....               RCALL   ??SerialIO_1
+   \   0000001A   C002               RJMP    `??new SerialIO_5`
+   \                     `??new SerialIO_4`:
+   \   0000001C   E000               LDI     R16, 0
+   \   0000001E   E010               LDI     R17, 0
+   \                     `??new SerialIO_5`:
+   \   00000020   9189               LD      R24, Y+
+   \   00000022   9199               LD      R25, Y+
+   \   00000024   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     ISerialPort::SetSerialIO(SerialIO &)
+                                        4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+     RingBuffer::~RingBuffer()          2      2
+       -> operator delete(void *)       2      2
+     SerialEvent::SetSerialIO(SerialIO &)
+                                        0      2
+     SerialIO::PopRxBuff(unsigned char &)
+                                        4      2
+       -> RingBuffer::Pop(unsigned char &)
+                                        4      2
+     SerialIO::PopTxBuff(unsigned char &)
+                                        4      2
+       -> RingBuffer::Pop(unsigned char &)
+                                        4      2
+     SerialIO::PushBackRxBuff(unsigned char)
+                                        4      2
+       -> RingBuffer::PushBack(unsigned char)
+                                        4      2
+     SerialIO::PushBackTxBuff(unsigned char)
+                                        4      2
+       -> RingBuffer::PushBack(unsigned char)
+                                        4      2
+     SerialIO::SerialIO(ISerialPort &)
+                                        4      2
+       -> RingBuffer::RingBuffer()      4      2
+       -> RingBuffer::RingBuffer()      4      2
+       -> ISerialPort::SetSerialIO(SerialIO &)
+                                        4      2
+     SerialIO::SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                        7      2
+       -> RingBuffer::RingBuffer()      7      2
+       -> RingBuffer::RingBuffer()      7      2
+       -> ISerialPort::SetSerialIO(SerialIO &)
+                                        7      2
+       -> SerialEvent::SetSerialIO(SerialIO &)
+                                        7      2
+     SerialIO::SetEvent(SerialEvent &)
+                                        4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+       -> SerialEvent::SetSerialIO(SerialIO &)
+                                        4      2
+     SerialIO::Write(char __flash *)
+                                        6      2
+       -> __taabi_assert                6      2
+       -> __iar_EmptyStepPoint          6      2
+       -> SerialIO::Write(unsigned char)
+                                        6      2
+       -> SerialIO::Write(unsigned char)
+                                        6      2
+     SerialIO::Write(char const *)      6      2
+       -> __taabi_assert                6      2
+       -> __iar_EmptyStepPoint          6      2
+       -> SerialIO::Write(unsigned char)
+                                        6      2
+       -> SerialIO::Write(unsigned char)
+                                        6      2
+     SerialIO::Write(unsigned char const *, unsigned char)
+                                        6      2
+       -> __taabi_assert                6      2
+       -> __iar_EmptyStepPoint          6      2
+       -> __taabi_assert                6      2
+       -> __iar_EmptyStepPoint          6      2
+       -> SerialIO::Write(unsigned char)
+                                        6      2
+     SerialIO::Write(unsigned char)     4      2
+       -> SerialIO::PushBackTxBuff(unsigned char)
+                                        4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+       ->   Indirect call               4      2
+     SerialIO::evTick()                 3      2
+       -> SerialIO::PopRxBuff(unsigned char &)
+                                        3      2
+       ->   Indirect call               3      2
+     SerialIO::new SerialIO(ISerialPort &)
+                                        2      2
+       -> operator new(unsigned int)
+                                        2      2
+       -> SerialIO::SerialIO(ISerialPort &)
+                                        2      2
+     SerialIO::new SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                        5      2
+       -> operator new(unsigned int)
+                                        5      2
+       -> SerialIO::SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                        5      2
+     SerialIO::rxFlush()                2      2
+       -> RingBuffer::Flush()           2      2
+     SerialIO::txFlush()                2      2
+       -> RingBuffer::Flush()           2      2
+     SerialIO::~SerialIO()              4      2
+       -> RingBuffer::~RingBuffer()     4      2
+       -> RingBuffer::~RingBuffer()     4      2
+       -> operator delete(void *)       4      2
+
+
+   Segment part sizes:
+
+     Function/Label                                   Bytes
+     --------------                                   -----
+     RingBuffer::~RingBuffer()                          30
+     SerialEvent::SetSerialIO(SerialIO &)
+                                                         8
+     SerialIO::~SerialIO()                              60
+     ISerialPort::SetSerialIO(SerialIO &)
+                                                        50
+     SerialIO::SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                                        90
+     SerialIO::SerialIO(ISerialPort &)
+                                                        78
+     SerialIO::SetEvent(SerialEvent &)
+                                                        78
+     SerialIO::rxFlush()                                22
+     SerialIO::txFlush()                                22
+     SerialIO::Write(unsigned char)                    100
+     SerialIO::Write(unsigned char const *, unsigned char)
+                                                       116
+     SerialIO::Write(char const *)                     118
+     SerialIO::Write(char __flash *)
+                                                       118
+     SerialIO::evTick()                                 78
+     SerialIO::PushBackRxBuff(unsigned char)
+                                                        26
+     SerialIO::PopRxBuff(unsigned char &)
+                                                        26
+     SerialIO::PushBackTxBuff(unsigned char)
+                                                        26
+     SerialIO::PopTxBuff(unsigned char &)
+                                                        26
+     ?<Initializer for <Constant "0 == se">>             8
+     ?<Initializer for <Constant "C:\\work\\TIEL_Fr     52
+     ?<Initializer for <Constant "0 != sp">>             8
+     ?<Initializer for <Constant "0 != _bytes">>        12
+     ?<Initializer for <Constant "0 != _size">>         11
+     ?<Initializer for <Constant "0 != _string">>       13
+     ?<Initializer for <Constant "0 == seIO">>          10
+     ?<Initializer for <Constant "C:\\work\\TIEL_Fr_1   50
+     ?<Constant "0 == se">                               8
+     ?<Constant "C:\\work\\TIEL_FrameWor...">           52
+     ?<Constant "0 != sp">                               8
+     ?<Constant "0 != _bytes">                          12
+     ?<Constant "0 != _size">                           11
+     ?<Constant "0 != _string">                         13
+     ?<Constant "0 == seIO">                            10
+     ?<Constant "C:\\work\\TIEL_FrameWor...">_1         50
+     SerialIO::new SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                                        46
+     SerialIO::new SerialIO(ISerialPort &)
+                                                        38
+      Others                                             9
+
+ 
+ 1 156 bytes in segment CODE
+     7 bytes in segment INITTAB
+     2 bytes in segment NEAR_F
+   164 bytes in segment NEAR_I
+   164 bytes in segment NEAR_ID
+ 
+ 1 174 bytes of CODE memory (+ 155 bytes shared)
+   164 bytes of DATA memory
+
+Errors: none
+Warnings: none

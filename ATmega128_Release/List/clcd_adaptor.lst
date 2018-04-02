@@ -1,0 +1,282 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:06 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\BSP\MC_E02SMB_ #
+#                    v1_3\clcd_adaptor.cpp                                    #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\BSP\MC_E02SMB_ #
+#                    v1_3\clcd_adaptor.cpp --cpu=m128 -ms -o                  #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\clcd_a #
+#                    daptor.lst                                               #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\clcd_ad #
+#                    aptor.r90                                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\BSP\MC_E02SMB_v1_3\clcd_adaptor.cpp
+      1          #include "clcd_adaptor.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 ClcdAdaptor::~ClcdAdaptor()
+   \                     `?~ClcdAdaptor`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~ClcdAdaptor_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~ClcdAdaptor_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~ClcdAdaptor_1`:
+   \   0000000E   9508               RET
+      2          #include "avr_common.h"
+      3          #include <ioavr.h>
+
+   \                                 In  segment ABSOLUTE, at 0x55
+   \   <__C48> volatile __io _A_MCUCR
+   \                     _A_MCUCR:
+   \   00000000                      DS8 1
+      4          #include <assert.h>
+      5          
+      6          // LCD 모듈로 접근하기 위한 외부 메모리 주소 선언
+      7          #define LCD_EN (*(volatile unsigned char *)0x8000)
+      8          #define LCD_WRITE (*(volatile unsigned char *)0x8002)
+      9          
+     10          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     11          ClcdAdaptor::ClcdAdaptor(void)
+   \                     ??ClcdAdaptor:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     12          {
+   \   00000006   ........           CALL    ??Clcd
+   \   0000000A   ....               LDI     R16, LOW(??__vtbl)
+   \   0000000C   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000E   930D               ST      X+, R16
+   \   00000010   931C               ST      X, R17
+   \   00000012   9711               SBIW    R27:R26, 1
+     13            Init();
+   \   00000014   018D               MOVW    R17:R16, R27:R26
+   \   00000016   ....               RCALL   ??Init
+     14            
+     15          }
+   \   00000018   018D               MOVW    R17:R16, R27:R26
+   \   0000001A   91A9               LD      R26, Y+
+   \   0000001C   91B9               LD      R27, Y+
+   \   0000001E   9508               RET
+     16          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     17          void ClcdAdaptor::Init(void){
+   \                     ??Init:
+     18              MCUCR |= 1 << SRE;
+   \   00000000   B705               IN      R16, 0x35
+   \   00000002   6800               ORI     R16, 0x80
+   \   00000004   BF05               OUT     0x35, R16
+     19              
+     20          
+     21              avr_delay_ms(50);  //Initial wating time
+   \   00000006   E302               LDI     R16, 50
+   \   00000008   ....               RCALL   ?Subroutine1
+     22              
+     23          
+     24          	LCD_EN = 0x38;  //FunctionSet
+   \                     ??CrossCallReturnLabel_1:
+   \   0000000A   E308               LDI     R16, 56
+   \   0000000C   ....               RCALL   ?Subroutine2
+     25                  
+     26          	avr_delay_us(40);
+     27          	LCD_EN = 0x0c; //DisplayOnOffControl();
+   \                     ??CrossCallReturnLabel_3:
+   \   0000000E   E00C               LDI     R16, 12
+   \   00000010   ....               RCALL   ?Subroutine2
+     28                  
+     29          	avr_delay_us(40);
+     30          	LCD_EN = 0x01; //DisplayClear();
+   \                     ??CrossCallReturnLabel_2:
+   \   00000012   E001               LDI     R16, 1
+   \   00000014   93008000           STS     32768, R16
+     31          	
+     32                  avr_delay_ms(2);
+   \   00000018   E002               LDI     R16, 2
+   \   0000001A   ....               RCALL   ?Subroutine1
+     33          	LCD_EN = 0x06;
+   \                     ??CrossCallReturnLabel_0:
+   \   0000001C   E006               LDI     R16, 6
+   \   0000001E   ....               RJMP    ?Subroutine2
+   \   00000020                      REQUIRE _A_MCUCR
+     34          	avr_delay_us(40); //EntryModeSet();
+     35            
+     36          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   E010               LDI     R17, 0
+   \   00000002   ........           JMP     ??avr_delay_ms
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   93008000           STS     32768, R16
+   \   00000004   E208               LDI     R16, 40
+   \   00000006                      REQUIRE ??Subroutine4_0
+   \   00000006                      ;               // Fall through to label ??Subroutine4_0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??Subroutine4_0:
+   \   00000000   ........           JMP     ??avr_delay_us
+     37          
+     38          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     39          void ClcdAdaptor::SetData(unsigned char _d)
+   \                     ??SetData:
+     40          {
+     41            //assert()
+     42            LCD_WRITE = _d;
+   \   00000000   93208002           STS     32770, R18
+     43            avr_delay_us(50); 
+   \   00000004                      REQUIRE ?Subroutine3
+   \   00000004                      ;               // Fall through to label ?Subroutine3
+     44          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine3:
+   \   00000000   E302               LDI     R16, 50
+   \   00000002   ....               RJMP    ??Subroutine4_0
+     45          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     46          void ClcdAdaptor::SetInstruction(unsigned char _inst)
+   \                     ??SetInstruction:
+     47          {
+     48          // 어드레스 세팅을 위해서는 MSB는 무조건 1이 되어야 함.
+     49          // 사용자가 원한 주소를 받아 MSB를 1로 만들어준다.
+     50          // Set DD RAM Address 참조
+     51          	LCD_EN = 0x80 | _inst;
+   \   00000000   6820               ORI     R18, 0x80
+   \   00000002   93208000           STS     32768, R18
+     52          	avr_delay_us(50);
+   \   00000006   ....               RJMP    ?Subroutine3
+     53          }
+     54            
+     55          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     56          void ClcdAdaptor::Data4bit_out(unsigned char _d)
+   \                     ??Data4bit_out:
+     57          {
+     58              //assert()
+     59             
+     60          }
+   \   00000000   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 ClcdAdaptor *ClcdAdaptor::new ClcdAdaptor()
+   \                     `??new ClcdAdaptor`:
+   \   00000000   E002               LDI     R16, 2
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new ClcdAdaptor_1`
+   \   0000000E   ....               RJMP    ??ClcdAdaptor
+   \                     `??new ClcdAdaptor_1`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   E010               LDI     R17, 0
+   \   00000014   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     ClcdAdaptor::ClcdAdaptor()         2      2
+       -> Clcd::Clcd()                  2      2
+       -> ClcdAdaptor::Init()           2      2
+     ClcdAdaptor::Data4bit_out(unsigned char)
+                                        0      2
+     ClcdAdaptor::Init()                0      2
+       -> avr_delay_ms(unsigned int)
+                                        0      2
+       -> avr_delay_us(unsigned char)
+                                        0      2
+       -> avr_delay_us(unsigned char)
+                                        0      2
+       -> avr_delay_ms(unsigned int)
+                                        0      2
+       -> avr_delay_us(unsigned char)
+                                        0      2
+     ClcdAdaptor::SetData(unsigned char)
+                                        0      2
+       -> avr_delay_us(unsigned char)
+                                        0      2
+     ClcdAdaptor::SetInstruction(unsigned char)
+                                        0      2
+       -> avr_delay_us(unsigned char)
+                                        0      2
+     ClcdAdaptor::new ClcdAdaptor()     0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> ClcdAdaptor::ClcdAdaptor()
+                                        0      2
+     ClcdAdaptor::~ClcdAdaptor()        0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     ClcdAdaptor::~ClcdAdaptor()      16
+     _A_MCUCR                          1
+     ClcdAdaptor::ClcdAdaptor()       32
+     ClcdAdaptor::Init()              32
+     ?Subroutine1                      6
+     ?Subroutine2                      6
+     ??Subroutine4_0                   4
+     ClcdAdaptor::SetData(unsigned char)
+                                       4
+     ?Subroutine3                      4
+     ClcdAdaptor::SetInstruction(unsigned char)
+                                       8
+     ClcdAdaptor::Data4bit_out(unsigned char)
+                                       2
+     ClcdAdaptor::new ClcdAdaptor()   22
+      Others                           8
+
+ 
+   1 byte  in segment ABSOLUTE
+ 136 bytes in segment CODE
+   8 bytes in segment NEAR_F
+ 
+ 120 bytes of CODE memory (+ 24 bytes shared)
+   0 bytes of DATA memory (+  1 byte  shared)
+
+Errors: none
+Warnings: none

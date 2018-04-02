@@ -1,0 +1,437 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:44 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Drivers\dac7512.cpp               #
+#    Command line =  C:\work\TIEL_FrameWork\Drivers\dac7512.cpp --cpu=m128    #
+#                    -ms -o C:\work\ATmega128_Debug\Obj\ -D xNDEBUG -D        #
+#                    xWATCHDOG_ENABLE -lC C:\work\ATmega128_Debug\List\ -y    #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\dac7512.lst                 #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\dac7512.r90                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Drivers\dac7512.cpp
+      1          ///////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // -------------------------------------------
+      6           
+      7          // Description: SerialIO Class
+      8           
+      9          //
+     10           
+     11          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+     12           
+     13          // Site: ccrs.hanyang.ac.kr
+     14           
+     15          // Copyright (C) 2013-2013 TIEL(TIEL is Embedded S/W library) Project.
+     16           
+     17          //
+     18           
+     19          //////////////////////////////////////////////////////////////////////////////////////////
+     20          //
+     21          //    License type: GNU General Public License (GPL)
+     22          //      
+     23          //    This program is free software: you can redistribute it and/or modify
+     24          //    it under the terms of the GNU General Public License as published by
+     25          //    the Free Software Foundation, either version 3 of the License, or
+     26          //    (at your option) any later version.
+     27          
+     28          //    This program is distributed in the hope that it will be useful,
+     29          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     30          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     31          //    GNU General Public License for more details.
+     32          
+     33          //    You should have received a copy of the GNU General Public License
+     34          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     35          //
+     36          //////////////////////////////////////////////////////////////////////////////////////////
+     37          
+     38          #include "dac7512.h"
+     39          #include <assert.h>
+     40          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     41          Dac7512::Dac7512(ISpi & _spi )
+   \                     ??Dac7512:
+     42          {
+     43            mode = NORMAL;
+   \   00000000   E040               LDI     R20, 0
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8342               STD     Z+2, R20
+     44            spi = &_spi;
+   \   00000006   01F8               MOVW    R31:R30, R17:R16
+   \   00000008   8320               ST      Z, R18
+   \   0000000A   8331               STD     Z+1, R19
+     45          }
+   \   0000000C   9508               RET
+     46          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     47          void Dac7512::Init()
+   \                     ??Init:
+     48          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     49            Init_Spi();
+   \   00000006   9613               ADIW    R27:R26, 3
+   \   00000008   91ED               LD      R30, X+
+   \   0000000A   91FC               LD      R31, X
+   \   0000000C   9714               SBIW    R27:R26, 4
+   \   0000000E   018D               MOVW    R17:R16, R27:R26
+   \   00000010   9125               LPM     R18, Z+
+   \   00000012   9134               LPM     R19, Z
+   \   00000014   9731               SBIW    R31:R30, 1
+   \   00000016   01F9               MOVW    R31:R30, R19:R18
+   \   00000018   9509               ICALL
+     50            Spi_CS_H();  
+   \   0000001A   9613               ADIW    R27:R26, 3
+   \   0000001C   91ED               LD      R30, X+
+   \   0000001E   91FC               LD      R31, X
+   \   00000020   9714               SBIW    R27:R26, 4
+   \   00000022   9632               ADIW    R31:R30, 2
+   \   00000024   018D               MOVW    R17:R16, R27:R26
+   \   00000026   9125               LPM     R18, Z+
+   \   00000028   9134               LPM     R19, Z
+   \   0000002A   9731               SBIW    R31:R30, 1
+   \   0000002C   01F9               MOVW    R31:R30, R19:R18
+   \   0000002E   9509               ICALL
+     51          }
+   \   00000030   91A9               LD      R26, Y+
+   \   00000032   91B9               LD      R27, Y+
+   \   00000034   9508               RET
+     52          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     53          void Dac7512::SetMode(unsigned char _mode)
+   \                     ??SetMode:
+     54          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+     55            assert( 0x03 >= _mode);
+   \   00000008   3084               CPI     R24, 4
+   \   0000000A   F050               BRCS    ??SetMode_1
+   \   0000000C   E347               LDI     R20, 55
+   \   0000000E   E050               LDI     R21, 0
+   \   00000010   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000012   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000014   ....               LDI     R16, LOW(`?<Constant "0x03 >= _mode">`)
+   \   00000016   ....               LDI     R17, (`?<Constant "0x03 >= _mode">`) >> 8
+   \   00000018   ........           CALL    __taabi_assert
+   \   0000001C   ........           CALL    __iar_EmptyStepPoint
+     56            assert( 0x00 <= _mode);
+   \                     ??SetMode_1:
+   \   00000020   3080               CPI     R24, 0
+   \   00000022   F450               BRCC    ??SetMode_2
+   \   00000024   E348               LDI     R20, 56
+   \   00000026   E050               LDI     R21, 0
+   \   00000028   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   0000002A   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   0000002C   ....               LDI     R16, LOW(`?<Constant "0x00 <= _mode">`)
+   \   0000002E   ....               LDI     R17, (`?<Constant "0x00 <= _mode">`) >> 8
+   \   00000030   ........           CALL    __taabi_assert
+   \   00000034   ........           CALL    __iar_EmptyStepPoint
+     57            
+     58            mode =  0x03 & _mode;
+   \                     ??SetMode_2:
+   \   00000038   2F08               MOV     R16, R24
+   \   0000003A   7003               ANDI    R16, 0x03
+   \   0000003C   01FD               MOVW    R31:R30, R27:R26
+   \   0000003E   8302               STD     Z+2, R16
+     59            mode <<=4;
+   \   00000040   01FD               MOVW    R31:R30, R27:R26
+   \   00000042   8102               LDD     R16, Z+2
+   \   00000044   9502               SWAP    R16
+   \   00000046   7F00               ANDI    R16, 0xF0
+   \   00000048   01FD               MOVW    R31:R30, R27:R26
+   \   0000004A   8302               STD     Z+2, R16
+     60          }
+   \   0000004C   E0E4               LDI     R30, 4
+   \   0000004E   ........           JMP     ?EPILOGUE_B4_L09
+     61            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     62          void Dac7512::Write(unsigned short _dac12)
+   \                     ??Write:
+     63          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+     64            assert(0xfff >=_dac12);
+   \   00000008   3080               CPI     R24, 0
+   \   0000000A   E100               LDI     R16, 16
+   \   0000000C   0790               CPC     R25, R16
+   \   0000000E   F050               BRCS    ??Write_2
+   \   00000010   E440               LDI     R20, 64
+   \   00000012   E050               LDI     R21, 0
+   \   00000014   ....               LDI     R18, LOW(`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`)
+   \   00000016   ....               LDI     R19, (`?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`) >> 8
+   \   00000018   ....               LDI     R16, LOW(`?<Constant "0xfff >=_dac12">`)
+   \   0000001A   ....               LDI     R17, (`?<Constant "0xfff >=_dac12">`) >> 8
+   \   0000001C   ........           CALL    __taabi_assert
+   \   00000020   ........           CALL    __iar_EmptyStepPoint
+     65            
+     66            Spi_CS_L();
+   \                     ??Write_2:
+   \   00000024   01FD               MOVW    R31:R30, R27:R26
+   \   00000026   8123               LDD     R18, Z+3
+   \   00000028   8134               LDD     R19, Z+4
+   \   0000002A   5F2C               SUBI    R18, 252
+   \   0000002C   4F3F               SBCI    R19, 255
+   \   0000002E   018D               MOVW    R17:R16, R27:R26
+   \   00000030   01F9               MOVW    R31:R30, R19:R18
+   \   00000032   9125               LPM     R18, Z+
+   \   00000034   9134               LPM     R19, Z
+   \   00000036   9731               SBIW    R31:R30, 1
+   \   00000038   01F9               MOVW    R31:R30, R19:R18
+   \   0000003A   9509               ICALL
+     67            spi->WriteByte(mode | (0xf & (_dac12 >> 8)));  
+   \   0000003C   91ED               LD      R30, X+
+   \   0000003E   91FC               LD      R31, X
+   \   00000040   9711               SBIW    R27:R26, 1
+   \   00000042   8140               LD      R20, Z
+   \   00000044   8151               LDD     R21, Z+1
+   \   00000046   5F4E               SUBI    R20, 254
+   \   00000048   4F5F               SBCI    R21, 255
+   \   0000004A   01FD               MOVW    R31:R30, R27:R26
+   \   0000004C   8122               LDD     R18, Z+2
+   \   0000004E   018C               MOVW    R17:R16, R25:R24
+   \   00000050   2F01               MOV     R16, R17
+   \   00000052   E010               LDI     R17, 0
+   \   00000054   700F               ANDI    R16, 0x0F
+   \   00000056   2B20               OR      R18, R16
+   \   00000058   910D               LD      R16, X+
+   \   0000005A   911C               LD      R17, X
+   \   0000005C   9711               SBIW    R27:R26, 1
+   \   0000005E   01FA               MOVW    R31:R30, R21:R20
+   \   00000060   9145               LPM     R20, Z+
+   \   00000062   9154               LPM     R21, Z
+   \   00000064   9731               SBIW    R31:R30, 1
+   \   00000066   01FA               MOVW    R31:R30, R21:R20
+   \   00000068   9509               ICALL
+     68            spi->WriteByte(0xff & _dac12);
+   \   0000006A   91ED               LD      R30, X+
+   \   0000006C   91FC               LD      R31, X
+   \   0000006E   9711               SBIW    R27:R26, 1
+   \   00000070   8140               LD      R20, Z
+   \   00000072   8151               LDD     R21, Z+1
+   \   00000074   5F4E               SUBI    R20, 254
+   \   00000076   4F5F               SBCI    R21, 255
+   \   00000078   2F28               MOV     R18, R24
+   \   0000007A   910D               LD      R16, X+
+   \   0000007C   911C               LD      R17, X
+   \   0000007E   9711               SBIW    R27:R26, 1
+   \   00000080   01FA               MOVW    R31:R30, R21:R20
+   \   00000082   9145               LPM     R20, Z+
+   \   00000084   9154               LPM     R21, Z
+   \   00000086   9731               SBIW    R31:R30, 1
+   \   00000088   01FA               MOVW    R31:R30, R21:R20
+   \   0000008A   9509               ICALL
+     69            Spi_CS_H();
+   \   0000008C   01FD               MOVW    R31:R30, R27:R26
+   \   0000008E   8123               LDD     R18, Z+3
+   \   00000090   8134               LDD     R19, Z+4
+   \   00000092   5F2E               SUBI    R18, 254
+   \   00000094   4F3F               SBCI    R19, 255
+   \   00000096   018D               MOVW    R17:R16, R27:R26
+   \   00000098   01F9               MOVW    R31:R30, R19:R18
+   \   0000009A   9125               LPM     R18, Z+
+   \   0000009C   9134               LPM     R19, Z
+   \   0000009E   9731               SBIW    R31:R30, 1
+   \   000000A0   01F9               MOVW    R31:R30, R19:R18
+   \   000000A2   9509               ICALL
+     70          }
+   \   000000A4   E0E4               LDI     R30, 4
+   \   000000A6   ........           JMP     ?EPILOGUE_B4_L09
+     71          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     72          void Dac7512::Write(unsigned short _dac12, unsigned char _mode )
+   \                     ??Write_1:
+     73          {
+   \   00000000   ........           CALL    ?PROLOGUE5_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+   \   00000008   2E44               MOV     R4, R20
+     74            SetMode(_mode);
+   \   0000000A   2D24               MOV     R18, R4
+   \   0000000C   018C               MOVW    R17:R16, R25:R24
+   \   0000000E   ....               RCALL   ??SetMode
+     75            Write(_dac12);  
+   \   00000010   019D               MOVW    R19:R18, R27:R26
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   ....               RCALL   ??Write
+     76          }
+   \   00000016   E0E5               LDI     R30, 5
+   \   00000018   ........           JMP     ?EPILOGUE_B5_L09
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0x03 >= _mode">>`:
+   \   00000000   783033303E20       DC8 "0x03 >= _mode"
+   \              203D6D5F646F
+   \              0065        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`:
+   \   00000000   3A43775C726F       DC8 "C:\\work\\TIEL_FrameWork\\Drivers\\dac7512.cpp"
+   \              5C6B49544C45
+   \              465F6172656D
+   \              6F576B72445C
+   \              697265767372
+   \              645C63613537
+   \              3231632E7070
+   \              00          
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0x00 <= _mode">>`:
+   \   00000000   783030303C20       DC8 "0x00 <= _mode"
+   \              203D6D5F646F
+   \              0065        
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for <Constant "0xfff >=_dac12">>`:
+   \   00000000   783066662066       DC8 "0xfff >=_dac12"
+   \              3D3E645F6361
+   \              323100      
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0x03 >= _mode">`:
+   \   00000000                      DS8 14
+   \   0000000E                      REQUIRE `?<Initializer for <Constant "0x03 >= _mode">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "C:\\\\work\\\\TIEL_FrameWor...">`:
+   \   00000000                      DS8 43
+   \   0000002B                      REQUIRE `?<Initializer for <Constant "C:\\\\work\\\\TIEL_Fr`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0x00 <= _mode">`:
+   \   00000000                      DS8 14
+   \   0000000E                      REQUIRE `?<Initializer for <Constant "0x00 <= _mode">>`
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     `?<Constant "0xfff >=_dac12">`:
+   \   00000000                      DS8 15
+   \   0000000F                      REQUIRE `?<Initializer for <Constant "0xfff >=_dac12">>`
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Dac7512 *Dac7512::new Dac7512(ISpi &)
+   \                     `??new Dac7512`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   E005               LDI     R16, 5
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    `??operator new`
+   \   0000000E   01A8               MOVW    R21:R20, R17:R16
+   \   00000010   2B01               OR      R16, R17
+   \   00000012   F021               BREQ    `??new Dac7512_1`
+   \   00000014   019C               MOVW    R19:R18, R25:R24
+   \   00000016   018A               MOVW    R17:R16, R21:R20
+   \   00000018   ....               RCALL   ??Dac7512
+   \   0000001A   C002               RJMP    `??new Dac7512_2`
+   \                     `??new Dac7512_1`:
+   \   0000001C   E000               LDI     R16, 0
+   \   0000001E   E010               LDI     R17, 0
+   \                     `??new Dac7512_2`:
+   \   00000020   9189               LD      R24, Y+
+   \   00000022   9199               LD      R25, Y+
+   \   00000024   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     Dac7512::Dac7512(ISpi &)           0      2
+     Dac7512::Init()                    2      2
+       ->   Indirect call               2      2
+       ->   Indirect call               2      2
+     Dac7512::SetMode(unsigned char)
+                                        4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+     Dac7512::Write(unsigned short)     4      2
+       -> __taabi_assert                4      2
+       -> __iar_EmptyStepPoint          4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     Dac7512::Write(unsigned short, unsigned char)
+                                        5      2
+       -> Dac7512::SetMode(unsigned char)
+                                        5      2
+       -> Dac7512::Write(unsigned short)
+                                        5      2
+     Dac7512::new Dac7512(ISpi &)       2      2
+       -> operator new(unsigned int)
+                                        2      2
+       -> Dac7512::Dac7512(ISpi &)      2      2
+
+
+   Segment part sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     Dac7512::Dac7512(ISpi &)                         14
+     Dac7512::Init()                                  54
+     Dac7512::SetMode(unsigned char)
+                                                      82
+     Dac7512::Write(unsigned short)                  170
+     Dac7512::Write(unsigned short, unsigned char)
+                                                      28
+     ?<Initializer for <Constant "0x03 >= _mode">>    14
+     ?<Initializer for <Constant "C:\\work\\TIEL_Fr   43
+     ?<Initializer for <Constant "0x00 <= _mode">>    14
+     ?<Initializer for <Constant "0xfff >=_dac12">>   15
+     ?<Constant "0x03 >= _mode">                      14
+     ?<Constant "C:\\work\\TIEL_FrameWor...">         43
+     ?<Constant "0x00 <= _mode">                      14
+     ?<Constant "0xfff >=_dac12">                     15
+     Dac7512::new Dac7512(ISpi &)                     38
+      Others                                           7
+
+ 
+ 386 bytes in segment CODE
+   7 bytes in segment INITTAB
+  86 bytes in segment NEAR_I
+  86 bytes in segment NEAR_ID
+ 
+ 472 bytes of CODE memory (+ 7 bytes shared)
+  86 bytes of DATA memory
+
+Errors: none
+Warnings: none

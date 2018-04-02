@@ -1,0 +1,69 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:39 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Driver_Interface\DriverFactory.cp #
+#                    p                                                        #
+#    Command line =  C:\work\TIEL_FrameWork\Driver_Interface\DriverFactory.cp #
+#                    p --cpu=m128 -ms -o C:\work\ATmega128_Debug\Obj\ -D      #
+#                    xNDEBUG -D xWATCHDOG_ENABLE -lC                          #
+#                    C:\work\ATmega128_Debug\List\ -y                         #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\DriverFactory.lst           #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\DriverFactory.r90            #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Driver_Interface\DriverFactory.cpp
+      1          #include "DriverFactory.h"
+
+    CreateWatchDog();
+    ^
+"C:\work\TIEL_FrameWork\Driver_Interface\DriverFactory.h",80  Warning[Pe837]: 
+          omission of explicit type is nonstandard ("int" assumed)
+      2          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      3          DriverFactory * DriverFactory::instance = 0;
+   \                     ??instance:
+   \   00000000                      DS8 2
+
+
+   Segment part sizes:
+
+     Function/Label          Bytes
+     --------------          -----
+     DriverFactory::instance    2
+      Others                    7
+
+ 
+ 7 bytes in segment INITTAB
+ 2 bytes in segment NEAR_Z
+ 
+ 0 bytes of CODE memory (+ 7 bytes shared)
+ 2 bytes of DATA memory
+
+Errors: none
+Warnings: 1

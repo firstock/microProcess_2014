@@ -1,0 +1,836 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:32:59 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Componen #
+#                    t\serialIO.cpp                                           #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Componen #
+#                    t\serialIO.cpp --cpu=m128 -ms -o                         #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\serial #
+#                    IO.lst                                                   #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\serialI #
+#                    O.r90                                                    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Basic_Component\serialIO.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          #include "serialio.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SerialIO::~SerialIO()
+   \                     `?~SerialIO`:
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~SerialIO_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~SerialIO_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~SerialIO_1`:
+   \   0000000E   9508               RET
+     33          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     34          SerialIO::SerialIO(ISerialPort & _sp, SerialEvent & _se, WRITE_OPT_T _write_opt)
+   \                     ??SerialIO:
+   \   00000000   ....               RCALL   ?Subroutine1
+     35          :sp(&_sp),se(&_se), write_opt(_write_opt)
+   \                     ??CrossCallReturnLabel_2:
+   \   00000002   936D               ST      X+, R22
+   \   00000004   934D               ST      X+, R20
+   \   00000006   935D               ST      X+, R21
+   \   00000008   ....               RCALL   ?Subroutine0
+     36          {
+     37           sp->SetSerialIO(*this);
+     38           se->SetSerialIO(*this);
+   \                     ??CrossCallReturnLabel_0:
+   \   0000000A   9611               ADIW    R27:R26, 1
+   \   0000000C   ....               RCALL   ?Subroutine5
+   \                     ??CrossCallReturnLabel_4:
+   \   0000000E   9712               SBIW    R27:R26, 2
+   \   00000010   83A0               ST      Z, R26
+   \   00000012   83B1               STD     Z+1, R27
+     39            
+     40          }
+   \   00000014                      REQUIRE ?Subroutine9
+   \   00000014                      ;               // Fall through to label ?Subroutine9
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine9:
+   \   00000000   018D               MOVW    R17:R16, R27:R26
+   \   00000002                      REQUIRE ??Subroutine16_0
+   \   00000002                      ;               // Fall through to label ??Subroutine16_0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??Subroutine16_0:
+   \   00000000   91A9               LD      R26, Y+
+   \   00000002   91B9               LD      R27, Y+
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   ....               LDI     R16, LOW(??__vtbl)
+   \   00000008   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000A   9691               ADIW    R27:R26, 33
+   \   0000000C   930D               ST      X+, R16
+   \   0000000E   931C               ST      X, R17
+   \   00000010   9792               SBIW    R27:R26, 34
+   \   00000012   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   932D               ST      X+, R18
+   \   00000002   933C               ST      X, R19
+   \   00000004   9714               SBIW    R27:R26, 4
+   \   00000006   018D               MOVW    R17:R16, R27:R26
+   \   00000008   ....               RCALL   ?Subroutine6
+   \                     ??CrossCallReturnLabel_15:
+   \   0000000A   ........           CALL    ??RingBuffer
+   \   0000000E   018D               MOVW    R17:R16, R27:R26
+   \   00000010   ....               RCALL   ?Subroutine7
+   \                     ??CrossCallReturnLabel_19:
+   \   00000012   ........           CALL    ??RingBuffer
+   \   00000016   9613               ADIW    R27:R26, 3
+   \   00000018   ....               RCALL   ?Subroutine5
+   \                     ??CrossCallReturnLabel_7:
+   \   0000001A   9714               SBIW    R27:R26, 4
+   \   0000001C   83A0               ST      Z, R26
+   \   0000001E   83B1               STD     Z+1, R27
+   \   00000020   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine6:
+   \   00000000   5F0B               SUBI    R16, 251
+   \   00000002                      REQUIRE ?Subroutine11
+   \   00000002                      ;               // Fall through to label ?Subroutine11
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine11:
+   \   00000000   4F1F               SBCI    R17, 255
+   \   00000002   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine7:
+   \   00000000   5E0D               SUBI    R16, 237
+   \   00000002   ....               RJMP    ?Subroutine11
+     41          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     42          SerialIO::SerialIO(ISerialPort & _sp)
+   \                     ??SerialIO_1:
+   \   00000000   ....               RCALL   ?Subroutine1
+     43          :sp(&_sp),se(0), write_opt(ANSYNC)
+   \                     ??CrossCallReturnLabel_3:
+   \   00000002   E000               LDI     R16, 0
+   \   00000004   930D               ST      X+, R16
+   \   00000006   930D               ST      X+, R16
+   \   00000008   930C               ST      X, R16
+   \   0000000A   9611               ADIW    R27:R26, 1
+   \   0000000C   ....               RCALL   ?Subroutine0
+     44          {
+     45           sp->SetSerialIO(*this);
+     46          
+     47          }
+   \                     ??CrossCallReturnLabel_1:
+   \   0000000E   ....               RJMP    ?Subroutine9
+     48          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     49          char SerialIO::SetEvent(SerialEvent & _se)
+   \                     ??SetEvent:
+     50          {
+   \   00000000   01BD               MOVW    R23:R22, R27:R26
+     51            assert(0 == se);
+     52            if(0 == se)
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8141               LDD     R20, Z+1
+   \   00000006   8152               LDD     R21, Z+2
+   \   00000008   2B45               OR      R20, R21
+   \   0000000A   F441               BRNE    ??SetEvent_1
+     53            {
+     54             se = &_se; 
+   \   0000000C   8321               STD     Z+1, R18
+   \   0000000E   8332               STD     Z+2, R19
+     55             se->SetSerialIO(*this);
+   \   00000010   81A1               LDD     R26, Z+1
+   \   00000012   81B2               LDD     R27, Z+2
+   \   00000014   930D               ST      X+, R16
+   \   00000016   931C               ST      X, R17
+     56             return 1;
+   \   00000018   E001               LDI     R16, 1
+   \   0000001A   C001               RJMP    ??SetEvent_2
+     57            } 
+     58            
+     59            return 0;
+   \                     ??SetEvent_1:
+   \   0000001C   E000               LDI     R16, 0
+   \                     ??SetEvent_2:
+   \   0000001E   01DB               MOVW    R27:R26, R23:R22
+   \   00000020   9508               RET
+     60            
+     61          }
+     62          
+     63          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     64          void SerialIO::rxFlush(void)
+   \                     ??rxFlush:
+     65          {
+     66            RxBuff.Flush();
+   \   00000000   ....               RCALL   ?Subroutine6
+   \                     ??CrossCallReturnLabel_12:
+   \   00000002                      REQUIRE ?Subroutine12
+   \   00000002                      ;               // Fall through to label ?Subroutine12
+     67          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine12:
+   \   00000000   ........           JMP     ??Flush
+     68          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     69          void SerialIO::txFlush(void)
+   \                     ??txFlush:
+     70          {
+     71            TxBuff.Flush();;
+   \   00000000   ....               RCALL   ?Subroutine7
+   \                     ??CrossCallReturnLabel_16:
+   \   00000002   ....               RJMP    ?Subroutine12
+     72          }
+     73            
+     74          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine10:
+   \   00000000   2F20               MOV     R18, R16
+   \   00000002   2B21               OR      R18, R17
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     75          char SerialIO::Write( unsigned char  _byte)
+   \                     ??Write:
+     76          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+     77          //  if(ANSYNC == write_opt)
+     78          //    ;
+     79          
+     80          //  if(!PushBackTxBuff(_byte) )
+     81           //   return 0;
+     82            while(!PushBackTxBuff(_byte));
+   \                     ??Write_4:
+   \   00000008   2F28               MOV     R18, R24
+   \   0000000A   018D               MOVW    R17:R16, R27:R26
+   \   0000000C   ....               RCALL   ??PushBackTxBuff
+   \   0000000E   2300               TST     R16
+   \   00000010   F3D9               BREQ    ??Write_4
+     83            assert(0 != sp);
+     84            if(0 != sp ){
+   \   00000012   9613               ADIW    R27:R26, 3
+   \   00000014   ....               RCALL   ?Subroutine4
+   \                     ??CrossCallReturnLabel_10:
+   \   00000016   F041               BREQ    ??Write_5
+     85              sp->SendTxEvent();
+   \   00000018   01D8               MOVW    R27:R26, R17:R16
+   \   0000001A   9616               ADIW    R27:R26, 6
+   \   0000001C   ....               RCALL   ?Subroutine5
+     86            }
+   \                     ??CrossCallReturnLabel_5:
+   \   0000001E   9636               ADIW    R31:R30, 6
+   \   00000020   9125               LPM     R18, Z+
+   \   00000022   91F4               LPM     R31, Z
+   \   00000024   2FE2               MOV     R30, R18
+   \   00000026   9509               ICALL
+     87            
+     88            return 1;
+   \                     ??Write_5:
+   \   00000028   E001               LDI     R16, 1
+   \   0000002A   E0E4               LDI     R30, 4
+   \   0000002C   ........           JMP     ?EPILOGUE_B4_L09
+     89          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine5:
+   \   00000000   91ED               LD      R30, X+
+   \   00000002   91FC               LD      R31, X
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine4:
+   \   00000000   910D               LD      R16, X+
+   \   00000002   911C               LD      R17, X
+   \   00000004   ....               RJMP    ?Subroutine10
+     90          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine8:
+   \   00000000   E0E6               LDI     R30, 6
+   \   00000002   ........           JMP     ?EPILOGUE_B6_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     91          unsigned char SerialIO::Write(const unsigned char  _bytes[],unsigned char _size)
+   \                     ??Write_1:
+     92          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+   \   00000008   2E54               MOV     R5, R20
+     93            unsigned char i;
+     94            
+     95            assert( 0 != _bytes);
+     96            assert( 0 != _size);
+     97            
+     98            if(0 == _bytes || 0 == _size) 
+   \   0000000A   2F02               MOV     R16, R18
+   \   0000000C   2B03               OR      R16, R19
+   \   0000000E   F011               BREQ    ??Write_6
+   \   00000010   2344               TST     R20
+   \   00000012   F411               BRNE    ??Write_7
+     99              return 0;//throw error
+   \                     ??Write_6:
+   \   00000014   E000               LDI     R16, 0
+   \   00000016   C00D               RJMP    ??Write_8
+    100            
+    101            for(i = 0 ; i < _size ; i++)
+   \                     ??Write_7:
+   \   00000018   2444               CLR     R4
+   \   0000001A   C003               RJMP    ??Write_9
+   \                     ??Write_10:
+   \   0000001C   9443               INC     R4
+   \   0000001E   1445               CP      R4, R5
+   \   00000020   F438               BRCC    ??Write_11
+    102            {
+    103              if(!Write(_bytes[i]))
+   \                     ??Write_9:
+   \   00000022   E010               LDI     R17, 0
+   \   00000024   01FD               MOVW    R31:R30, R27:R26
+   \   00000026   0DE4               ADD     R30, R4
+   \   00000028   1FF1               ADC     R31, R17
+   \   0000002A   8120               LD      R18, Z
+   \   0000002C   ....               RCALL   ?Subroutine3
+   \                     ??CrossCallReturnLabel_20:
+   \   0000002E   F7B1               BRNE    ??Write_10
+    104                return i;
+   \                     ??Write_11:
+   \   00000030   2D04               MOV     R16, R4
+    105            }
+   \                     ??Write_8:
+   \   00000032   ....               RJMP    ?Subroutine8
+    106            
+    107            return i;
+    108          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine3:
+   \   00000000   018C               MOVW    R17:R16, R25:R24
+   \   00000002                      REQUIRE ??Subroutine17_0
+   \   00000002                      ;               // Fall through to label ??Subroutine17_0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ??Subroutine17_0:
+   \   00000000   ....               RCALL   ??Write
+   \   00000002   2300               TST     R16
+   \   00000004   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    109          unsigned char SerialIO::Write( const char   _string[])
+   \                     ??Write_2:
+    110          {
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   0128               MOVW    R5:R4, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+    111            unsigned int i;
+    112            
+    113            assert( 0 != _string);
+    114          //  assert( 0 != _size);
+    115            
+    116            if(0 == _string ) 
+   \   00000008   2F02               MOV     R16, R18
+   \   0000000A   2B03               OR      R16, R19
+   \   0000000C   F411               BRNE    ??Write_12
+    117              return 0;//throw error
+   \   0000000E   E000               LDI     R16, 0
+   \   00000010   C017               RJMP    ??Write_13
+    118            
+    119            for(i = 0 ; _string[i] != '\0' ; i++)
+   \                     ??Write_12:
+   \   00000012   E0A0               LDI     R26, 0
+   \   00000014   E0B0               LDI     R27, 0
+   \   00000016   C006               RJMP    ??Write_14
+    120            {
+    121              if('\n' == _string[i])
+    122              {
+    123                if(!Write('\r'))
+    124                  return i; 
+    125              }
+    126              if(!Write(_string[i]))
+   \                     ??Write_15:
+   \   00000018   01F3               MOVW    R31:R30, R7:R6
+   \   0000001A   8120               LD      R18, Z
+   \   0000001C   0182               MOVW    R17:R16, R5:R4
+   \   0000001E   ....               RCALL   ??Subroutine17_0
+   \                     ??CrossCallReturnLabel_23:
+   \   00000020   F071               BREQ    ??Write_16
+   \   00000022   9611               ADIW    R27:R26, 1
+   \                     ??Write_14:
+   \   00000024   013C               MOVW    R7:R6, R25:R24
+   \   00000026   0E6A               ADD     R6, R26
+   \   00000028   1E7B               ADC     R7, R27
+   \   0000002A   01F3               MOVW    R31:R30, R7:R6
+   \   0000002C   8100               LD      R16, Z
+   \   0000002E   2300               TST     R16
+   \   00000030   F031               BREQ    ??Write_16
+   \   00000032   300A               CPI     R16, 10
+   \   00000034   F789               BRNE    ??Write_15
+   \   00000036   E02D               LDI     R18, 13
+   \   00000038   0182               MOVW    R17:R16, R5:R4
+   \   0000003A   ....               RCALL   ??Subroutine17_0
+   \                     ??CrossCallReturnLabel_24:
+   \   0000003C   F769               BRNE    ??Write_15
+   \                     ??Write_16:
+   \   0000003E   2F0A               MOV     R16, R26
+    127                return i;
+    128            }
+   \                     ??Write_13:
+   \   00000040                      REQUIRE ?Subroutine13
+   \   00000040                      ;               // Fall through to label ?Subroutine13
+    129            
+    130            return i;  
+    131          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine13:
+   \   00000000   E0E8               LDI     R30, 8
+   \   00000002   ........           JMP     ?EPILOGUE_B8_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    132          unsigned char SerialIO::Write(   char  CONST  *_string)
+   \                     ??Write_3:
+    133          {
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   0129               MOVW    R5:R4, R19:R18
+    134            unsigned int i;
+    135            
+    136            assert( 0 != _string);
+    137          //  assert( 0 != _size);
+    138            
+    139            if(0 == _string ) 
+   \   00000008   2F02               MOV     R16, R18
+   \   0000000A   2B03               OR      R16, R19
+   \   0000000C   F411               BRNE    ??Write_17
+    140              return 0;//throw error
+   \   0000000E   E000               LDI     R16, 0
+   \   00000010   C018               RJMP    ??Write_18
+    141            
+    142            for(i = 0 ; _string[i] != '\0' ; i++)
+   \                     ??Write_17:
+   \   00000012   2466               CLR     R6
+   \   00000014   2477               CLR     R7
+   \   00000016   C008               RJMP    ??Write_19
+    143            {
+    144              if('\n' == _string[i])
+    145              {
+    146                if(!Write('\r'))
+    147                  return i; 
+    148              }
+    149              if(!Write(_string[i]))
+   \                     ??Write_20:
+   \   00000018   01FD               MOVW    R31:R30, R27:R26
+   \   0000001A   9124               LPM     R18, Z
+   \   0000001C   ....               RCALL   ?Subroutine3
+   \                     ??CrossCallReturnLabel_21:
+   \   0000001E   F081               BREQ    ??Write_21
+   \   00000020   E001               LDI     R16, 1
+   \   00000022   0E60               ADD     R6, R16
+   \   00000024   E000               LDI     R16, 0
+   \   00000026   1E70               ADC     R7, R16
+   \                     ??Write_19:
+   \   00000028   01D2               MOVW    R27:R26, R5:R4
+   \   0000002A   0DA6               ADD     R26, R6
+   \   0000002C   1DB7               ADC     R27, R7
+   \   0000002E   01FD               MOVW    R31:R30, R27:R26
+   \   00000030   9104               LPM     R16, Z
+   \   00000032   2300               TST     R16
+   \   00000034   F029               BREQ    ??Write_21
+   \   00000036   300A               CPI     R16, 10
+   \   00000038   F779               BRNE    ??Write_20
+   \   0000003A   E02D               LDI     R18, 13
+   \   0000003C   ....               RCALL   ?Subroutine3
+   \                     ??CrossCallReturnLabel_22:
+   \   0000003E   F761               BRNE    ??Write_20
+   \                     ??Write_21:
+   \   00000040   2D06               MOV     R16, R6
+    150                return i;
+    151            }
+   \                     ??Write_18:
+   \   00000042   ....               RJMP    ?Subroutine13
+    152            
+    153            return i;  
+    154          }
+    155            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    156          char SerialIO::evTick(void)
+   \                     ??evTick:
+    157          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   9721               SBIW    R29:R28, 1
+   \   00000006   01D8               MOVW    R27:R26, R17:R16
+    158            unsigned char data;
+    159            
+    160            if(PopRxBuff(data))
+   \   00000008   019E               MOVW    R19:R18, R29:R28
+   \   0000000A   ....               RCALL   ??PopRxBuff
+   \   0000000C   2300               TST     R16
+   \   0000000E   F071               BREQ    ??evTick_1
+    161            {
+    162              if(0 != se)
+   \   00000010   9611               ADIW    R27:R26, 1
+   \   00000012   ....               RCALL   ?Subroutine4
+   \                     ??CrossCallReturnLabel_11:
+   \   00000014   F049               BREQ    ??evTick_2
+    163                se->Receive(data);
+   \   00000016   8128               LD      R18, Y
+   \   00000018   01D8               MOVW    R27:R26, R17:R16
+   \   0000001A   9612               ADIW    R27:R26, 2
+   \   0000001C   ....               RCALL   ?Subroutine5
+   \                     ??CrossCallReturnLabel_6:
+   \   0000001E   9632               ADIW    R31:R30, 2
+   \   00000020   9145               LPM     R20, Z+
+   \   00000022   91F4               LPM     R31, Z
+   \   00000024   2FE4               MOV     R30, R20
+   \   00000026   9509               ICALL
+    164              return 1;
+   \                     ??evTick_2:
+   \   00000028   E001               LDI     R16, 1
+   \   0000002A   C001               RJMP    ??evTick_3
+    165            }
+    166            else
+    167            {
+    168              return 0;
+   \                     ??evTick_1:
+   \   0000002C   E000               LDI     R16, 0
+   \                     ??evTick_3:
+   \   0000002E   9621               ADIW    R29:R28, 1
+    169            }
+   \   00000030   ....               RJMP    ??Subroutine16_0
+    170              
+    171                      
+    172          }
+    173          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    174          char SerialIO::PushBackRxBuff(unsigned char _d)
+   \                     ??PushBackRxBuff:
+    175          {
+    176             return RxBuff.PushBack(_d);
+   \   00000000   ....               RCALL   ?Subroutine6
+   \                     ??CrossCallReturnLabel_13:
+   \   00000002                      REQUIRE ?Subroutine14
+   \   00000002                      ;               // Fall through to label ?Subroutine14
+    177            
+    178          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine14:
+   \   00000000   ........           JMP     ??PushBack
+    179          
+    180          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    181          char SerialIO::PopRxBuff(unsigned char & _return)
+   \                     ??PopRxBuff:
+    182          {
+    183           
+    184            return RxBuff.Pop(_return);
+   \   00000000   ....               RCALL   ?Subroutine6
+   \                     ??CrossCallReturnLabel_14:
+   \   00000002                      REQUIRE ?Subroutine15
+   \   00000002                      ;               // Fall through to label ?Subroutine15
+    185            
+    186          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine15:
+   \   00000000   ........           JMP     ??Pop
+    187            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    188          char SerialIO::PushBackTxBuff(unsigned char _d)
+   \                     ??PushBackTxBuff:
+    189          {
+    190            return TxBuff.PushBack(_d);
+   \   00000000   ....               RCALL   ?Subroutine7
+   \                     ??CrossCallReturnLabel_17:
+   \   00000002   ....               RJMP    ?Subroutine14
+    191          }
+    192          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    193          char SerialIO::PopTxBuff(unsigned char & _return)
+   \                     ??PopTxBuff:
+    194          {
+    195            return TxBuff.Pop(_return);
+   \   00000000   ....               RCALL   ?Subroutine7
+   \                     ??CrossCallReturnLabel_18:
+   \   00000002   ....               RJMP    ?Subroutine15
+    196          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SerialIO *SerialIO::new SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+   \                     `??new SerialIO`:
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   0128               MOVW    R5:R4, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+   \   00000008   2FA4               MOV     R26, R20
+   \   0000000A   ....               RCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_8:
+   \   0000000C   F029               BREQ    `??new SerialIO_2`
+   \   0000000E   2F6A               MOV     R22, R26
+   \   00000010   01AC               MOVW    R21:R20, R25:R24
+   \   00000012   0192               MOVW    R19:R18, R5:R4
+   \   00000014   ....               RCALL   ??SerialIO
+   \   00000016   C002               RJMP    `??new SerialIO_3`
+   \                     `??new SerialIO_2`:
+   \   00000018   E000               LDI     R16, 0
+   \   0000001A   E010               LDI     R17, 0
+   \                     `??new SerialIO_3`:
+   \   0000001C                      REQUIRE ?Subroutine8
+   \   0000001C                      ;               // Fall through to label ?Subroutine8
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 SerialIO *SerialIO::new SerialIO(ISerialPort &)
+   \                     `??new SerialIO_1`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   ....               RCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_9:
+   \   00000008   F019               BREQ    `??new SerialIO_4`
+   \   0000000A   019C               MOVW    R19:R18, R25:R24
+   \   0000000C   ....               RCALL   ??SerialIO_1
+   \   0000000E   C002               RJMP    `??new SerialIO_5`
+   \                     `??new SerialIO_4`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   E010               LDI     R17, 0
+   \                     `??new SerialIO_5`:
+   \   00000014   9189               LD      R24, Y+
+   \   00000016   9199               LD      R25, Y+
+   \   00000018   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine2:
+   \   00000000   E203               LDI     R16, 35
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008                      REQUIRE ?Subroutine10
+   \   00000008                      ;               // Fall through to label ?Subroutine10
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     SerialIO::PopRxBuff(unsigned char &)
+                                        0      2
+       -> RingBuffer::Pop(unsigned char &)
+                                        0      2
+     SerialIO::PopTxBuff(unsigned char &)
+                                        0      2
+       -> RingBuffer::Pop(unsigned char &)
+                                        0      2
+     SerialIO::PushBackRxBuff(unsigned char)
+                                        0      2
+       -> RingBuffer::PushBack(unsigned char)
+                                        0      2
+     SerialIO::PushBackTxBuff(unsigned char)
+                                        0      2
+       -> RingBuffer::PushBack(unsigned char)
+                                        0      2
+     SerialIO::SerialIO(ISerialPort &)
+                                        2      2
+       -> RingBuffer::RingBuffer()      2      2
+       -> RingBuffer::RingBuffer()      2      2
+     SerialIO::SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                        2      2
+       -> RingBuffer::RingBuffer()      2      2
+       -> RingBuffer::RingBuffer()      2      2
+     SerialIO::SetEvent(SerialEvent &)
+                                        0      2
+     SerialIO::Write(char __flash *)
+                                        8      2
+       -> SerialIO::Write(unsigned char)
+                                        8      2
+       -> SerialIO::Write(unsigned char)
+                                        8      2
+     SerialIO::Write(char const *)      8      2
+       -> SerialIO::Write(unsigned char)
+                                        8      2
+       -> SerialIO::Write(unsigned char)
+                                        8      2
+     SerialIO::Write(unsigned char const *, unsigned char)
+                                        6      2
+       -> SerialIO::Write(unsigned char)
+                                        6      2
+     SerialIO::Write(unsigned char)     4      2
+       -> SerialIO::PushBackTxBuff(unsigned char)
+                                        4      2
+       ->   Indirect call               4      2
+     SerialIO::evTick()                 3      2
+       -> SerialIO::PopRxBuff(unsigned char &)
+                                        3      2
+       ->   Indirect call               3      2
+     SerialIO::new SerialIO(ISerialPort &)
+                                        2      2
+       -> operator new(unsigned int)
+                                        2      2
+       -> SerialIO::SerialIO(ISerialPort &)
+                                        2      2
+     SerialIO::new SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                        6      2
+       -> operator new(unsigned int)
+                                        6      2
+       -> SerialIO::SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                        6      2
+     SerialIO::rxFlush()                0      2
+       -> RingBuffer::Flush()           0      2
+     SerialIO::txFlush()                0      2
+       -> RingBuffer::Flush()           0      2
+     SerialIO::~SerialIO()              0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     SerialIO::~SerialIO()            16
+     SerialIO::SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                      20
+     ?Subroutine9                      2
+     ??Subroutine16_0                  6
+     ?Subroutine1                     20
+     ?Subroutine0                     34
+     ?Subroutine6                      2
+     ?Subroutine11                     4
+     ?Subroutine7                      4
+     SerialIO::SerialIO(ISerialPort &)
+                                      16
+     SerialIO::SetEvent(SerialEvent &)
+                                      34
+     SerialIO::rxFlush()               2
+     ?Subroutine12                     4
+     SerialIO::txFlush()               4
+     ?Subroutine10                     6
+     SerialIO::Write(unsigned char)   48
+     ?Subroutine5                      6
+     ?Subroutine4                      6
+     ?Subroutine8                      6
+     SerialIO::Write(unsigned char const *, unsigned char)
+                                      52
+     ?Subroutine3                      2
+     ??Subroutine17_0                  6
+     SerialIO::Write(char const *)    64
+     ?Subroutine13                     6
+     SerialIO::Write(char __flash *)
+                                      68
+     SerialIO::evTick()               50
+     SerialIO::PushBackRxBuff(unsigned char)
+                                       2
+     ?Subroutine14                     4
+     SerialIO::PopRxBuff(unsigned char &)
+                                       2
+     ?Subroutine15                     4
+     SerialIO::PushBackTxBuff(unsigned char)
+                                       4
+     SerialIO::PopTxBuff(unsigned char &)
+                                       4
+     SerialIO::new SerialIO(ISerialPort &, SerialEvent &, SerialIO::WRITE_OPT_T)
+                                      28
+     SerialIO::new SerialIO(ISerialPort &)
+                                      26
+     ?Subroutine2                      8
+      Others                           2
+
+ 
+ 570 bytes in segment CODE
+   2 bytes in segment NEAR_F
+ 
+ 556 bytes of CODE memory (+ 16 bytes shared)
+
+Errors: none
+Warnings: none

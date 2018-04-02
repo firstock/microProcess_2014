@@ -1,0 +1,471 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:44 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Basic_Component\led.cpp           #
+#    Command line =  C:\work\TIEL_FrameWork\Basic_Component\led.cpp           #
+#                    --cpu=m128 -ms -o C:\work\ATmega128_Debug\Obj\ -D        #
+#                    xNDEBUG -D xWATCHDOG_ENABLE -lC                          #
+#                    C:\work\ATmega128_Debug\List\ -y                         #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\led.lst                     #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\led.r90                      #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Basic_Component\led.cpp
+      1          
+      2          #include "led.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DOut::~DOut()
+   \                     `?~DOut`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   2F08               MOV     R16, R24
+   \   00000008   2B09               OR      R16, R25
+   \   0000000A   F031               BREQ    `?~DOut_1`
+   \   0000000C   2F02               MOV     R16, R18
+   \   0000000E   FF00               SBRS    R16, 0
+   \   00000010   C003               RJMP    `?~DOut_1`
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   ........           CALL    `??operator delete`
+   \                     `?~DOut_1`:
+   \   00000018   9189               LD      R24, Y+
+   \   0000001A   9199               LD      R25, Y+
+   \   0000001C   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Led::~Led()
+   \                     `?~Led`:
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+   \   00000008   2F08               MOV     R16, R24
+   \   0000000A   2B09               OR      R16, R25
+   \   0000000C   F059               BREQ    `?~Led_1`
+   \   0000000E   E020               LDI     R18, 0
+   \   00000010   E030               LDI     R19, 0
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   ........           CALL    `?~DOut`
+   \   00000018   2F0A               MOV     R16, R26
+   \   0000001A   FF00               SBRS    R16, 0
+   \   0000001C   C003               RJMP    `?~Led_1`
+   \   0000001E   018C               MOVW    R17:R16, R25:R24
+   \   00000020   ........           CALL    `??operator delete`
+   \                     `?~Led_1`:
+   \   00000024   E0E4               LDI     R30, 4
+   \   00000026   ........           JMP     ?EPILOGUE_B4_L09
+      3          #include <assert.h>
+      4          
+      5          
+      6          // 기본 시간 단위는 ms
+      7          #define TIME_INTERVAL_MS			50			// 타이머 이벤트의 주기. 이 모듈에서 사용되는 시간의 기본 레졸루션이됨.
+      8          #define MAX_ON_TIME_MS				10000		// 최대로 LED가 켜질 수 있는 시간. 잘못되어 계속 켜지는 것을 방지. (기능 삭제 예정)
+      9          #define MAX_ON_OFF_CNT				10			// 최대로 blink할 수 있는 횟수.
+     10          #define DEFAULE_ONOFF_CYC_MS	500			// on,off의 기본주기
+     11          #define DEFAULE_DUTY_RATE	5				// on시간과 off시간의 비
+     12          // 1 = 1:9
+     13          // 2 = 2:8
+     14          // 3 = 3:7
+     15          // 4 = 4:6
+     16          // 5 = 5:5
+     17          // 6 = 6:4
+     18          // ~~
+     19          // 9 = 9:1
+     20          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     21          Led::Led()
+   \                     ??Led:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     22          {
+   \   00000006   018D               MOVW    R17:R16, R27:R26
+   \   00000008   ........           CALL    ??DOut
+   \   0000000C   ....               LDI     R16, LOW(??__vtbl)
+   \   0000000E   ....               LDI     R17, (??__vtbl) >> 8
+   \   00000010   9611               ADIW    R27:R26, 1
+   \   00000012   930D               ST      X+, R16
+   \   00000014   931C               ST      X, R17
+   \   00000016   9712               SBIW    R27:R26, 2
+     23          
+     24          Init();
+   \   00000018   018D               MOVW    R17:R16, R27:R26
+   \   0000001A   ....               RCALL   ??Init
+     25          
+     26          }
+   \   0000001C   018D               MOVW    R17:R16, R27:R26
+   \   0000001E   91A9               LD      R26, Y+
+   \   00000020   91B9               LD      R27, Y+
+   \   00000022   9508               RET
+     27          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     28          void Led::Init()
+   \                     ??Init:
+     29          {
+     30            LED_state = OFF;
+   \   00000000   E020               LDI     R18, 0
+   \   00000002   01F8               MOVW    R31:R30, R17:R16
+   \   00000004   8323               STD     Z+3, R18
+     31            
+     32            DW_LED_currunt_timer_tick = 0;
+   \   00000006   E020               LDI     R18, 0
+   \   00000008   E030               LDI     R19, 0
+   \   0000000A   01F8               MOVW    R31:R30, R17:R16
+   \   0000000C   8324               STD     Z+4, R18
+   \   0000000E   8335               STD     Z+5, R19
+     33            
+     34          //  blink_Number = 5;
+     35            onoff_cyc_ms = 500;
+                                  ^
+Warning[Pe069]: integer conversion resulted in truncation
+   \   00000010   EF24               LDI     R18, 244
+   \   00000012   01F8               MOVW    R31:R30, R17:R16
+   \   00000014   8327               STD     Z+7, R18
+     36          //duty_rate		= 5;
+     37           
+     38            onoffcnt = 0;
+   \   00000016   E020               LDI     R18, 0
+   \   00000018   01F8               MOVW    R31:R30, R17:R16
+   \   0000001A   8723               STD     Z+11, R18
+     39            isLEDon = 0;  
+   \   0000001C   E020               LDI     R18, 0
+   \   0000001E   01F8               MOVW    R31:R30, R17:R16
+   \   00000020   8724               STD     Z+12, R18
+     40            
+     41          }
+   \   00000022   9508               RET
+     42          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     43          void Led::Blink(unsigned char _blink_Number, unsigned char _onoff_cyc_ms, unsigned char _duty_rate)
+   \                     ??Blink:
+     44          {
+   \   00000000   ........           CALL    ?PROLOGUE9_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2E82               MOV     R8, R18
+   \   00000008   2F93               MOV     R25, R19
+   \   0000000A   2F84               MOV     R24, R20
+     45                  if(BLINK == LED_state)
+   \   0000000C   01FD               MOVW    R31:R30, R27:R26
+   \   0000000E   8103               LDD     R16, Z+3
+   \   00000010   3002               CPI     R16, 2
+   \   00000012   F1E1               BREQ    ??Blink_1
+     46                    return;
+     47           
+     48                  
+     49          	LED_state = BLINK;
+   \   00000014   E002               LDI     R16, 2
+   \   00000016   01FD               MOVW    R31:R30, R27:R26
+   \   00000018   8303               STD     Z+3, R16
+     50          		
+     51          	if( 0 != _blink_Number)
+   \   0000001A   2088               TST     R8
+   \   0000001C   F011               BREQ    ??Blink_2
+     52          		blink_Number = _blink_Number;
+   \   0000001E   01FD               MOVW    R31:R30, R27:R26
+   \   00000020   8286               STD     Z+6, R8
+     53          	if( 0 != _onoff_cyc_ms)
+   \                     ??Blink_2:
+   \   00000022   2399               TST     R25
+   \   00000024   F011               BREQ    ??Blink_3
+     54          		onoff_cyc_ms = _onoff_cyc_ms;
+   \   00000026   01FD               MOVW    R31:R30, R27:R26
+   \   00000028   8397               STD     Z+7, R25
+     55                  if( 1 <= _duty_rate && 9 >= _duty_rate)
+   \                     ??Blink_3:
+   \   0000002A   3081               CPI     R24, 1
+   \   0000002C   F020               BRCS    ??Blink_4
+   \   0000002E   308A               CPI     R24, 10
+   \   00000030   F410               BRCC    ??Blink_4
+     56          		duty_rate 	 = _duty_rate;
+   \   00000032   01FD               MOVW    R31:R30, R27:R26
+   \   00000034   8780               STD     Z+8, R24
+     57                  DW_LED_currunt_timer_tick = 0;
+   \                     ??Blink_4:
+   \   00000036   E000               LDI     R16, 0
+   \   00000038   E010               LDI     R17, 0
+   \   0000003A   01FD               MOVW    R31:R30, R27:R26
+   \   0000003C   8304               STD     Z+4, R16
+   \   0000003E   8315               STD     Z+5, R17
+     58          
+     59          	onoffcnt = 0;
+   \   00000040   E000               LDI     R16, 0
+   \   00000042   01FD               MOVW    R31:R30, R27:R26
+   \   00000044   8703               STD     Z+11, R16
+     60          
+     61                  on_rate_ms=(unsigned int)((float)onoff_cyc_ms*((float)duty_rate/10.0));
+   \   00000046   01FD               MOVW    R31:R30, R27:R26
+   \   00000048   8107               LDD     R16, Z+7
+   \   0000004A   E010               LDI     R17, 0
+   \   0000004C   E020               LDI     R18, 0
+   \   0000004E   E030               LDI     R19, 0
+   \   00000050   ........           CALL    ?UL2F_L04
+   \   00000054   0128               MOVW    R5:R4, R17:R16
+   \   00000056   0139               MOVW    R7:R6, R19:R18
+   \   00000058   01FD               MOVW    R31:R30, R27:R26
+   \   0000005A   8500               LDD     R16, Z+8
+   \   0000005C   E010               LDI     R17, 0
+   \   0000005E   E020               LDI     R18, 0
+   \   00000060   E030               LDI     R19, 0
+   \   00000062   ........           CALL    ?UL2F_L04
+   \   00000066   E040               LDI     R20, 0
+   \   00000068   E050               LDI     R21, 0
+   \   0000006A   E260               LDI     R22, 32
+   \   0000006C   E471               LDI     R23, 65
+   \   0000006E   ........           CALL    ?F_DIV_L04
+   \   00000072   01A2               MOVW    R21:R20, R5:R4
+   \   00000074   01B3               MOVW    R23:R22, R7:R6
+   \   00000076   ........           CALL    ?F_MUL_L04
+   \   0000007A   ........           CALL    ?F2SL_L04
+   \   0000007E   01FD               MOVW    R31:R30, R27:R26
+   \   00000080   8701               STD     Z+9, R16
+   \   00000082   8712               STD     Z+10, R17
+     62                  
+     63                  Set(0);
+   \   00000084   E020               LDI     R18, 0
+   \   00000086   018D               MOVW    R17:R16, R27:R26
+   \   00000088   ........           CALL    ??Set
+     64            
+     65          }
+   \                     ??Blink_1:
+   \   0000008C   E0E9               LDI     R30, 9
+   \   0000008E   ........           JMP     ?EPILOGUE_B9_L09
+     66          
+     67            
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     68          void Led::evTimerExpir(void) //외부 타이머에 의해 호출. 비재진입 함수
+   \                     ??evTimerExpir:
+     69          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     70          	if(OFF != LED_state && MAX_ON_TIME_MS < DW_LED_currunt_timer_tick ) // 어떠한 모드에 있던 최대 시간을 초과하면 초기화 된다.
+   \   00000006   01FD               MOVW    R31:R30, R27:R26
+   \   00000008   8103               LDD     R16, Z+3
+   \   0000000A   2300               TST     R16
+   \   0000000C   F049               BREQ    ??evTimerExpir_1
+   \   0000000E   01FD               MOVW    R31:R30, R27:R26
+   \   00000010   8104               LDD     R16, Z+4
+   \   00000012   8115               LDD     R17, Z+5
+   \   00000014   3101               CPI     R16, 17
+   \   00000016   E227               LDI     R18, 39
+   \   00000018   0712               CPC     R17, R18
+   \   0000001A   F010               BRCS    ??evTimerExpir_1
+     71          	{
+     72          		Init();
+   \   0000001C   018D               MOVW    R17:R16, R27:R26
+   \   0000001E   ....               RCALL   ??Init
+     73           //               Set(0);
+     74          	}
+     75          
+     76          	
+     77          	if( OFF != LED_state )
+   \                     ??evTimerExpir_1:
+   \   00000020   01FD               MOVW    R31:R30, R27:R26
+   \   00000022   8103               LDD     R16, Z+3
+   \   00000024   2300               TST     R16
+   \   00000026   F039               BREQ    ??evTimerExpir_2
+     78          	{
+     79          		DW_LED_currunt_timer_tick += TIME_INTERVAL_MS;		
+   \   00000028   01FD               MOVW    R31:R30, R27:R26
+   \   0000002A   8104               LDD     R16, Z+4
+   \   0000002C   8115               LDD     R17, Z+5
+   \   0000002E   5C0E               SUBI    R16, 206
+   \   00000030   4F1F               SBCI    R17, 255
+   \   00000032   8304               STD     Z+4, R16
+   \   00000034   8315               STD     Z+5, R17
+     80          	}
+     81          	
+     82          	if( BLINK == LED_state ){
+   \                     ??evTimerExpir_2:
+   \   00000036   01FD               MOVW    R31:R30, R27:R26
+   \   00000038   8103               LDD     R16, Z+3
+   \   0000003A   3002               CPI     R16, 2
+   \   0000003C   F5A9               BRNE    ??evTimerExpir_3
+     83          		unsigned char now;
+     84          	
+     85          		if(on_rate_ms > (DW_LED_currunt_timer_tick % onoff_cyc_ms) ) //on time
+   \   0000003E   01FD               MOVW    R31:R30, R27:R26
+   \   00000040   8104               LDD     R16, Z+4
+   \   00000042   8115               LDD     R17, Z+5
+   \   00000044   01FD               MOVW    R31:R30, R27:R26
+   \   00000046   8147               LDD     R20, Z+7
+   \   00000048   E050               LDI     R21, 0
+   \   0000004A   ........           CALL    ?US_DIVMOD_L02
+   \   0000004E   01FD               MOVW    R31:R30, R27:R26
+   \   00000050   8501               LDD     R16, Z+9
+   \   00000052   8512               LDD     R17, Z+10
+   \   00000054   1740               CP      R20, R16
+   \   00000056   0751               CPC     R21, R17
+   \   00000058   F430               BRCC    ??evTimerExpir_4
+     86          		{
+     87          			//Set(1);
+     88                                  Flip();
+   \   0000005A   EF2F               LDI     R18, 255
+   \   0000005C   018D               MOVW    R17:R16, R27:R26
+   \   0000005E   ........           CALL    ??Flip
+     89          			now = 1;
+   \   00000062   E081               LDI     R24, 1
+   \   00000064   C005               RJMP    ??evTimerExpir_5
+     90          		}
+     91          		else //off time
+     92          		{
+     93          			//Set(0);
+     94                                  Flip();
+   \                     ??evTimerExpir_4:
+   \   00000066   EF2F               LDI     R18, 255
+   \   00000068   018D               MOVW    R17:R16, R27:R26
+   \   0000006A   ........           CALL    ??Flip
+     95          			now = 0;
+   \   0000006E   E080               LDI     R24, 0
+     96          		}
+     97          		
+     98          		if( isLEDon == 1 && now == 0 )
+   \                     ??evTimerExpir_5:
+   \   00000070   01FD               MOVW    R31:R30, R27:R26
+   \   00000072   8504               LDD     R16, Z+12
+   \   00000074   3001               CPI     R16, 1
+   \   00000076   F431               BRNE    ??evTimerExpir_6
+   \   00000078   2388               TST     R24
+   \   0000007A   F421               BRNE    ??evTimerExpir_6
+     99          		{
+    100          			onoffcnt++;
+   \   0000007C   01FD               MOVW    R31:R30, R27:R26
+   \   0000007E   8503               LDD     R16, Z+11
+   \   00000080   9503               INC     R16
+   \   00000082   8703               STD     Z+11, R16
+    101          		}
+    102          		
+    103          		isLEDon = now;
+   \                     ??evTimerExpir_6:
+   \   00000084   01FD               MOVW    R31:R30, R27:R26
+   \   00000086   8784               STD     Z+12, R24
+    104          		if( (onoffcnt >= blink_Number ) || onoffcnt >= MAX_ON_OFF_CNT )
+   \   00000088   01FD               MOVW    R31:R30, R27:R26
+   \   0000008A   8503               LDD     R16, Z+11
+   \   0000008C   01FD               MOVW    R31:R30, R27:R26
+   \   0000008E   8116               LDD     R17, Z+6
+   \   00000090   1701               CP      R16, R17
+   \   00000092   F420               BRCC    ??evTimerExpir_7
+   \   00000094   01FD               MOVW    R31:R30, R27:R26
+   \   00000096   8503               LDD     R16, Z+11
+   \   00000098   300A               CPI     R16, 10
+   \   0000009A   F030               BRCS    ??evTimerExpir_3
+    105          		{
+    106          			Init();
+   \                     ??evTimerExpir_7:
+   \   0000009C   018D               MOVW    R17:R16, R27:R26
+   \   0000009E   ....               RCALL   ??Init
+    107                                  Set(0);
+   \   000000A0   E020               LDI     R18, 0
+   \   000000A2   018D               MOVW    R17:R16, R27:R26
+   \   000000A4   ........           CALL    ??Set
+    108          		}
+    109          
+    110          	}
+    111            
+    112            
+    113          }
+   \                     ??evTimerExpir_3:
+   \   000000A8   E0E4               LDI     R30, 4
+   \   000000AA   ........           JMP     ?EPILOGUE_B4_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Led *Led::new Led()
+   \                     `??new Led`:
+   \   00000000   E00D               LDI     R16, 13
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   0198               MOVW    R19:R18, R17:R16
+   \   0000000A   2B01               OR      R16, R17
+   \   0000000C   F019               BREQ    `??new Led_1`
+   \   0000000E   0189               MOVW    R17:R16, R19:R18
+   \   00000010   ....               RCALL   ??Led
+   \   00000012   9508               RET
+   \                     `??new Led_1`:
+   \   00000014   E000               LDI     R16, 0
+   \   00000016   E010               LDI     R17, 0
+   \   00000018   9508               RET
+    114            
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     DOut::~DOut()                      2      2
+       -> operator delete(void *)       2      2
+     Led::Blink(unsigned char, unsigned char, unsigned char)
+                                        9      4
+       -> DOut::Set(unsigned char)      9      2
+     Led::Init()                        0      2
+     Led::Led()                         2      2
+       -> DOut::DOut()                  2      2
+       -> Led::Init()                   2      2
+     Led::evTimerExpir()                4      4
+       -> Led::Init()                   4      2
+       -> DOut::Flip(unsigned char)     4      2
+       -> DOut::Flip(unsigned char)     4      2
+       -> Led::Init()                   4      2
+       -> DOut::Set(unsigned char)      4      2
+     Led::new Led()                     0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> Led::Led()                    0      2
+     Led::~Led()                        4      2
+       -> DOut::~DOut()                 4      2
+       -> operator delete(void *)       4      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     DOut::~DOut()                    30
+     Led::~Led()                      42
+     Led::Led()                       36
+     Led::Init()                      36
+     Led::Blink(unsigned char, unsigned char, unsigned char)
+                                     146
+     Led::evTimerExpir()             174
+     Led::new Led()                   26
+      Others                           6
+
+ 
+ 490 bytes in segment CODE
+   6 bytes in segment NEAR_F
+ 
+ 424 bytes of CODE memory (+ 72 bytes shared)
+
+Errors: none
+Warnings: 1

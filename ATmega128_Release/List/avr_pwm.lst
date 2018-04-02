@@ -1,0 +1,296 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:05 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_pwm.cpp                                             #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver #
+#                    \avr_pwm.cpp --cpu=m128 -ms -o                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\ -D     #
+#                    NDEBUG -D xWATCHDOG_ENABLE -lC                           #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\avr_pw #
+#                    m.lst                                                    #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\avr_pwm #
+#                    .r90                                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\CPU\AVR_Driver\avr_pwm.cpp
+      1          #include "avr_pwm.h"
+      2          
+      3          // Include I/O definition file
+      4          #include <ioavr.h>
+
+   \                                 In  segment ABSOLUTE, at 0x37
+   \   <__C23> volatile __io _A_DDRB
+   \                     _A_DDRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x51
+   \   <__C44> volatile __io _A_OCR0
+   \                     _A_OCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   <__C46> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+      5          #include <inavr.h> //_interrupt()
+      6          #include <cassert>
+      7          
+      8          
+      9          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     10          Avr_pwm::Avr_pwm(unsigned char _preScaler)
+   \                     ??Avr_pwm:
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+     11          :preScaler(_preScaler)
+     12          {
+   \   00000006   ....               LDI     R16, LOW(??__vtbl)
+   \   00000008   ....               LDI     R17, (??__vtbl) >> 8
+   \   0000000A   930D               ST      X+, R16
+   \   0000000C   931D               ST      X+, R17
+   \   0000000E   932C               ST      X, R18
+   \   00000010   9712               SBIW    R27:R26, 2
+     13          
+     14            Init();
+   \   00000012   018D               MOVW    R17:R16, R27:R26
+   \   00000014   ....               RCALL   ??Init
+     15          //  SetPreScaler(preScaler);
+     16          }
+   \   00000016   018D               MOVW    R17:R16, R27:R26
+   \   00000018   91A9               LD      R26, Y+
+   \   0000001A   91B9               LD      R27, Y+
+   \   0000001C   9508               RET
+     17          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     18          Avr_pwm::~Avr_pwm()
+   \                     `?~Avr_pwm`:
+     19          {
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~Avr_pwm_1`
+     20          
+     21          }
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~Avr_pwm_1`
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~Avr_pwm_1`:
+   \   0000000E   9508               RET
+     22          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     23          void Avr_pwm::Init(void)
+   \                     ??Init:
+     24          {
+     25            __disable_interrupt();
+   \   00000000   94F8               CLI
+     26            DDRB = 1 << DDB4;
+   \   00000002   E100               LDI     R16, 16
+   \   00000004   BB07               OUT     0x17, R16
+     27          TCCR0 = ( 1 << WGM00) | ( 1 << COM01) | ( 1 << COM00) | ( 1 << WGM01);// | ( 1 << CS02); /* Timer0 Fast PWM clk/64 */
+   \   00000006   E708               LDI     R16, 120
+   \   00000008   BF03               OUT     0x33, R16
+     28           
+     29            __enable_interrupt();  
+   \   0000000A   9478               SEI
+     30            
+     31          }
+   \   0000000C   9508               RET
+   \   0000000E                      REQUIRE _A_DDRB
+   \   0000000E                      REQUIRE _A_TCCR0
+     32          
+     33          void Avr_pwm::SetOcr(unsigned char _ocr)
+   \                     ??SetOcr:
+     34          {
+     35            
+     36            OCR0 = _ocr;  
+   \   00000000                      REQUIRE ?Subroutine0
+   \   00000000                      REQUIRE _A_OCR0
+   \   00000000                      ;               // Fall through to label ?Subroutine0
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   BF21               OUT     0x31, R18
+   \   00000002   9508               RET
+     37          }
+     38          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     39          void Avr_pwm::SetPreScaler(unsigned char _s)
+   \                     ??SetPreScaler:
+     40          {
+     41           assert( 0x07 >= _s);
+     42          
+     43           TCCR0 = (TCCR0 & 0xf8) | (0x07 & _s);
+   \   00000000   B703               IN      R16, 0x33
+   \   00000002   7F08               ANDI    R16, 0xF8
+   \   00000004   7027               ANDI    R18, 0x07
+   \   00000006   2B02               OR      R16, R18
+   \   00000008   BF03               OUT     0x33, R16
+     44          
+     45          }
+   \   0000000A   9508               RET
+   \   0000000C                      REQUIRE _A_TCCR0
+     46          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     47          void Avr_pwm::Run(void)
+   \                     ??Run:
+     48          {
+     49           SetPreScaler(preScaler); 
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8122               LDD     R18, Z+2
+   \   00000004                      REQUIRE ?Subroutine1
+   \   00000004                      ;               // Fall through to label ?Subroutine1
+     50          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine1:
+   \   00000000   ....               RJMP    ??SetPreScaler
+     51          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     52          void Avr_pwm::Stop(void)
+   \                     ??Stop:
+     53          {
+     54            SetPreScaler(0);
+   \   00000000   E020               LDI     R18, 0
+   \   00000002   ....               RJMP    ?Subroutine1
+     55          }
+     56          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     57          void Avr_pwm::SetDuty(unsigned short _du)
+   \                     ??SetDuty:
+     58          {
+     59            SetOcr(_du);
+   \   00000000   ....               RJMP    ?Subroutine0
+   \   00000002                      REQUIRE _A_OCR0
+     60          }
+     61          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     62          unsigned char Avr_pwm::GetResolution()
+   \                     ??GetResolution:
+     63          {
+     64            return 8;
+   \   00000000   E008               LDI     R16, 8
+   \   00000002   9508               RET
+     65          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 Avr_pwm *Avr_pwm::new Avr_pwm(unsigned char)
+   \                     `??new Avr_pwm`:
+   \   00000000   938A               ST      -Y, R24
+   \   00000002   2F80               MOV     R24, R16
+   \   00000004   E003               LDI     R16, 3
+   \   00000006   E010               LDI     R17, 0
+   \   00000008   ........           CALL    `??operator new`
+   \   0000000C   2F20               MOV     R18, R16
+   \   0000000E   2B21               OR      R18, R17
+   \   00000010   F019               BREQ    `??new Avr_pwm_1`
+   \   00000012   2F28               MOV     R18, R24
+   \   00000014   ....               RCALL   ??Avr_pwm
+   \   00000016   C002               RJMP    `??new Avr_pwm_2`
+   \                     `??new Avr_pwm_1`:
+   \   00000018   E000               LDI     R16, 0
+   \   0000001A   E010               LDI     R17, 0
+   \                     `??new Avr_pwm_2`:
+   \   0000001C   9189               LD      R24, Y+
+   \   0000001E   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     Avr_pwm::Avr_pwm(unsigned char)
+                                        2      2
+       -> Avr_pwm::Init()               2      2
+     Avr_pwm::GetResolution()           0      2
+     Avr_pwm::Init()                    0      2
+     Avr_pwm::Run()                     0      2
+       -> Avr_pwm::SetPreScaler(unsigned char)
+                                        0      2
+     Avr_pwm::SetDuty(unsigned short)
+                                        0      2
+     Avr_pwm::SetOcr(unsigned char)     0      2
+     Avr_pwm::SetPreScaler(unsigned char)
+                                        0      2
+     Avr_pwm::Stop()                    0      2
+       -> Avr_pwm::SetPreScaler(unsigned char)
+                                        0      2
+     Avr_pwm::new Avr_pwm(unsigned char)
+                                        1      2
+       -> operator new(unsigned int)
+                                        1      2
+       -> Avr_pwm::Avr_pwm(unsigned char)
+                                        1      2
+     Avr_pwm::~Avr_pwm()                0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     _A_DDRB                           1
+     _A_OCR0                           1
+     _A_TCCR0                          1
+     Avr_pwm::Avr_pwm(unsigned char)
+                                      30
+     Avr_pwm::~Avr_pwm()              16
+     Avr_pwm::Init()                  14
+     Avr_pwm::SetOcr(unsigned char)    0
+     ?Subroutine0                      4
+     Avr_pwm::SetPreScaler(unsigned char)
+                                      12
+     Avr_pwm::Run()                    4
+     ?Subroutine1                      2
+     Avr_pwm::Stop()                   4
+     Avr_pwm::SetDuty(unsigned short)
+                                       2
+     Avr_pwm::GetResolution()          4
+     Avr_pwm::new Avr_pwm(unsigned char)
+                                      32
+      Others                          10
+
+ 
+   3 bytes in segment ABSOLUTE
+ 124 bytes in segment CODE
+  10 bytes in segment NEAR_F
+ 
+ 124 bytes of CODE memory (+ 10 bytes shared)
+   0 bytes of DATA memory (+  3 bytes shared)
+
+Errors: none
+Warnings: none

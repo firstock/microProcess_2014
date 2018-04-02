@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>TIEF/ATmega128_Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>215</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+    <Build><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Breakpoints</Factory></Window></Windows></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1395</ColumnWidth1><ColumnWidth2>372</ColumnWidth2><ColumnWidth3>93</ColumnWidth3></Build><TerminalIO/><Breakpoints><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Build</Factory></Window></Windows></PreferedWindows></Breakpoints></Static>
+    <Windows>
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-13934-2571</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>TIEF</ExpandedNode><ExpandedNode>TIEF/APP</ExpandedNode><ExpandedNode>TIEF/APP/LAB10_APP</ExpandedNode><ExpandedNode>TIEF/APP/LAB9_APP</ExpandedNode><ExpandedNode>TIEF/APP/TEST_APPS</ExpandedNode><ExpandedNode>TIEF/APP/TEST_APPS/CLCD_APP</ExpandedNode><ExpandedNode>TIEF/APP/TEST_APPS/LED_APP</ExpandedNode><ExpandedNode>TIEF/APP/TEST_APPS/SERIAL_APP</ExpandedNode><ExpandedNode>TIEF/APP/TEST_APPS/SW_APP</ExpandedNode><ExpandedNode>TIEF/APP/Term_Project_APP</ExpandedNode><ExpandedNode>TIEF/APP/Term_Project_Solution</ExpandedNode><ExpandedNode>TIEF/APP/USER_APP</ExpandedNode><ExpandedNode>TIEF/AVR_Driver</ExpandedNode><ExpandedNode>TIEF/BSP</ExpandedNode><ExpandedNode>TIEF/BSP/EBIO_BSP_V1_0</ExpandedNode><ExpandedNode>TIEF/BSP/MC_E02SMB_v1_3</ExpandedNode><ExpandedNode>TIEF/Basic_Component</ExpandedNode><ExpandedNode>TIEF/Common</ExpandedNode><ExpandedNode>TIEF/Configuration</ExpandedNode><ExpandedNode>TIEF/Driver_Interface</ExpandedNode><ExpandedNode>TIEF/Drivers</ExpandedNode><ExpandedNode>TIEF/Output</ExpandedNode><ExpandedNode>TIEF/Service</ExpandedNode><ExpandedNode>TIEF/System</ExpandedNode><ExpandedNode>TIEF/Test</ExpandedNode><ExpandedNode>TIEF/Utils</ExpandedNode><ExpandedNode>TIEF/doc</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd2><Tabs><Tab><Identity>TabID-26971-32398</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd2></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\APP\Term_Project\CalClkFuncGen.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>1656</SelStart><SelEnd>1656</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\APP\Term_Project\CalClkFuncGen.cpp</Filename><XPos>0</XPos><YPos>6</YPos><SelStart>608</SelStart><SelEnd>608</SelEnd></Tab><ActiveTab>1</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TIEL_FrameWork\System\System_main.cpp</Filename><XPos>0</XPos><YPos>12</YPos><SelStart>1283</SelStart><SelEnd>1283</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TIEL_FrameWork\BSP\MC_E02SMB_v1_3\clcd_adaptor.cpp</Filename><XPos>0</XPos><YPos>18</YPos><SelStart>107</SelStart><SelEnd>107</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-0136dd88><key>iaridepm.enu1</key></Toolbar-0136dd88></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>575</Bottom><Right>306</Right><x>-2</x><y>-2</y><xscreen>142</xscreen><yscreen>139</yscreen><sizeHorzCX>103953</sizeHorzCX><sizeHorzCY>199713</sizeHorzCY><sizeVertCX>225476</sizeVertCX><sizeVertCY>829023</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>76</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>78</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>112069</sizeHorzCY><sizeVertCX>103953</sizeVertCX><sizeVertCY>199713</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

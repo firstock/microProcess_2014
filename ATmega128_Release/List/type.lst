@@ -1,0 +1,157 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    02/Dec/2013  00:33:08 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Common\type.cp #
+#                    p                                                        #
+#    Command line =  D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Common\type.cp #
+#                    p --cpu=m128 -ms -o D:\Work\IAR\TIEF_Framework\ATmega128 #
+#                    _Release\Obj\ -D NDEBUG -D xWATCHDOG_ENABLE -lC          #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\type.l #
+#                    st                                                       #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\type.r9 #
+#                    0                                                        #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Common\type.cpp
+      1          #include "type.h"
+      2          
+
+   \                                 In  segment NEAR_F, align 1, keep-with-next
+      3          CONST char  gnu_lic[]=GNU_LICENSE;
+                                       ^
+Warning[Pe192]: unrecognized character escape sequence
+
+  CONST char  gnu_lic[]=GNU_LICENSE;
+                        ^
+"D:\Work\IAR\TIEF_Framework\TIEL_FrameWork\Common\type.cpp",3  Warning[Pe192]: 
+          unrecognized character escape sequence
+   \                     gnu_lic:
+   \   00000000   202020204954       DC8 20H, 20H, 20H, 20H, 54H, 49H, 45H, 46H
+   \              4645        
+   \   00000008   542845492046       DC8 28H, 54H, 49H, 45H, 46H, 20H, 69H, 73H
+   \              7369        
+   \   00000010   4520626D6465       DC8 20H, 45H, 6DH, 62H, 65H, 64H, 64H, 65H
+   \              6564        
+   \   00000018   20642F532057       DC8 64H, 20H, 53H, 2FH, 57H, 20H, 46H, 72H
+   \              7246        
+   \   00000020   6D617765726F       DC8 61H, 6DH, 65H, 77H, 6FH, 72H, 6BH, 29H
+   \              296B        
+   \   00000028   200A20204320       DC8 0AH, 20H, 20H, 20H, 20H, 43H, 6FH, 70H
+   \              706F        
+   \   00000030   727967697468       DC8 79H, 72H, 69H, 67H, 68H, 74H, 20H, 28H
+   \              2820        
+   \   00000038   294332203130       DC8 43H, 29H, 20H, 32H, 30H, 31H, 33H, 2DH
+   \              2D33        
+   \   00000040   303233312020       DC8 32H, 30H, 31H, 33H, 20H, 20H, 59H, 6FH
+   \              6F59        
+   \   00000048   206F6F4A2D6F       DC8 6FH, 20H, 4AH, 6FH, 6FH, 2DH, 48H, 79H
+   \              7948        
+   \   00000050   756F676E2820       DC8 6FH, 75H, 6EH, 67H, 20H, 28H, 70H, 6FH
+   \              6F70        
+   \   00000058   61746F743739       DC8 74H, 61H, 74H, 6FH, 39H, 37H, 40H, 6EH
+   \              6E40        
+   \   00000060   76617265632E       DC8 61H, 76H, 65H, 72H, 2EH, 63H, 6FH, 6DH
+   \              6D6F        
+   \   00000068   0A2920202020       DC8 29H, 0AH, 20H, 20H, 20H, 20H, 53H, 69H
+   \              6953        
+   \   00000070   6574203A7468       DC8 74H, 65H, 3AH, 20H, 68H, 74H, 74H, 70H
+   \              7074        
+   \   00000078   2F3A632F7263       DC8 3AH, 2FH, 2FH, 63H, 63H, 72H, 73H, 2EH
+   \              2E73        
+   \   00000080   6168796E6E61       DC8 68H, 61H, 6EH, 79H, 61H, 6EH, 67H, 2EH
+   \              2E67        
+   \   00000088   63616B2E0A72       DC8 61H, 63H, 2EH, 6BH, 72H, 0AH, 20H, 20H
+   \              2020        
+   \   00000090   202068547369       DC8 20H, 20H, 54H, 68H, 69H, 73H, 20H, 70H
+   \              7020        
+   \   00000098   6F7272676D61       DC8 72H, 6FH, 67H, 72H, 61H, 6DH, 20H, 63H
+   \              6320        
+   \   000000A0   6D6F73657720       DC8 6FH, 6DH, 65H, 73H, 20H, 77H, 69H, 74H
+   \              7469        
+   \   000000A8   206842414F53       DC8 68H, 20H, 41H, 42H, 53H, 4FH, 4CH, 55H
+   \              554C        
+   \   000000B0   4554594C4E20       DC8 54H, 45H, 4CH, 59H, 20H, 4EH, 4FH, 20H
+   \              204F        
+   \   000000B8   415752524E41       DC8 57H, 41H, 52H, 52H, 41H, 4EH, 54H, 59H
+   \              5954        
+   \   000000C0   203B6F662072       DC8 3BH, 20H, 66H, 6FH, 72H, 20H, 64H, 65H
+   \              6564        
+   \   000000C8   61746C692073       DC8 74H, 61H, 69H, 6CH, 73H, 20H, 74H, 79H
+   \              7974        
+   \   000000D0   657060206873       DC8 70H, 65H, 20H, 60H, 73H, 68H, 6FH, 77H
+   \              776F        
+   \   000000D8   77202E27200A       DC8 20H, 77H, 27H, 2EH, 0AH, 20H, 20H, 20H
+   \              2020        
+   \   000000E0   542069682073       DC8 20H, 54H, 68H, 69H, 73H, 20H, 69H, 73H
+   \              7369        
+   \   000000E8   662065722065       DC8 20H, 66H, 72H, 65H, 65H, 20H, 73H, 6FH
+   \              6F73        
+   \   000000F0   746661776572       DC8 66H, 74H, 77H, 61H, 72H, 65H, 2CH, 20H
+   \              202C        
+   \   000000F8   6E6120646F79       DC8 61H, 6EH, 64H, 20H, 79H, 6FH, 75H, 20H
+   \              2075        
+   \   00000100   726120656577       DC8 61H, 72H, 65H, 20H, 77H, 65H, 6CH, 63H
+   \              636C        
+   \   00000108   6D6F20656F74       DC8 6FH, 6DH, 65H, 20H, 74H, 6FH, 20H, 72H
+   \              7220        
+   \   00000110   646573697274       DC8 65H, 64H, 69H, 73H, 74H, 72H, 69H, 62H
+   \              6269        
+   \   00000118   747520657469       DC8 75H, 74H, 65H, 20H, 69H, 74H, 0AH, 20H
+   \              200A        
+   \   00000120   20207520646E       DC8 20H, 20H, 20H, 75H, 6EH, 64H, 65H, 72H
+   \              7265        
+   \   00000128   632072656174       DC8 20H, 63H, 65H, 72H, 74H, 61H, 69H, 6EH
+   \              6E69        
+   \   00000130   63206E6F6964       DC8 20H, 63H, 6FH, 6EH, 64H, 69H, 74H, 69H
+   \              6974        
+   \   00000138   6E6F3B737420       DC8 6FH, 6EH, 73H, 3BH, 20H, 74H, 79H, 70H
+   \              7079        
+   \   00000140   206573606F68       DC8 65H, 20H, 60H, 73H, 68H, 6FH, 77H, 20H
+   \              2077        
+   \   00000148   27636620726F       DC8 63H, 27H, 20H, 66H, 6FH, 72H, 20H, 64H
+   \              6420        
+   \   00000150   74656961736C       DC8 65H, 74H, 61H, 69H, 6CH, 73H, 2EH, 0AH
+   \              0A2E        
+   \   00000158   00                 DC8 0
+
+
+   Segment part sizes:
+
+     Function/Label Bytes
+     -------------- -----
+     gnu_lic         345
+
+ 
+ 345 bytes in segment NEAR_F
+ 
+ 345 bytes of CODE memory
+
+Errors: none
+Warnings: 2

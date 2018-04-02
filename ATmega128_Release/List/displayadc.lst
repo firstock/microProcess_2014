@@ -1,0 +1,221 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    01/Dec/2013  06:58:44 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  D:\Work\IAR\TIEF_Framework\APP\LAB10\displayadc.cpp      #
+#    Command line =  D:\Work\IAR\TIEF_Framework\APP\LAB10\displayadc.cpp      #
+#                    --cpu=m128 -ms -o D:\Work\IAR\TIEF_Framework\ATmega128_R #
+#                    elease\Obj\ -D NDEBUG -D xWATCHDOG_ENABLE -lC            #
+#                    D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\ -y    #
+#                    --initializers_in_flash -z9 --cross_call_passes=2        #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    D:\Work\IAR\TIEF_Framework\ -I                           #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Basic_Componen #
+#                    t\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/BSP/MC_E #
+#                    02SMB_v1_3\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork #
+#                    /Common\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Co #
+#                    nfiguration\ -I D:\Work\IAR\TIEF_Framework/TIEL_FrameWor #
+#                    k/CPU/AVR_Driver\ -I D:\Work\IAR\TIEF_Framework/TIEL_Fra #
+#                    meWork/Driver_Interface\ -I                              #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Drivers\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Service\ -I    #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/System\ -I     #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Test\ -I       #
+#                    D:\Work\IAR\TIEF_Framework/TIEL_FrameWork/Utils\ -I      #
+#                    D:\Work\IAR\TIEF_Framework/BUILD_COUNT\ -I "C:\Program   #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\INC\" -I "C:\Program Files (x86)\IAR           #
+#                    Systems\Embedded Workbench 5.4_0\avr\INC\DLIB\"          #
+#                    --eeprom_size 4096 --eec++ --dlib_config "C:\Program     #
+#                    Files (x86)\IAR Systems\Embedded Workbench               #
+#                    5.4_0\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"                  #
+#    List file    =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\List\displa #
+#                    yadc.lst                                                 #
+#    Object file  =  D:\Work\IAR\TIEF_Framework\ATmega128_Release\Obj\display #
+#                    adc.r90                                                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Work\IAR\TIEF_Framework\APP\LAB10\displayadc.cpp
+      1          #include "displayadc.h"
+      2          #include <cassert>
+      3          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      4          DisplayAdc::DisplayAdc()
+   \                     ??DisplayAdc:
+      5          {
+   \   00000000   ....               LDI     R18, LOW(??__vtbl)
+   \   00000002   ....               LDI     R19, (??__vtbl) >> 8
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8322               STD     Z+2, R18
+   \   00000008   8333               STD     Z+3, R19
+      6            
+      7          }
+   \   0000000A   9508               RET
+      8          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      9          DisplayAdc::~DisplayAdc()
+   \                     `?~DisplayAdc`:
+     10          {
+   \   00000000   2F40               MOV     R20, R16
+   \   00000002   2B41               OR      R20, R17
+   \   00000004   F021               BREQ    `?~DisplayAdc_1`
+   \   00000006   FF20               SBRS    R18, 0
+   \   00000008   C002               RJMP    `?~DisplayAdc_1`
+     11            
+     12          }
+   \   0000000A   ........           CALL    `??operator delete`
+   \                     `?~DisplayAdc_1`:
+   \   0000000E   9508               RET
+     13          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     14          void DisplayAdc::SetIDisplay(IDisplay * _idisp)
+   \                     ??SetIDisplay:
+     15          {
+     16            assert(0 != _idisp);
+     17            
+     18            idisp = _idisp;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8320               ST      Z, R18
+   \   00000004   8331               STD     Z+1, R19
+     19          }
+   \   00000006   9508               RET
+     20          
+     21          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     22          void DisplayAdc::SetAdcValue(unsigned short _v)
+   \                     ??SetAdcValue:
+     23          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+     24            float volt;
+     25            if(0 != idisp)
+   \   00000008   910D               LD      R16, X+
+   \   0000000A   911C               LD      R17, X
+   \   0000000C   9711               SBIW    R27:R26, 1
+   \   0000000E   2B01               OR      R16, R17
+   \   00000010   F129               BREQ    ??SetAdcValue_1
+     26            {  
+     27              volt = (5/1024.0) * _v;
+     28              
+     29              idisp->OutPutVolt(volt);
+   \   00000012   0189               MOVW    R17:R16, R19:R18
+   \   00000014   E020               LDI     R18, 0
+   \   00000016   E030               LDI     R19, 0
+   \   00000018   ........           CALL    ?UL2F_L04
+   \   0000001C   E040               LDI     R20, 0
+   \   0000001E   E050               LDI     R21, 0
+   \   00000020   EA60               LDI     R22, 160
+   \   00000022   E37B               LDI     R23, 59
+   \   00000024   ........           CALL    ?F_MUL_L04
+   \   00000028   01A8               MOVW    R21:R20, R17:R16
+   \   0000002A   01B9               MOVW    R23:R22, R19:R18
+   \   0000002C   ....               RCALL   ?Subroutine0
+   \                     ??CrossCallReturnLabel_0:
+   \   0000002E   9711               SBIW    R27:R26, 1
+   \   00000030   8120               LD      R18, Z
+   \   00000032   81F1               LDD     R31, Z+1
+   \   00000034   2FE2               MOV     R30, R18
+   \   00000036   9632               ADIW    R31:R30, 2
+   \   00000038   9125               LPM     R18, Z+
+   \   0000003A   91F4               LPM     R31, Z
+   \   0000003C   2FE2               MOV     R30, R18
+   \   0000003E   9509               ICALL
+     30              idisp->OutPutBar((_v >> 7) & 0x07);
+   \   00000040   0F88               LSL     R24
+   \   00000042   2F89               MOV     R24, R25
+   \   00000044   1F88               ROL     R24
+   \   00000046   2F28               MOV     R18, R24
+   \   00000048   7027               ANDI    R18, 0x07
+   \   0000004A   ....               RCALL   ?Subroutine0
+     31          
+     32            }
+   \                     ??CrossCallReturnLabel_1:
+   \   0000004C   8140               LD      R20, Z
+   \   0000004E   81F1               LDD     R31, Z+1
+   \   00000050   2FE4               MOV     R30, R20
+   \   00000052   9634               ADIW    R31:R30, 4
+   \   00000054   9145               LPM     R20, Z+
+   \   00000056   91F4               LPM     R31, Z
+   \   00000058   2FE4               MOV     R30, R20
+   \   0000005A   9509               ICALL
+     33            
+     34           
+     35            
+     36          }
+   \                     ??SetAdcValue_1:
+   \   0000005C   E0E4               LDI     R30, 4
+   \   0000005E   ........           JMP     ?EPILOGUE_B4_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \                     ?Subroutine0:
+   \   00000000   910D               LD      R16, X+
+   \   00000002   911C               LD      R17, X
+   \   00000004   9711               SBIW    R27:R26, 1
+   \   00000006   91ED               LD      R30, X+
+   \   00000008   91FC               LD      R31, X
+   \   0000000A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 DisplayAdc *DisplayAdc::new DisplayAdc()
+   \                     `??new DisplayAdc`:
+   \   00000000   E004               LDI     R16, 4
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   2B21               OR      R18, R17
+   \   0000000C   F009               BREQ    `??new DisplayAdc_1`
+   \   0000000E   ....               RJMP    ??DisplayAdc
+   \                     `??new DisplayAdc_1`:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   E010               LDI     R17, 0
+   \   00000014   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     DisplayAdc::DisplayAdc()           0      2
+     DisplayAdc::SetAdcValue(unsigned short)
+                                        4      4
+       ->   Indirect call               4      2
+       ->   Indirect call               4      2
+     DisplayAdc::SetIDisplay(IDisplay *)
+                                        0      2
+     DisplayAdc::new DisplayAdc()       0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> DisplayAdc::DisplayAdc()      0      2
+     DisplayAdc::~DisplayAdc()          0      2
+       -> operator delete(void *)       0      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     DisplayAdc::DisplayAdc()         12
+     DisplayAdc::~DisplayAdc()        16
+     DisplayAdc::SetIDisplay(IDisplay *)
+                                       8
+     DisplayAdc::SetAdcValue(unsigned short)
+                                      98
+     ?Subroutine0                     12
+     DisplayAdc::new DisplayAdc()     22
+      Others                           2
+
+ 
+ 168 bytes in segment CODE
+   2 bytes in segment NEAR_F
+ 
+ 168 bytes of CODE memory (+ 2 bytes shared)
+
+Errors: none
+Warnings: none

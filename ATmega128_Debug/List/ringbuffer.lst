@@ -1,0 +1,317 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V5.50.0.50277/W32 for Atmel AVR    20/Dec/2013  10:32:44 #
+# Copyright (C) 1996-2010 IAR Systems AB.                                     #
+#                                                                             #
+#    Source file  =  C:\work\TIEL_FrameWork\Common\ringbuffer.cpp             #
+#    Command line =  C:\work\TIEL_FrameWork\Common\ringbuffer.cpp --cpu=m128  #
+#                    -ms -o C:\work\ATmega128_Debug\Obj\ -D xNDEBUG -D        #
+#                    xWATCHDOG_ENABLE -lC C:\work\ATmega128_Debug\List\ -y    #
+#                    --initializers_in_flash -z2 --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --cross_call_passes=2 --debug                  #
+#                    -DENABLE_BIT_DEFINITIONS --do_cross_call -e -I ./\ -I    #
+#                    C:\work\ -I C:\work/TIEL_FrameWork/Basic_Component\ -I   #
+#                    C:\work/TIEL_FrameWork/BSP/MC_E02SMB_v1_3\ -I            #
+#                    C:\work/TIEL_FrameWork/Common\ -I                        #
+#                    C:\work/TIEL_FrameWork/Configuration\ -I                 #
+#                    C:\work/TIEL_FrameWork/CPU/AVR_Driver\ -I                #
+#                    C:\work/TIEL_FrameWork/Driver_Interface\ -I              #
+#                    C:\work/TIEL_FrameWork/Drivers\ -I                       #
+#                    C:\work/TIEL_FrameWork/Service\ -I                       #
+#                    C:\work/TIEL_FrameWork/System\ -I                        #
+#                    C:\work/TIEL_FrameWork/Test\ -I                          #
+#                    C:\work/TIEL_FrameWork/Utils\ -I C:\work/BUILD_COUNT\    #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench      #
+#                    5.4\avr\INC\" -I "C:\Program Files\IAR Systems\Embedded  #
+#                    Workbench 5.4\avr\INC\DLIB\" --eeprom_size 4096 --eec++  #
+#                    --dlib_config "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 5.4\avr\LIB\DLIB\dlAVR-3s-ec_mul-n.h"          #
+#    List file    =  C:\work\ATmega128_Debug\List\ringbuffer.lst              #
+#    Object file  =  C:\work\ATmega128_Debug\Obj\ringbuffer.r90               #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\work\TIEL_FrameWork\Common\ringbuffer.cpp
+      1          //////////////////////////////////////////////////////////////////////////////////////////
+      2           
+      3          // Project description
+      4           
+      5          // Author: Yoo Joo-Hyoung (potato97@naver.com)
+      6           
+      7          // Site: ccrs.hanyang.ac.kr
+      8           
+      9          // Copyright (C) 2013-2013 TIEF(TIEF is Embedded S/W Framework) Project.
+     10           
+     11          //
+     12           
+     13          //////////////////////////////////////////////////////////////////////////////////////////
+     14          //
+     15          //    License type: GNU General Public License (GPL)
+     16          //      
+     17          //    This program is free software: you can redistribute it and/or modify
+     18          //    it under the terms of the GNU General Public License as published by
+     19          //    the Free Software Foundation, either version 3 of the License, or
+     20          //    (at your option) any later version.
+     21          
+     22          //    This program is distributed in the hope that it will be useful,
+     23          //    but WITHOUT ANY WARRANTY; without even the implied warranty of
+     24          //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     25          //    GNU General Public License for more details.
+     26          
+     27          //    You should have received a copy of the GNU General Public License
+     28          //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+     29          //
+     30          //////////////////////////////////////////////////////////////////////////////////////////
+     31          
+     32          #include "ringbuffer.h"
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 RingBuffer::~RingBuffer()
+   \                     `?~RingBuffer`:
+   \   00000000   939A               ST      -Y, R25
+   \   00000002   938A               ST      -Y, R24
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   2F08               MOV     R16, R24
+   \   00000008   2B09               OR      R16, R25
+   \   0000000A   F031               BREQ    `?~RingBuffer_1`
+   \   0000000C   2F02               MOV     R16, R18
+   \   0000000E   FF00               SBRS    R16, 0
+   \   00000010   C003               RJMP    `?~RingBuffer_1`
+   \   00000012   018C               MOVW    R17:R16, R25:R24
+   \   00000014   ........           CALL    `??operator delete`
+   \                     `?~RingBuffer_1`:
+   \   00000018   9189               LD      R24, Y+
+   \   0000001A   9199               LD      R25, Y+
+   \   0000001C   9508               RET
+     33          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     34          RingBuffer::RingBuffer(void)
+   \                     ??RingBuffer:
+   \   00000000   ....               LDI     R18, LOW(??__vtbl)
+   \   00000002   ....               LDI     R19, (??__vtbl) >> 8
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8724               STD     Z+12, R18
+   \   00000008   8735               STD     Z+13, R19
+     35          :Head(0), Tail(0)
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   01F8               MOVW    R31:R30, R17:R16
+   \   0000000E   8320               ST      Z, R18
+   \   00000010   E020               LDI     R18, 0
+   \   00000012   01F8               MOVW    R31:R30, R17:R16
+   \   00000014   8321               STD     Z+1, R18
+     36          {
+     37            
+     38          }
+   \   00000016   9508               RET
+     39          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     40          void RingBuffer::Flush(void)
+   \                     ??Flush:
+     41          {
+     42            Head = Tail;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8121               LDD     R18, Z+1
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8320               ST      Z, R18
+     43          }
+   \   00000008   9508               RET
+     44          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     45          char RingBuffer::isEmpty(void)
+   \                     ??isEmpty:
+     46          {
+     47             return Head == Tail;
+   \   00000000   01F8               MOVW    R31:R30, R17:R16
+   \   00000002   8120               LD      R18, Z
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+   \   00000006   8101               LDD     R16, Z+1
+   \   00000008   1720               CP      R18, R16
+   \   0000000A   F411               BRNE    ??isEmpty_1
+   \   0000000C   E001               LDI     R16, 1
+   \   0000000E   9508               RET
+   \                     ??isEmpty_1:
+   \   00000010   E000               LDI     R16, 0
+   \   00000012   9508               RET
+     48          }
+     49          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     50          char RingBuffer::PushBack(unsigned char _d)
+   \                     ??PushBack:
+     51          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+     52              if( !( (Head+1 == Tail) || ( Head == Buff_size - 1 && Tail == 0) ) )
+   \   00000006   8180               LD      R24, Z
+   \   00000008   E090               LDI     R25, 0
+   \   0000000A   9601               ADIW    R25:R24, 1
+   \   0000000C   8101               LDD     R16, Z+1
+   \   0000000E   E010               LDI     R17, 0
+   \   00000010   1780               CP      R24, R16
+   \   00000012   0791               CPC     R25, R17
+   \   00000014   F0C1               BREQ    ??PushBack_1
+   \   00000016   8100               LD      R16, Z
+   \   00000018   3009               CPI     R16, 9
+   \   0000001A   F419               BRNE    ??PushBack_2
+   \   0000001C   8101               LDD     R16, Z+1
+   \   0000001E   2300               TST     R16
+   \   00000020   F091               BREQ    ??PushBack_1
+     53              {
+     54                buff[Head] = _d;
+   \                     ??PushBack_2:
+   \   00000022   8100               LD      R16, Z
+   \   00000024   E010               LDI     R17, 0
+   \   00000026   01DF               MOVW    R27:R26, R31:R30
+   \   00000028   0FA0               ADD     R26, R16
+   \   0000002A   1FB1               ADC     R27, R17
+   \   0000002C   9612               ADIW    R27:R26, 2
+   \   0000002E   932C               ST      X, R18
+   \   00000030   9712               SBIW    R27:R26, 2
+     55                Head++;
+   \   00000032   8100               LD      R16, Z
+   \   00000034   9503               INC     R16
+   \   00000036   8300               ST      Z, R16
+     56                if(Buff_size == Head)
+   \   00000038   8100               LD      R16, Z
+   \   0000003A   300A               CPI     R16, 10
+   \   0000003C   F411               BRNE    ??PushBack_3
+     57                  Head = 0;
+   \   0000003E   E000               LDI     R16, 0
+   \   00000040   8300               ST      Z, R16
+     58                
+     59                return 1;
+   \                     ??PushBack_3:
+   \   00000042   E001               LDI     R16, 1
+   \   00000044   C001               RJMP    ??PushBack_4
+     60              }
+     61              
+     62              return 0; //buffer is full
+   \                     ??PushBack_1:
+   \   00000046   E000               LDI     R16, 0
+   \                     ??PushBack_4:
+   \   00000048   E0E4               LDI     R30, 4
+   \   0000004A   ........           JMP     ?EPILOGUE_B4_L09
+     63            
+     64          }
+     65          
+     66          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     67          char RingBuffer::Pop(unsigned char & _return)
+   \                     ??Pop:
+     68          {
+   \   00000000   2F5B               MOV     R21, R27
+   \   00000002   2F6A               MOV     R22, R26
+   \   00000004   01F8               MOVW    R31:R30, R17:R16
+     69           
+     70            if(Head != Tail)
+   \   00000006   8100               LD      R16, Z
+   \   00000008   8111               LDD     R17, Z+1
+   \   0000000A   1701               CP      R16, R17
+   \   0000000C   F0A1               BREQ    ??Pop_1
+     71            {
+     72              _return =  buff[Tail];
+   \   0000000E   8101               LDD     R16, Z+1
+   \   00000010   E010               LDI     R17, 0
+   \   00000012   01DF               MOVW    R27:R26, R31:R30
+   \   00000014   0FA0               ADD     R26, R16
+   \   00000016   1FB1               ADC     R27, R17
+   \   00000018   9612               ADIW    R27:R26, 2
+   \   0000001A   910C               LD      R16, X
+   \   0000001C   9712               SBIW    R27:R26, 2
+   \   0000001E   01D9               MOVW    R27:R26, R19:R18
+   \   00000020   930C               ST      X, R16
+     73              Tail++;
+   \   00000022   8101               LDD     R16, Z+1
+   \   00000024   9503               INC     R16
+   \   00000026   8301               STD     Z+1, R16
+     74              if(Buff_size == Tail)
+   \   00000028   8101               LDD     R16, Z+1
+   \   0000002A   300A               CPI     R16, 10
+   \   0000002C   F411               BRNE    ??Pop_2
+     75              {
+     76                Tail = 0;
+   \   0000002E   E000               LDI     R16, 0
+   \   00000030   8301               STD     Z+1, R16
+     77              }
+     78              
+     79              return 1;
+   \                     ??Pop_2:
+   \   00000032   E001               LDI     R16, 1
+   \   00000034   C001               RJMP    ??Pop_3
+     80            }
+     81            
+     82            return 0;//fail. Buffer is empty.
+   \                     ??Pop_1:
+   \   00000036   E000               LDI     R16, 0
+   \                     ??Pop_3:
+   \   00000038   2FA6               MOV     R26, R22
+   \   0000003A   2FB5               MOV     R27, R21
+   \   0000003C   9508               RET
+     83            
+     84          }
+
+   \                                 In  segment CODE, align 2, keep-with-next
+   \   __nearfunc __version_3 RingBuffer *RingBuffer::new RingBuffer()
+   \                     `??new RingBuffer`:
+   \   00000000   E00E               LDI     R16, 14
+   \   00000002   E010               LDI     R17, 0
+   \   00000004   ........           CALL    `??operator new`
+   \   00000008   0198               MOVW    R19:R18, R17:R16
+   \   0000000A   2B01               OR      R16, R17
+   \   0000000C   F019               BREQ    `??new RingBuffer_1`
+   \   0000000E   0189               MOVW    R17:R16, R19:R18
+   \   00000010   ....               RCALL   ??RingBuffer
+   \   00000012   9508               RET
+   \                     `??new RingBuffer_1`:
+   \   00000014   E000               LDI     R16, 0
+   \   00000016   E010               LDI     R17, 0
+   \   00000018   9508               RET
+
+   Maximum stack usage in bytes:
+
+     Function                       CSTACK RSTACK
+     --------                       ------ ------
+     RingBuffer::Flush()                0      2
+     RingBuffer::Pop(unsigned char &)
+                                        0      2
+     RingBuffer::PushBack(unsigned char)
+                                        4      2
+     RingBuffer::RingBuffer()           0      2
+     RingBuffer::isEmpty()              0      2
+     RingBuffer::new RingBuffer()       0      2
+       -> operator new(unsigned int)
+                                        0      2
+       -> RingBuffer::RingBuffer()      0      2
+     RingBuffer::~RingBuffer()          2      2
+       -> operator delete(void *)       2      2
+
+
+   Segment part sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     RingBuffer::~RingBuffer()        30
+     RingBuffer::RingBuffer()         24
+     RingBuffer::Flush()              10
+     RingBuffer::isEmpty()            20
+     RingBuffer::PushBack(unsigned char)
+                                      78
+     RingBuffer::Pop(unsigned char &)
+                                      62
+     RingBuffer::new RingBuffer()     26
+      Others                           2
+
+ 
+ 250 bytes in segment CODE
+   2 bytes in segment NEAR_F
+ 
+ 222 bytes of CODE memory (+ 30 bytes shared)
+
+Errors: none
+Warnings: none
